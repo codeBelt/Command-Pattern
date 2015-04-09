@@ -1,7 +1,12 @@
-# Command-Pattern
-Work in progress... Go away.
+# Work in progress... Go away.
 
+# Command-Pattern
 I created this example to learn the Command Pattern and hopefully it can help you.
+
+##How to use
+npm install
+
+grunt launch
 
 ##Command Pattern Learning Resources
 Check out these resource that helped me learn the Command Pattern:
