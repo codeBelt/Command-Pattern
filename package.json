@@ -1,0 +1,24 @@
+{
+  "name": "codebelt-commandpattern",
+  "version": "1.0.0",
+  "description": "Example of the Command Pattern in TypeScript",
+  "url": "https://github.com/codeBelt/Command-Pattern",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/codeBelt/Command-Pattern"
+  },
+  "developedBy": "codeBelt",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "matchdep": "^0.3.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-copy": "^0.8.0",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-connect": "^0.10.1",
+    "grunt-typescript": "^0.6.1",
+    "grunt-open": "^0.2.3",
+    "typescript": "^1.4.1"
+  }
+}
