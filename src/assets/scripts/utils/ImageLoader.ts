@@ -22,11 +22,9 @@ module namespace {
 
         private init():void
         {
-            var self = this;
-
             this._image = new Image();
-            this._image.onload = function() {
-                self.onImageLoad();
+            this._image.onload = (event) => {
+                this.onImageLoad();
             }
         }
 
