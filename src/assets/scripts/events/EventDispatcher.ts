@@ -4,7 +4,7 @@ module namespace {
 
     export class EventDispatcher {
 
-        private _listeners:any[] = [];
+        private _listeners:Array<any> = [];
         public parent:any = null;
 
         constructor() {
@@ -62,7 +62,7 @@ module namespace {
                 }
             }
 
-            //Dispatches up the chain of classes that have a parent.
+            // Event Bubbling: Dispatches up the chain of classes that have a parent.
             if (this.parent) {
                 this.parent.dispatchEvent(type, data);
             }

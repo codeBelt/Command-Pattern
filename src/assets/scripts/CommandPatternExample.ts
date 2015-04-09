@@ -25,7 +25,7 @@ module namespace {
             this._bulkLoader.load();
         }
 
-        private init(event):void
+        private init(event:LoaderEvent):void
         {
             this._canvasView = new CanvasView('canvasId');
             this._canvasView.element.addEventListener('mouseup', this.onStageClick.bind(this));
@@ -35,9 +35,9 @@ module namespace {
             this._canvasView.addChild(this._strawberry);
         }
 
-        private onStageClick(evt):void
+        private onStageClick(event:MouseEvent):void
         {
-            var mousePos = this._canvasView.getMousePos(evt);
+            var mousePos = this._canvasView.getMousePos(event);
             TweenLite.to(this._strawberry, 1, { x: mousePos.x - this._strawberry.width/2, y: mousePos.y - this._strawberry.height/2, ease: Cubic.easeOut });
         }
 

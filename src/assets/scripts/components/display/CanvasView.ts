@@ -18,11 +18,11 @@ module namespace {
             this.height = this.element.height;
         }
 
-        public getMousePos(evt) {
+        public getMousePos(event:MouseEvent):{x: number; y: number} {
             var rect = this.element.getBoundingClientRect();
             return {
-                x: evt.clientX - rect.left,
-                y: evt.clientY - rect.top
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top
             };
         }
 
@@ -31,7 +31,7 @@ module namespace {
          */
         public addChild(displayObject:DisplayObject):void
         {
-            displayObject.parent = this.stage;
+            displayObject.parent = this;
             displayObject.stage = this.stage;
             displayObject.context = this.context;
             displayObject.createChildren();

@@ -6,7 +6,7 @@ module namespace {
 
     export class ImageLoader extends EventDispatcher implements IDataStore {
 
-        private _image:HTMLImageElement = null;
+        private _image:HTMLImageElement;
 
         public data:any;
         public src:string;
@@ -23,7 +23,7 @@ module namespace {
         private init():void
         {
             this._image = new Image();
-            this._image.onload = (event) => {
+            this._image.onload = (event:Event) => {
                 this.onImageLoad();
             }
         }

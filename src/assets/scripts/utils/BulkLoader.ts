@@ -6,7 +6,7 @@ module namespace {
 
     export class BulkLoader extends EventDispatcher {
 
-        private _dataStores:IDataStore[] = [];
+        private _dataStores:Array<IDataStore> = [];
 
         constructor()
         {
