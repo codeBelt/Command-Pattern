@@ -33,12 +33,10 @@ module.exports = function(grunt) {
         copy: {
             web:  {
                 files: [
-                    // Copy the media folder from development to production
-                    { expand: true, cwd: '<%= DEVELOPMENT_PATH %>', src: ['assets/media/**'], dest: '<%= PRODUCTION_PATH %>' },
-                    { expand: true, cwd: '<%= DEVELOPMENT_PATH %>', src: ['assets/styles/**'], dest: '<%= PRODUCTION_PATH %>' },
-                    { expand: true, cwd: '<%= DEVELOPMENT_PATH %>', src: ['assets/vendor/**/*.js'], dest: '<%= PRODUCTION_PATH %>' },
-                    // Copy the index.html file from development to production
-                    { expand: true, cwd: '<%= DEVELOPMENT_PATH %>', dest: '<%= PRODUCTION_PATH %>', src: ['index.html'], filter: 'isFile', dot: true }
+                    { expand: true, cwd: '<%= DEVELOPMENT_PATH %>', dest: '<%= PRODUCTION_PATH %>', src: ['assets/media/**'] },
+                    { expand: true, cwd: '<%= DEVELOPMENT_PATH %>', dest: '<%= PRODUCTION_PATH %>', src: ['assets/styles/**'] },
+                    { expand: true, cwd: '<%= DEVELOPMENT_PATH %>', dest: '<%= PRODUCTION_PATH %>', src: ['assets/vendor/**/*.js'] },
+                    { expand: true, cwd: '<%= DEVELOPMENT_PATH %>', dest: '<%= PRODUCTION_PATH %>', src: ['index.html'] }
                 ]
             }
         },
@@ -48,7 +46,7 @@ module.exports = function(grunt) {
          */
         typescript: {
             base: {
-                src: ['<%= DEVELOPMENT_PATH %>' + 'assets/scripts/TestApp.ts'],
+                src: ['<%= DEVELOPMENT_PATH %>' + 'assets/scripts/CommandPatternExample.ts'],
                 dest: '<%= PRODUCTION_PATH %>' + 'assets/scripts/app.js',
                 options: {
                     target: 'es5', //or es3
@@ -98,7 +96,25 @@ module.exports = function(grunt) {
                 files: [
                     '<%= DEVELOPMENT_PATH %>' + 'assets/scripts/**/*.ts'
                 ],
-                tasks: ['src']
+                tasks: ['typescript']
+            },
+            css: {
+                options: {
+                    livereload: true
+                },
+                files: [
+                    '<%= DEVELOPMENT_PATH %>' + 'assets/styles/**/*.css'
+                ],
+                tasks: ['copy']
+            },
+            html: {
+                options: {
+                    livereload: true
+                },
+                files: [
+                    '<%= DEVELOPMENT_PATH %>' + 'index.html'
+                ],
+                tasks: ['copy']
             }
         }
 
@@ -106,8 +122,6 @@ module.exports = function(grunt) {
 
     /**
      * Grunt tasks:
-     *
-     * grunt        (Will build and run your development code/server)
      */
     grunt.registerTask('default', [
         'clean',

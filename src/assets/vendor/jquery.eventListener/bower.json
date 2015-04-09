@@ -1,0 +1,25 @@
+{
+    "name": "jquery.eventListener",
+    "version": "1.0.0",
+    "dependencies": {
+        "jquery": ">=1.9.1"
+    },
+    "description": "A jQuery plugin that allows you to pass in the scope of your JavaScript object so you can add and remove function calls for DOM element events. This plugin ensures you can remove the function call once it was added.",
+    "main": "src/jquery.eventListener.js",
+    "keywords": [
+        "eventlistener",
+        "jquery",
+        "event",
+        "listener"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/codeBelt/jquery-eventListener",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "./src/assets/vendor",
+        "test",
+        "tests"
+    ]
+}
