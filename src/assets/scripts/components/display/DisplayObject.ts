@@ -4,7 +4,6 @@ module namespace {
 
     export class DisplayObject extends EventDispatcher {
 
-        public stage:any = null;
         public element:HTMLCanvasElement = null;
         public context:CanvasRenderingContext2D = null;
         public x:number = 0;
@@ -56,14 +55,12 @@ module namespace {
         public addChild(displayObject:DisplayObject):void
         {
             displayObject.parent = this;
-            displayObject.stage = this.stage;
             displayObject.context = this.context;
             displayObject.createChildren();
         }
 
         public removeChild(displayObject:DisplayObject):void
         {
-            displayObject.stage = null;
             displayObject.context = null;
         }
 

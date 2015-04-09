@@ -10,7 +10,6 @@ module namespace {
         {
             super();
 
-            this.stage = this;
             this.element = <HTMLCanvasElement> document.getElementById(canvasId);
             this.context = this.element.getContext("2d");
 
@@ -32,14 +31,12 @@ module namespace {
         public addChild(displayObject:DisplayObject):void
         {
             displayObject.parent = this;
-            displayObject.stage = this.stage;
             displayObject.context = this.context;
             displayObject.createChildren();
         }
 
         public removeChild(displayObject:DisplayObject):void
         {
-            displayObject.stage = null;
             displayObject.context = null;
         }
 
