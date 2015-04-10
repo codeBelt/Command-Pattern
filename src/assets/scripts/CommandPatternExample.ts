@@ -27,7 +27,6 @@ module namespace {
 
             BulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.onAssetsLoadComplete, this);
             BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'strawberry.png'), 'strawberry');
-            BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'player-topdown.png'), 'player-topdown');
             BulkLoader.load();
         }
 
@@ -46,10 +45,10 @@ module namespace {
         private onKeyup(event:KeyboardEvent):void {
             switch (event.keyCode) {
                 case 49:
-                    console.log("1");
+                    this._strawberry.attack();
                     break;
                 case 50:
-                    console.log("2");
+                    this._strawberry.gather();
                     break;
             }
         }
