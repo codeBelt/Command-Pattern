@@ -18,11 +18,21 @@ module namespace {
 
         constructor() {
             super();
+
             TweenLite.ticker.addEventListener("tick", this.update, this);
         }
 
         public render():void {
             //Meant to be overridden.
+        }
+
+        public addChild(displayObject:DisplayObject):void {
+            displayObject.parent = this;
+            displayObject.context = this.context;
+        }
+
+        public removeChild(displayObject:DisplayObject):void {
+            displayObject.context = null;
         }
 
         private readerStart():void {
@@ -40,15 +50,6 @@ module namespace {
 
         private renderEnd():void {
             this.context.restore();
-        }
-
-        public addChild(displayObject:DisplayObject):void {
-            displayObject.parent = this;
-            displayObject.context = this.context;
-        }
-
-        public removeChild(displayObject:DisplayObject):void {
-            displayObject.context = null;
         }
 
     }
