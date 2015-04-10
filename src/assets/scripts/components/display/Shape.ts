@@ -4,18 +4,11 @@ module namespace {
 
     export class Shape extends DisplayObject {
 
-        constructor()
-        {
+        constructor() {
             super();
         }
 
-        public createChildren():void
-        {
-            super.createChildren();
-        }
-
-        public render():void
-        {
+        public render():void {
             this.context.translate(this.x, this.y);
             this.context.beginPath();
             this.context.rect(0, 0, this.width, this.height);

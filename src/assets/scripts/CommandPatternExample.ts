@@ -5,6 +5,7 @@
 ///<reference path='utils/ImageLoader.ts'/>
 ///<reference path='utils/BulkLoader.ts'/>
 ///<reference path='events/LoaderEvent.ts'/>
+///<reference path='views/StrawberryView.ts'/>
 
 module namespace {
 
@@ -13,32 +14,44 @@ module namespace {
         private static BASE_PATH:string = 'assets/media/images/';
 
         private _canvasView:CanvasView = null;
-        private _strawberry:Bitmap = null;
+        private _strawberry:StrawberryView = null;
 
-        private _bulkLoader:BulkLoader = null;
-
-        constructor()
-        {
-            this._bulkLoader = new BulkLoader();
-            this._bulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.init, this);
-            this._bulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'strawberry.png'), 'strawberry');
-            this._bulkLoader.load();
+        constructor() {
+            this.init();
         }
 
-        private init(event:LoaderEvent):void
-        {
+        private init():void {
             this._canvasView = new CanvasView('canvasId');
             this._canvasView.element.addEventListener('mouseup', this.onStageClick.bind(this));
+            document.addEventListener('keyup', this.onKeyup.bind(this));
 
-            var image:HTMLImageElement = this._bulkLoader.getImage('strawberry');
-            this._strawberry = new Bitmap(image);
+            BulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.onAssetsLoadComplete, this);
+            BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'strawberry.png'), 'strawberry');
+            BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'player-topdown.png'), 'player-topdown');
+            BulkLoader.load();
+        }
+
+        private onAssetsLoadComplete(event:LoaderEvent):void {
+            var image:HTMLImageElement = BulkLoader.getImage('strawberry');
+            this._strawberry = new StrawberryView(image);
             this._canvasView.addChild(this._strawberry);
         }
 
-        private onStageClick(event:MouseEvent):void
-        {
+        private onStageClick(event:MouseEvent):void {
             var mousePos = this._canvasView.getMousePos(event);
-            TweenLite.to(this._strawberry, 1, { x: mousePos.x - this._strawberry.width/2, y: mousePos.y - this._strawberry.height/2, ease: Cubic.easeOut });
+
+            this._strawberry.move(mousePos.x, mousePos.y);
+        }
+
+        private onKeyup(event:KeyboardEvent):void {
+            switch (event.keyCode) {
+                case 49:
+                    console.log("1");
+                    break;
+                case 50:
+                    console.log("2");
+                    break;
+            }
         }
 
     }

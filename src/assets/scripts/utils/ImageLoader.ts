@@ -12,29 +12,25 @@ module namespace {
         public src:string;
         public complete:boolean = false;
 
-        constructor(path:string)
-        {
+        constructor(path:string) {
             super();
 
             this.src = path;
             this.init();
         }
 
-        private init():void
-        {
+        private init():void {
             this._image = new Image();
             this._image.onload = (event:Event) => {
                 this.onImageLoad();
             }
         }
 
-        public load():void
-        {
+        public load():void {
             this._image.src = this.src;
         }
 
-        private onImageLoad():void
-        {
+        private onImageLoad():void {
             this.data = this._image;
             this.complete = true;
             this.dispatchEvent(LoaderEvent.COMPLETE);

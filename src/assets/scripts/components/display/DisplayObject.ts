@@ -16,30 +16,21 @@ module namespace {
         public alpha:number = 1;
         public visible:boolean = true;
 
-        constructor()
-        {
+        constructor() {
             super();
             TweenLite.ticker.addEventListener("tick", this.update, this);
         }
 
-        public createChildren():void
-        {
+        public render():void {
             //Meant to be overridden.
         }
 
-        public render():void
-        {
-            //Meant to be overridden.
-        }
-
-        private readerStart():void
-        {
+        private readerStart():void {
             this.context.save();
         }
 
-        private update():void
-        {
-            if (!this.context || this.alpha <= 0 || !this.visible) return;
+        private update():void {
+            if (this.context === null || this.alpha <= 0 || this.visible === false) return;
 
             this.readerStart();
             this.context.globalAlpha = this.alpha;
@@ -47,20 +38,16 @@ module namespace {
             this.renderEnd();
         }
 
-        private renderEnd():void
-        {
+        private renderEnd():void {
             this.context.restore();
         }
 
-        public addChild(displayObject:DisplayObject):void
-        {
+        public addChild(displayObject:DisplayObject):void {
             displayObject.parent = this;
             displayObject.context = this.context;
-            displayObject.createChildren();
         }
 
-        public removeChild(displayObject:DisplayObject):void
-        {
+        public removeChild(displayObject:DisplayObject):void {
             displayObject.context = null;
         }
 

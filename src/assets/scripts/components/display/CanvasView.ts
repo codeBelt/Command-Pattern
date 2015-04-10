@@ -6,8 +6,7 @@ module namespace {
 
         public context:CanvasRenderingContext2D = null;
 
-        constructor(canvasId:string)
-        {
+        constructor(canvasId:string) {
             super();
 
             this.element = <HTMLCanvasElement> document.getElementById(canvasId);
@@ -17,8 +16,9 @@ module namespace {
             this.height = this.element.height;
         }
 
-        public getMousePos(event:MouseEvent):{x: number; y: number} {
+        public getMousePos(event:MouseEvent):{x: number; y: number } {
             var rect = this.element.getBoundingClientRect();
+
             return {
                 x: event.clientX - rect.left,
                 y: event.clientY - rect.top
@@ -26,22 +26,9 @@ module namespace {
         }
 
         /**
-         * @override
+         * @overridden
          */
-        public addChild(displayObject:DisplayObject):void
-        {
-            displayObject.parent = this;
-            displayObject.context = this.context;
-            displayObject.createChildren();
-        }
-
-        public removeChild(displayObject:DisplayObject):void
-        {
-            displayObject.context = null;
-        }
-
-        public render():void
-        {
+        public render():void {
             this.context.clearRect(0, 0, this.width, this.height);
         }
 
