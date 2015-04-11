@@ -7,19 +7,19 @@ module namespace {
 
     export class CommandInvoker {
 
-        private commands:Array<ICommand> = [];
-        private isBusy:boolean = false;
+        private _commands:Array<ICommand> = [];
+        private _isBusy:boolean = false;
 
         public add(command:ICommand):void {
             command.addEventListener(BaseEvent.COMPLETE, this.executeNext, this);
 
-            this.commands.push(command);
+            this._commands.push(command);
 
             this.attemptExecute();
         }
 
         private attemptExecute():void {
-            if (this.isBusy === false) {
+            if (this._isBusy === false) {
                 this.executeNext();
             }
         }
@@ -29,12 +29,12 @@ module namespace {
                 event.target.removeEventListener(BaseEvent.COMPLETE, this.executeNext, this);
             }
 
-            this.isBusy = false;
+            this._isBusy = false;
 
-            if (this.commands.length > 0) {
-                this.isBusy = true;
+            if (this._commands.length > 0) {
+                this._isBusy = true;
 
-                var command:ICommand = this.commands.shift();
+                var command:ICommand = this._commands.shift();
                 command.execute();
             }
         }

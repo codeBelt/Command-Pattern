@@ -31,19 +31,6 @@ module namespace {
             }
         }
 
-        private static onLoadComplete(event:LoaderEvent):void {
-            event.target.removeEventListener(LoaderEvent.COMPLETE, BulkLoader.onLoadComplete, BulkLoader);
-
-            for (var key in BulkLoader._dataStores) {
-                var dataStore:IDataStore = BulkLoader._dataStores[key];
-                if (dataStore.complete === false) {
-                    return;
-                }
-            }
-
-            BulkLoader._eventDispatcher.dispatchEvent(LoaderEvent.LOAD_COMPLETE);
-        }
-
         public static addEventListener(type:string, callback:Function, scope:any, priority:number = 0):void {
             BulkLoader._eventDispatcher.addEventListener(type, callback, scope, priority);
         }
@@ -63,6 +50,19 @@ module namespace {
             event.currentTarget = BulkLoader;
 
             BulkLoader._eventDispatcher.dispatchEvent(event);
+        }
+
+        private static onLoadComplete(event:LoaderEvent):void {
+            event.target.removeEventListener(LoaderEvent.COMPLETE, BulkLoader.onLoadComplete, BulkLoader);
+
+            for (var key in BulkLoader._dataStores) {
+                var dataStore:IDataStore = BulkLoader._dataStores[key];
+                if (dataStore.complete === false) {
+                    return;
+                }
+            }
+
+            BulkLoader._eventDispatcher.dispatchEvent(LoaderEvent.LOAD_COMPLETE);
         }
 
     }
