@@ -9,25 +9,22 @@ module namespace {
             super(image);
         }
 
-        public attack():void {
+        public attack():TweenLite {
             TweenLite.to(this, 0.3, { scaleX: 2, scaleY: 2, ease: Cubic.easeOut });
-            TweenLite.to(this, 0.3, { scaleX: 1, scaleY: 1, delay: 0.3, ease: Cubic.easeIn, onComplete: this.animationComplete, onCompleteScope: this });
+            return TweenLite.to(this, 0.3, { scaleX: 1, scaleY: 1, delay: 0.3, ease: Cubic.easeIn });
         }
 
-        public gather():void {
+        public gather():TweenLite {
             this.rotation = 0;
-            TweenLite.to(this, 1, { rotation: 360, ease: Bounce.easeOut, onComplete: this.animationComplete, onCompleteScope: this });
+            return TweenLite.to(this, 1, { rotation: 360, ease: Bounce.easeOut });
         }
 
-        public move(x:number, y:number):void {
+        public move(x:number, y:number):TweenLite {
             var xPos:number = x - this.width / 2;
             var yPos:number = y - this.height / 2;
 
-            TweenLite.to(this, 2, { x: xPos, y: yPos, onComplete: this.animationComplete, onCompleteScope: this });
+            return TweenLite.to(this, 2, { x: xPos, y: yPos});
         }
 
-        private animationComplete() {
-            this.dispatchEvent(BaseEvent.COMPLETE);
-        }
     }
 }

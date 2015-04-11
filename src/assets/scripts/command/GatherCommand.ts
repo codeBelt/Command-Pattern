@@ -15,7 +15,12 @@ module namespace {
         }
 
         public execute():void {
-            this.view.gather();
+            var tweenLite:TweenLite = this.view.gather();
+            tweenLite.eventCallback('onComplete', this.onComplete.bind(this));
+        }
+
+        private onComplete() {
+            this.dispatchEvent(BaseEvent.COMPLETE);
         }
 
     }

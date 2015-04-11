@@ -15,17 +15,17 @@ module namespace {
             super();
 
             this.view = view;
-            this.view.addEventListener(BaseEvent.COMPLETE, this.onComplete, this);
             this.targetX = targetX;
             this.targetY = targetY;
         }
 
         public execute():void {
-            this.view.move(this.targetX, this.targetY);
+            var tweenLite:TweenLite = this.view.move(this.targetX, this.targetY);
+            tweenLite.eventCallback('onComplete', this.onComplete.bind(this));
         }
 
-        private onComplete(event:BaseEvent) {
-            this.dispatchEvent(event);
+        private onComplete() {
+            this.dispatchEvent(BaseEvent.COMPLETE);
         }
 
     }

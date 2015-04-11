@@ -53,13 +53,15 @@ module namespace {
         }
 
         private onKeyup(event:KeyboardEvent):void {
+            var command:ICommand;
+
             switch (event.keyCode) {
-                case 49:
-                    var command:AttackCommand = new AttackCommand(this._strawberry);
+                case 49: // Key 1
+                    command = new AttackCommand(this._strawberry);
                     this._commandList.add(command);
                     break;
-                case 50:
-                    var command:GatherCommand = new GatherCommand(this._strawberry);
+                case 50: // Key 2
+                    command = new GatherCommand(this._strawberry);
                     this._commandList.add(command);
                     break;
             }
