@@ -1,21 +1,21 @@
 ///<reference path='../events/EventDispatcher.ts'/>
 ///<reference path='../interfaces/ICommand.ts'/>
-///<reference path='../views/StrawberryView.ts'/>
+///<reference path='../views/ReceiverView.ts'/>
 
 module namespace {
 
-    export class GatherCommand extends EventDispatcher implements ICommand {
+    export class SpinCommand extends EventDispatcher implements ICommand {
 
-        public view:StrawberryView;
+        public view:ReceiverView;
 
-        constructor(view:StrawberryView) {
+        constructor(view:ReceiverView) {
             super();
 
             this.view = view;
         }
 
         public execute():void {
-            var tweenLite:TweenLite = this.view.gather();
+            var tweenLite:TweenLite = this.view.spin();
             tweenLite.eventCallback('onComplete', this.onComplete.bind(this));
         }
 

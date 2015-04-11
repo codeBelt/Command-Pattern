@@ -5,13 +5,13 @@
 ///<reference path='utils/ImageLoader.ts'/>
 ///<reference path='utils/BulkLoader.ts'/>
 ///<reference path='events/LoaderEvent.ts'/>
-///<reference path='views/StrawberryView.ts'/>
+///<reference path='views/ReceiverView.ts'/>
 
 ///<reference path='interfaces/ICommand.ts'/>
-///<reference path='command/CommandList.ts'/>
-///<reference path='command/AttackCommand.ts'/>
+///<reference path='command/CommandInvoker.ts'/>
+///<reference path='command/GrowCommand.ts'/>
 ///<reference path='command/MoveCommand.ts'/>
-///<reference path='command/GatherCommand.ts'/>
+///<reference path='command/SpinCommand.ts'/>
 
 module namespace {
 
@@ -19,19 +19,19 @@ module namespace {
 
         private static BASE_PATH:string = 'assets/media/images/';
 
-        private _canvasView:CanvasView = null;
-        private _strawberry:StrawberryView = null;
-        private _commandList:CommandList = null;
+        private canvasView:CanvasView = null;
+        private strawberry:ReceiverView = null;
+        private commandInvoker:CommandInvoker = null;
 
         constructor() {
             this.init();
         }
 
         private init():void {
-            this._commandList = new CommandList();
+            this.commandInvoker = new CommandInvoker();
 
-            this._canvasView = new CanvasView('canvasId');
-            this._canvasView.element.addEventListener('mouseup', this.onStageClick.bind(this));
+            this.canvasView = new CanvasView('canvasId');
+            this.canvasView.element.addEventListener('mouseup', this.onStageClick.bind(this));
             document.addEventListener('keyup', this.onKeyup.bind(this));
 
             BulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.onAssetsLoadComplete, this);
@@ -41,15 +41,15 @@ module namespace {
 
         private onAssetsLoadComplete(event:LoaderEvent):void {
             var image:HTMLImageElement = BulkLoader.getImage('strawberry');
-            this._strawberry = new StrawberryView(image);
-            this._canvasView.addChild(this._strawberry);
+            this.strawberry = new ReceiverView(image);
+            this.canvasView.addChild(this.strawberry);
         }
 
         private onStageClick(event:MouseEvent):void {
-            var mousePos = this._canvasView.getMousePos(event);
+            var mousePos = this.canvasView.getMousePos(event);
 
-            var command:MoveCommand = new MoveCommand(this._strawberry, mousePos.x, mousePos.y);
-            this._commandList.add(command);
+            var command:MoveCommand = new MoveCommand(this.strawberry, mousePos.x, mousePos.y);
+            this.commandInvoker.add(command);
         }
 
         private onKeyup(event:KeyboardEvent):void {
@@ -57,12 +57,12 @@ module namespace {
 
             switch (event.keyCode) {
                 case 49: // Key 1
-                    command = new AttackCommand(this._strawberry);
-                    this._commandList.add(command);
+                    command = new GrowCommand(this.strawberry);
+                    this.commandInvoker.add(command);
                     break;
                 case 50: // Key 2
-                    command = new GatherCommand(this._strawberry);
-                    this._commandList.add(command);
+                    command = new SpinCommand(this.strawberry);
+                    this.commandInvoker.add(command);
                     break;
             }
         }

@@ -5,7 +5,7 @@ module namespace {
     export class DisplayObject extends EventDispatcher {
 
         public element:HTMLCanvasElement = null;
-        public context:CanvasRenderingContext2D = null;
+        public canvasContext:CanvasRenderingContext2D = null;
         public x:number = 0;
         public y:number = 0;
         public width:number = 0;
@@ -28,28 +28,28 @@ module namespace {
 
         public addChild(displayObject:DisplayObject):void {
             displayObject.parent = this;
-            displayObject.context = this.context;
+            displayObject.canvasContext = this.canvasContext;
         }
 
         public removeChild(displayObject:DisplayObject):void {
-            displayObject.context = null;
+            displayObject.canvasContext = null;
         }
 
         private readerStart():void {
-            this.context.save();
+            this.canvasContext.save();
         }
 
         private update():void {
-            if (this.context === null || this.alpha <= 0 || this.visible === false) return;
+            if (this.canvasContext === null || this.alpha <= 0 || this.visible === false) return;
 
             this.readerStart();
-            this.context.globalAlpha = this.alpha;
+            this.canvasContext.globalAlpha = this.alpha;
             this.render();
             this.renderEnd();
         }
 
         private renderEnd():void {
-            this.context.restore();
+            this.canvasContext.restore();
         }
 
     }

@@ -5,24 +5,24 @@ module namespace {
 
     export class Bitmap extends DisplayObject {
 
-        private _image:HTMLImageElement = null;
+        private image:HTMLImageElement;
 
         public ready:boolean = false;
 
         constructor(image:HTMLImageElement) {
             super();
 
-            this._image = image;
-            this.width = this._image.width;
-            this.height = this._image.height;
+            this.image = image;
+            this.width = this.image.width;
+            this.height = this.image.height;
         }
 
         public render():void {
-            this.context.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
-            this.context.scale(this.scaleX, this.scaleY);
-            this.context.rotate(NumberUtil.degreesToRadians(this.rotation));
-            this.context.translate(-(this.width * 0.5), -(this.height * 0.5));
-            this.context.drawImage(this._image, 0, 0);
+            this.canvasContext.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
+            this.canvasContext.scale(this.scaleX, this.scaleY);
+            this.canvasContext.rotate(NumberUtil.degreesToRadians(this.rotation));
+            this.canvasContext.translate(-(this.width * 0.5), -(this.height * 0.5));
+            this.canvasContext.drawImage(this.image, 0, 0);
         }
 
     }

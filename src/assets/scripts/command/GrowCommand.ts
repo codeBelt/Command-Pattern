@@ -1,21 +1,21 @@
 ///<reference path='../events/EventDispatcher.ts'/>
 ///<reference path='../interfaces/ICommand.ts'/>
-///<reference path='../views/StrawberryView.ts'/>
+///<reference path='../views/ReceiverView.ts'/>
 
 module namespace {
 
-    export class AttackCommand extends EventDispatcher implements ICommand {
+    export class GrowCommand extends EventDispatcher implements ICommand {
 
-        public view:StrawberryView;
+        public view:ReceiverView;
 
-        constructor(view:StrawberryView) {
+        constructor(view:ReceiverView) {
             super();
 
             this.view = view;
         }
 
         public execute():void {
-            var tweenLite:TweenLite = this.view.attack();
+            var tweenLite:TweenLite = this.view.grow();
             tweenLite.eventCallback('onComplete', this.onComplete.bind(this));
         }
 

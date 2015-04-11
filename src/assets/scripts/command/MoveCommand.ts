@@ -1,17 +1,17 @@
 ///<reference path='../events/EventDispatcher.ts'/>
 ///<reference path='../events/BaseEvent.ts'/>
 ///<reference path='../interfaces/ICommand.ts'/>
-///<reference path='../views/StrawberryView.ts'/>
+///<reference path='../views/ReceiverView.ts'/>
 
 module namespace {
 
     export class MoveCommand extends EventDispatcher implements ICommand {
 
-        public view:StrawberryView;
+        public view:ReceiverView;
         public targetX:number;
         public targetY:number;
 
-        constructor(view:StrawberryView, targetX:number, targetY:number) {
+        constructor(view:ReceiverView, targetX:number, targetY:number) {
             super();
 
             this.view = view;

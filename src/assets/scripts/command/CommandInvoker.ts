@@ -5,7 +5,7 @@
 
 module namespace {
 
-    export class CommandList {
+    export class CommandInvoker {
 
         private commands:Array<ICommand> = [];
         private isBusy:boolean = false;
