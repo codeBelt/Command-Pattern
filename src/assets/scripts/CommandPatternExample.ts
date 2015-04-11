@@ -31,7 +31,7 @@ module namespace {
             this._commandInvoker = new CommandInvoker();
 
             this._canvasView = new CanvasView('canvasId');
-            this._canvasView.element.addEventListener('mouseup', this.onStageClick.bind(this));
+            this._canvasView.canvas.addEventListener('mouseup', this.onStageClick.bind(this));
             document.addEventListener('keyup', this.onKeyup.bind(this));
 
             BulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.onAssetsLoadComplete, this);

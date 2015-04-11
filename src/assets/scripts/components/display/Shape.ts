@@ -9,14 +9,14 @@ module namespace {
         }
 
         public render():void {
-            this.canvasContext.translate(this.x, this.y);
-            this.canvasContext.beginPath();
-            this.canvasContext.rect(0, 0, this.width, this.height);
-//        this.canvasContext.fillStyle = 'red';
-//        this.canvasContext.fill();
-            this.canvasContext.lineWidth = 1;
-            this.canvasContext.strokeStyle = '#000000';
-            this.canvasContext.stroke();
+            this.ctx.translate(this.x, this.y);
+            this.ctx.beginPath();
+            this.ctx.rect(0, 0, this.width, this.height);
+//        this.ctx.fillStyle = 'red';
+//        this.ctx.fill();
+            this.ctx.lineWidth = 1;
+            this.ctx.strokeStyle = '#000000';
+            this.ctx.stroke();
         }
 
     }

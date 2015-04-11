@@ -4,20 +4,18 @@ module namespace {
 
     export class CanvasView extends DisplayObject {
 
-        public context:CanvasRenderingContext2D = null;
-
         constructor(canvasId:string) {
             super();
 
-            this.element = <HTMLCanvasElement> document.getElementById(canvasId);
-            this.context = this.element.getContext("2d");
+            this.canvas = <HTMLCanvasElement> document.getElementById(canvasId);
+            this.ctx = this.canvas.getContext("2d");
 
-            this.width = this.element.width;
-            this.height = this.element.height;
+            this.width = this.canvas.width;
+            this.height = this.canvas.height;
         }
 
         public getMousePos(event:MouseEvent):{x: number; y: number } {
-            var rect = this.element.getBoundingClientRect();
+            var rect = this.canvas.getBoundingClientRect();
 
             return {
                 x: event.clientX - rect.left,
@@ -29,7 +27,7 @@ module namespace {
          * @overridden
          */
         public render():void {
-            this.context.clearRect(0, 0, this.width, this.height);
+            this.ctx.clearRect(0, 0, this.width, this.height);
         }
 
     }

@@ -18,11 +18,11 @@ module namespace {
         }
 
         public render():void {
-            this.canvasContext.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
-            this.canvasContext.scale(this.scaleX, this.scaleY);
-            this.canvasContext.rotate(NumberUtil.degreesToRadians(this.rotation));
-            this.canvasContext.translate(-(this.width * 0.5), -(this.height * 0.5));
-            this.canvasContext.drawImage(this._image, 0, 0);
+            this.ctx.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
+            this.ctx.scale(this.scaleX, this.scaleY);
+            this.ctx.rotate(NumberUtil.degreesToRadians(this.rotation));
+            this.ctx.translate(-(this.width * 0.5), -(this.height * 0.5));
+            this.ctx.drawImage(this._image, 0, 0);
         }
 
     }
