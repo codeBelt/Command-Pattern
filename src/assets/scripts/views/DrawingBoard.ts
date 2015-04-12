@@ -28,24 +28,11 @@ module namespace {
             this.addChild(this._strawberry);
 
 
-
-
-
-
             this.makeShapes();
             $(this.canvas).addEventListener('mousedown', this.mouseDownListener, this);
 
 
-
-
-
-
-
-
-
-
-
-
+            this.update();
 
             //this.enable();
         }
@@ -122,6 +109,8 @@ module namespace {
 
             this.children[this.dragIndex].x = posX;
             this.children[this.dragIndex].y = posY;
+
+            this.update();
         }
 
         hitTest(shape,mx,my) {

@@ -21,7 +21,7 @@ module namespace {
         constructor() {
             super();
 
-            TweenLite.ticker.addEventListener('tick', this.update, this);
+            //TweenLite.ticker.addEventListener('tick', this.update, this);
         }
 
         public render():void {
@@ -44,13 +44,17 @@ module namespace {
             this.ctx.save();
         }
 
-        private update():void {
+        public update():void {
             if (this.ctx === null || this.alpha <= 0 || this.visible === false) return;
 
             this.readerStart();
             this.ctx.globalAlpha = this.alpha;
             this.render();
             this.renderEnd();
+
+            for (var i:number = 0; i < this.numChildren; i++) {
+                this.children[i].update();
+            }
         }
 
         private renderEnd():void {
