@@ -2,7 +2,7 @@
 
 module namespace {
 
-    export class CanvasView extends DisplayObject {
+    export class CanvasElement extends DisplayObject {
 
         constructor(canvasId:string) {
             super();

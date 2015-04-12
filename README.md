@@ -21,4 +21,8 @@ Check out these resource that helped me learn the Command Pattern:
 
 [William Malone: HTML5 Canvas Drawing App](http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/)
 
+[Dragging objects – a very simple HTML5 Canvas example](http://rectangleworld.com/blog/archives/15)
+
+[jQuery event Listener plugin](http://www.codebelt.com/jquery/jquery-event-listener-plugin/)
+
 
