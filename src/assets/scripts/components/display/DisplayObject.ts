@@ -15,11 +15,13 @@ module namespace {
         public rotation:number = 0;
         public alpha:number = 1;
         public visible:boolean = true;
+        public children:Array<DisplayObject> = [];
+        public numChildren:number = 0;
 
         constructor() {
             super();
 
-            TweenLite.ticker.addEventListener("tick", this.update, this);
+            TweenLite.ticker.addEventListener('tick', this.update, this);
         }
 
         public render():void {
@@ -29,6 +31,9 @@ module namespace {
         public addChild(displayObject:DisplayObject):void {
             displayObject.parent = this;
             displayObject.ctx = this.ctx;
+
+            this.children.push(displayObject);
+            this.numChildren++;
         }
 
         public removeChild(displayObject:DisplayObject):void {

@@ -1,5 +1,6 @@
 ///<reference path='../components/display/CanvasElement.ts'/>
 ///<reference path='./ReceiverView.ts'/>
+///<reference path='../components/display/TempShape.ts'/>
 
 module namespace {
 
@@ -7,8 +8,6 @@ module namespace {
 
         private _strawberry:ReceiverView = null;
 
-        public numShapes = null;
-        public shapes = null;
         public dragIndex = null;
         public dragging = null;
         public mouseX = null;
@@ -28,8 +27,13 @@ module namespace {
             this._strawberry = new ReceiverView(image);
             this.addChild(this._strawberry);
 
-            this.init();
 
+
+
+
+
+            this.makeShapes();
+            $(this.canvas).addEventListener('mousedown', this.mouseDownListener, this);
 
 
 
@@ -59,13 +63,13 @@ module namespace {
             this.mouseY = (evt.clientY - bRect.top)*(this.canvas.height/bRect.height);
 
             //find which shape was clicked
-            for (i=0; i < this.numShapes; i++) {
-                if	(this.hitTest(this.shapes[i], this.mouseX, this.mouseY)) {
+            for (i=0; i < this.numChildren; i++) {
+                if	(this.hitTest(this.children[i], this.mouseX, this.mouseY)) {
                     this.dragging = true;
                     if (i > highestIndex) {
-                        //We will pay attention to the point on the object where the mouse is "holding" the object:
-                        this.dragHoldX = this.mouseX - this.shapes[i].x;
-                        this.dragHoldY = this.mouseY - this.shapes[i].y;
+                        //We will pay attention to the point on the object where the mouse is 'holding' the object:
+                        this.dragHoldX = this.mouseX - this.children[i].x;
+                        this.dragHoldY = this.mouseY - this.children[i].y;
                         highestIndex = i;
                         this.dragIndex = i;
                     }
@@ -73,10 +77,10 @@ module namespace {
             }
 
             if (this.dragging) {
-                $(window).addEventListener("mousemove", this.mouseMoveListener, this);
+                $(window).addEventListener('mousemove', this.mouseMoveListener, this);
             }
-            $(this.canvas).removeEventListener("mousedown", this.mouseDownListener, this);
-            $(window).addEventListener("mouseup", this.mouseUpListener, this);
+            $(this.canvas).removeEventListener('mousedown', this.mouseDownListener, this);
+            $(window).addEventListener('mouseup', this.mouseUpListener, this);
 
             //code below prevents the mouse down from having an effect on the main browser window:
             if (evt.preventDefault) {
@@ -89,18 +93,18 @@ module namespace {
         }
 
         mouseUpListener(evt) {
-            $(this.canvas).addEventListener("mousedown", this.mouseDownListener, this);
-            $(window).removeEventListener("mouseup", this.mouseUpListener, this);
+            $(this.canvas).addEventListener('mousedown', this.mouseDownListener, this);
+            $(window).removeEventListener('mouseup', this.mouseUpListener, this);
             if (this.dragging) {
                 this.dragging = false;
-                $(window).removeEventListener("mousemove", this.mouseMoveListener, this);
+                $(window).removeEventListener('mousemove', this.mouseMoveListener, this);
             }
         }
 
         mouseMoveListener(evt) {
             var posX;
             var posY;
-            var shapeRad = this.shapes[this.dragIndex].rad;
+            var shapeRad = (<TempShape>this.children[this.dragIndex]).radius;
             var minX = shapeRad;
             var maxX = this.canvas.width - shapeRad;
             var minY = shapeRad;
@@ -116,21 +120,19 @@ module namespace {
             posY = this.mouseY - this.dragHoldY;
             posY = (posY < minY) ? minY : ((posY > maxY) ? maxY : posY);
 
-            this.shapes[this.dragIndex].x = posX;
-            this.shapes[this.dragIndex].y = posY;
-
-            this.drawScreen();
+            this.children[this.dragIndex].x = posX;
+            this.children[this.dragIndex].y = posY;
         }
 
         hitTest(shape,mx,my) {
-
+console.log("hitTest");
             var dx;
             var dy;
             dx = mx - shape.x;
             dy = my - shape.y;
 
-            //a "hit" will be registered if the distance away from the center is less than the radius of the circular object
-            return (dx*dx + dy*dy < shape.rad*shape.rad);
+            //a 'hit' will be registered if the distance away from the center is less than the radius of the circular object
+            return (dx*dx + dy*dy < shape.radius*shape.radius);
         }
 
         makeShapes() {
@@ -143,75 +145,47 @@ module namespace {
             var tempG;
             var tempB;
             var tempColor;
-            for (i=0; i < this.numShapes; i++) {
+            for (i=0; i < 10; i++) {
                 tempRad = 10 + Math.floor(Math.random()*25);
                 tempX = Math.random()*(this.canvas.width - tempRad);
                 tempY = Math.random()*(this.canvas.height - tempRad);
                 tempR = Math.floor(Math.random()*255);
                 tempG = Math.floor(Math.random()*255);
                 tempB = Math.floor(Math.random()*255);
-                tempColor = "rgb(" + tempR + "," + tempG + "," + tempB +")";
-                tempShape = {x:tempX, y:tempY, rad:tempRad, color:tempColor};
-                this.shapes.push(tempShape);
+                tempColor = 'rgb(' + tempR + ',' + tempG + ',' + tempB +')';
+                tempShape = {x:tempX, y:tempY, radius:tempRad, color:tempColor};
+                //this.children.push(new TempShape(tempX, tempY, tempRad, tempColor));
+                var dd = new TempShape(tempX, tempY, tempRad, tempColor);
+                this.addChild(dd);
             }
         }
-
-        init() {
-            this.numShapes = 10;
-            this.shapes = [];
-
-            this.makeShapes();
-
-            this.drawScreen();
-
-            $(this.canvas).addEventListener("mousedown", this.mouseDownListener, this);
-        }
-
-        drawShapes() {
-            var i;
-            for (i=0; i < this.numShapes; i++) {
-                this.ctx.fillStyle = this.shapes[i].color;
-                this.ctx.beginPath();
-                this.ctx.arc(this.shapes[i].x, this.shapes[i].y, this.shapes[i].rad, 0, 2*Math.PI, false);
-                this.ctx.closePath();
-                this.ctx.fill();
-            }
-        }
-
-        drawScreen() {
-            this.ctx.fillStyle = "#000000";
-            this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
-
-            this.drawShapes();
-        }
-
 
 
         public enable():void {
             // Add mouse event listeners to canvas element
-            this.canvas.addEventListener("mousedown", this.onPress, false);
-            this.canvas.addEventListener("mousemove", this.onDrag, false);
-            this.canvas.addEventListener("mouseup", this.onRelease);
-            this.canvas.addEventListener("mouseout", this.onCancel, false);
+            this.canvas.addEventListener('mousedown', this.onPress, false);
+            this.canvas.addEventListener('mousemove', this.onDrag, false);
+            this.canvas.addEventListener('mouseup', this.onRelease);
+            this.canvas.addEventListener('mouseout', this.onCancel, false);
 
             // Add touch event listeners to canvas element
-            this.canvas.addEventListener("touchstart", this.onPress, false);
-            this.canvas.addEventListener("touchmove", this.onDrag, false);
-            this.canvas.addEventListener("touchend", this.onRelease, false);
-            this.canvas.addEventListener("touchcancel", this.onCancel, false);
+            this.canvas.addEventListener('touchstart', this.onPress, false);
+            this.canvas.addEventListener('touchmove', this.onDrag, false);
+            this.canvas.addEventListener('touchend', this.onRelease, false);
+            this.canvas.addEventListener('touchcancel', this.onCancel, false);
         }
 
         private onStageClick(event:MouseEvent):void {
             var mousePos = this.getMousePos(event);
-            console.log("mousePos", mousePos);
+            console.log('mousePos', mousePos);
         }
 
         private onKeyup(event:KeyboardEvent):void {
-            console.log("event.keyCode", event.keyCode);
+            console.log('event.keyCode', event.keyCode);
         }
 
         private onPress(event:MouseEvent):void {
-            console.log("onPress");
+            console.log('onPress');
             // Mouse down location
             /*var sizeHotspotStartX,
              mouseX = e.pageX - this.offsetLeft,
@@ -236,22 +210,22 @@ module namespace {
              sizeHotspotStartX = drawingAreaX + drawingAreaWidth;
              if (mouseY < sizeHotspotStartY + sizeHotspotHeight && mouseX > sizeHotspotStartX) {
              if (mouseX < sizeHotspotStartX + sizeHotspotWidthObject.huge) {
-             curSize = "huge";
+             curSize = 'huge';
              } else if (mouseX < sizeHotspotStartX + sizeHotspotWidthObject.large + sizeHotspotWidthObject.huge) {
-             curSize = "large";
+             curSize = 'large';
              } else if (mouseX < sizeHotspotStartX + sizeHotspotWidthObject.normal + sizeHotspotWidthObject.large + sizeHotspotWidthObject.huge) {
-             curSize = "normal";
+             curSize = 'normal';
              } else if (mouseX < sizeHotspotStartX + sizeHotspotWidthObject.small + sizeHotspotWidthObject.normal + sizeHotspotWidthObject.large + sizeHotspotWidthObject.huge) {
-             curSize = "small";
+             curSize = 'small';
              }
              }
              } else {
              if (mouseY < toolHotspotStartY + toolHotspotHeight) {
-             curTool = "crayon";
+             curTool = 'crayon';
              } else if (mouseY < toolHotspotStartY + toolHotspotHeight * 2) {
-             curTool = "marker";
+             curTool = 'marker';
              } else if (mouseY < toolHotspotStartY + toolHotspotHeight * 3) {
-             curTool = "eraser";
+             curTool = 'eraser';
              }
              }
              }
@@ -262,7 +236,7 @@ module namespace {
         }
 
         private onDrag():void {
-            console.log("onDrag");
+            console.log('onDrag');
             /* if (paint) {
              addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
              redraw();
@@ -272,13 +246,13 @@ module namespace {
         }
 
         private onRelease():void {
-            console.log("onRelease");
+            console.log('onRelease');
             //paint = false;
             //redraw();
         }
 
         private onCancel():void {
-            console.log("onCancel");
+            console.log('onCancel');
 
             //paint = false;
         }
