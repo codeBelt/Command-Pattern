@@ -1,6 +1,8 @@
 ///<reference path='../components/display/CanvasElement.ts'/>
 ///<reference path='./ReceiverView.ts'/>
-///<reference path='../components/display/TempShape.ts'/>
+///<reference path='../components/display/Rectangle.ts'/>
+///<reference path='../components/display/DisplayObject.ts'/>
+///<reference path='../utils/BulkLoader.ts'/>
 
 module namespace {
 
@@ -8,119 +10,26 @@ module namespace {
 
         private _strawberry:ReceiverView = null;
 
-        public dragIndex = null;
-        public dragging = null;
-        public mouseX = null;
-        public mouseY = null;
-        public dragHoldX = null;
-        public dragHoldY = null;
+        public dragging = false;
+        private _offset:any;
+        private _currentItem:DisplayObject;
 
         constructor(canvasId:string) {
             super(canvasId);
-//http://simonsarris.com/blog/140-canvas-moving-selectable-shapes
 
             //this.canvas.addEventListener('mouseup', this.onStageClick.bind(this));
             //document.addEventListener('keyup', this.onKeyup.bind(this));
-
+            $(this.canvas).addEventListener('mousedown', this.mouseDownListener, this);
 
             var image:HTMLImageElement = BulkLoader.getImage('crayon-background');
             this._strawberry = new ReceiverView(image);
             this.addChild(this._strawberry);
 
-
             this.makeShapes();
-            $(this.canvas).addEventListener('mousedown', this.mouseDownListener, this);
-
-
-            this.update();
-
-            //this.enable();
-        }
-
-
-        mouseDownListener(event) {
-            event.preventDefault();
-
-            var i;
-            //We are going to pay attention to the layering order of the objects so that if a mouse down occurs over more than object,
-            //only the topmost one will be dragged.
-            var highestIndex = -1;
-
-            //getting mouse position correctly, being mindful of resizing that may have occured in the browser:
-            var bRect = this.canvas.getBoundingClientRect();
-            this.mouseX = (event.clientX - bRect.left) * (this.canvas.width / bRect.width);
-            this.mouseY = (event.clientY - bRect.top) * (this.canvas.height / bRect.height);
-
-            this.dragIndex = null;
-            //find which shape was clicked
-            for (i=0; i < this.numChildren; i++) {
-                console.log("this.hitTest(this.children[i], this.mouseX, this.mouseY)", this.hitTest(this.children[i], this.mouseX, this.mouseY));
-                if	(this.hitTest(this.children[i], this.mouseX, this.mouseY)) {
-                    this.dragging = true;
-                    if (i > highestIndex) {
-                        //We will pay attention to the point on the object where the mouse is 'holding' the object:
-                        this.dragHoldX = this.mouseX - this.children[i].x;
-                        this.dragHoldY = this.mouseY - this.children[i].y;
-                        highestIndex = i;
-                        this.dragIndex = i;
-                    }
-                }
-            }
-            console.log("clicked on", this.dragIndex, this.children[this.dragIndex]);
-
-            if (this.dragging) {
-                $(window).addEventListener('mousemove', this.mouseMoveListener, this);
-            }
-            $(this.canvas).removeEventListener('mousedown', this.mouseDownListener, this);
-            $(window).addEventListener('mouseup', this.mouseUpListener, this);
-        }
-
-        mouseUpListener(event) {
-            $(this.canvas).addEventListener('mousedown', this.mouseDownListener, this);
-            $(window).removeEventListener('mouseup', this.mouseUpListener, this);
-            if (this.dragging) {
-                this.dragging = false;
-                $(window).removeEventListener('mousemove', this.mouseMoveListener, this);
-            }
-        }
-
-        mouseMoveListener(event) {
-            var posX;
-            var posY;
-            var shapeRad = (<TempShape>this.children[this.dragIndex]).radius;
-            var minX = shapeRad;
-            var maxX = this.canvas.width - shapeRad;
-            var minY = shapeRad;
-            var maxY = this.canvas.height - shapeRad;
-            //getting mouse position correctly
-            var bRect = this.canvas.getBoundingClientRect();
-            this.mouseX = (event.clientX - bRect.left)*(this.canvas.width/bRect.width);
-            this.mouseY = (event.clientY - bRect.top)*(this.canvas.height/bRect.height);
-
-            //clamp x and y positions to prevent object from dragging outside of canvas
-            posX = this.mouseX - this.dragHoldX;
-            posX = (posX < minX) ? minX : ((posX > maxX) ? maxX : posX);
-            posY = this.mouseY - this.dragHoldY;
-            posY = (posY < minY) ? minY : ((posY > maxY) ? maxY : posY);
-
-            this.children[this.dragIndex].x = posX;
-            this.children[this.dragIndex].y = posY;
-
             this.update();
         }
 
-        hitTest(shape,mx,my) {
-            var dx;
-            var dy;
-            dx = mx - shape.x;
-            dy = my - shape.y;
-
-            //a 'hit' will be registered if the distance away from the center is less than the radius of the circular object
-            return (dx * dx + dy * dy < shape.radius * shape.radius);
-        }
-
-        makeShapes() {
-            var tempShape;
+        private makeShapes():void {
             var i;
             var tempX;
             var tempY;
@@ -137,26 +46,47 @@ module namespace {
                 tempG = Math.floor(Math.random()*255);
                 tempB = Math.floor(Math.random()*255);
                 tempColor = 'rgb(' + tempR + ',' + tempG + ',' + tempB +')';
-                tempShape = {x:tempX, y:tempY, radius:tempRad, color:tempColor};
-                //this.children.push(new TempShape(tempX, tempY, tempRad, tempColor));
-                var dd = new TempShape(tempX, tempY, tempRad, tempColor);
+                var dd = new Rectangle(tempX, tempY, tempRad, tempRad, tempColor);
                 this.addChild(dd);
             }
         }
 
+        private mouseDownListener(event:JQueryEventObject):void {
+            event.preventDefault();
 
-        public enable():void {
-            // Add mouse event listeners to canvas element
-            this.canvas.addEventListener('mousedown', this.onPress, false);
-            this.canvas.addEventListener('mousemove', this.onDrag, false);
-            this.canvas.addEventListener('mouseup', this.onRelease);
-            this.canvas.addEventListener('mouseout', this.onCancel, false);
+            var mousePos = this.getMousePos(event);
+            this._currentItem = this.getObjectUnderPoint(mousePos.x, mousePos.y);
 
-            // Add touch event listeners to canvas element
-            this.canvas.addEventListener('touchstart', this.onPress, false);
-            this.canvas.addEventListener('touchmove', this.onDrag, false);
-            this.canvas.addEventListener('touchend', this.onRelease, false);
-            this.canvas.addEventListener('touchcancel', this.onCancel, false);
+            if (this._currentItem !== null) {
+                this.dragging = true;
+
+                this._offset = {
+                    x: this._currentItem.x - mousePos.x,
+                    y: this._currentItem.y - mousePos.y
+                };
+
+                $(window).addEventListener('mousemove', this.mouseMoveListener, this);
+                $(this.canvas).removeEventListener('mousedown', this.mouseDownListener, this);
+                $(window).addEventListener('mouseup', this.mouseUpListener, this);
+            }
+        }
+
+        private mouseUpListener(event:JQueryEventObject):void {
+            $(this.canvas).addEventListener('mousedown', this.mouseDownListener, this);
+            $(window).removeEventListener('mouseup', this.mouseUpListener, this);
+            if (this.dragging) {
+                this.dragging = false;
+                $(window).removeEventListener('mousemove', this.mouseMoveListener, this);
+            }
+        }
+
+        private mouseMoveListener(event:JQueryEventObject):void {
+            var mousePos = this.getMousePos(event);
+
+            this._currentItem.x = mousePos.x + this._offset.x;
+            this._currentItem.y = mousePos.y + this._offset.y;
+
+            this.update();
         }
 
         private onStageClick(event:MouseEvent):void {
@@ -170,75 +100,18 @@ module namespace {
 
         private onPress(event:MouseEvent):void {
             console.log('onPress');
-            // Mouse down location
-            /*var sizeHotspotStartX,
-             mouseX = e.pageX - this.offsetLeft,
-             mouseY = e.pageY - this.offsetTop;
-
-             if (mouseX < drawingAreaX) { // Left of the drawing area
-             if (mouseX > mediumStartX) {
-             if (mouseY > mediumStartY && mouseY < mediumStartY + mediumImageHeight) {
-             curColor = colorPurple;
-             } else if (mouseY > mediumStartY + mediumImageHeight && mouseY < mediumStartY + mediumImageHeight * 2) {
-             curColor = colorGreen;
-             } else if (mouseY > mediumStartY + mediumImageHeight * 2 && mouseY < mediumStartY + mediumImageHeight * 3) {
-             curColor = colorYellow;
-             } else if (mouseY > mediumStartY + mediumImageHeight * 3 && mouseY < mediumStartY + mediumImageHeight * 4) {
-             curColor = colorBrown;
-             }
-             }
-             } else if (mouseX > drawingAreaX + drawingAreaWidth) { // Right of the drawing area
-
-             if (mouseY > toolHotspotStartY) {
-             if (mouseY > sizeHotspotStartY) {
-             sizeHotspotStartX = drawingAreaX + drawingAreaWidth;
-             if (mouseY < sizeHotspotStartY + sizeHotspotHeight && mouseX > sizeHotspotStartX) {
-             if (mouseX < sizeHotspotStartX + sizeHotspotWidthObject.huge) {
-             curSize = 'huge';
-             } else if (mouseX < sizeHotspotStartX + sizeHotspotWidthObject.large + sizeHotspotWidthObject.huge) {
-             curSize = 'large';
-             } else if (mouseX < sizeHotspotStartX + sizeHotspotWidthObject.normal + sizeHotspotWidthObject.large + sizeHotspotWidthObject.huge) {
-             curSize = 'normal';
-             } else if (mouseX < sizeHotspotStartX + sizeHotspotWidthObject.small + sizeHotspotWidthObject.normal + sizeHotspotWidthObject.large + sizeHotspotWidthObject.huge) {
-             curSize = 'small';
-             }
-             }
-             } else {
-             if (mouseY < toolHotspotStartY + toolHotspotHeight) {
-             curTool = 'crayon';
-             } else if (mouseY < toolHotspotStartY + toolHotspotHeight * 2) {
-             curTool = 'marker';
-             } else if (mouseY < toolHotspotStartY + toolHotspotHeight * 3) {
-             curTool = 'eraser';
-             }
-             }
-             }
-             }
-             paint = true;
-             addClick(mouseX, mouseY, false);
-             redraw();*/
         }
 
         private onDrag():void {
             console.log('onDrag');
-            /* if (paint) {
-             addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-             redraw();
-             }
-             // Prevent the whole page from dragging if on mobile
-             e.preventDefault();*/
         }
 
         private onRelease():void {
             console.log('onRelease');
-            //paint = false;
-            //redraw();
         }
 
         private onCancel():void {
             console.log('onCancel');
-
-            //paint = false;
         }
     }
 }
