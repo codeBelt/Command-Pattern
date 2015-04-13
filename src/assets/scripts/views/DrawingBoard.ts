@@ -38,7 +38,9 @@ module namespace {
         }
 
 
-        mouseDownListener(evt) {
+        mouseDownListener(event) {
+            event.preventDefault();
+
             var i;
             //We are going to pay attention to the layering order of the objects so that if a mouse down occurs over more than object,
             //only the topmost one will be dragged.
@@ -46,11 +48,13 @@ module namespace {
 
             //getting mouse position correctly, being mindful of resizing that may have occured in the browser:
             var bRect = this.canvas.getBoundingClientRect();
-            this.mouseX = (evt.clientX - bRect.left)*(this.canvas.width/bRect.width);
-            this.mouseY = (evt.clientY - bRect.top)*(this.canvas.height/bRect.height);
+            this.mouseX = (event.clientX - bRect.left) * (this.canvas.width / bRect.width);
+            this.mouseY = (event.clientY - bRect.top) * (this.canvas.height / bRect.height);
 
+            this.dragIndex = null;
             //find which shape was clicked
             for (i=0; i < this.numChildren; i++) {
+                console.log("this.hitTest(this.children[i], this.mouseX, this.mouseY)", this.hitTest(this.children[i], this.mouseX, this.mouseY));
                 if	(this.hitTest(this.children[i], this.mouseX, this.mouseY)) {
                     this.dragging = true;
                     if (i > highestIndex) {
@@ -62,24 +66,16 @@ module namespace {
                     }
                 }
             }
+            console.log("clicked on", this.dragIndex, this.children[this.dragIndex]);
 
             if (this.dragging) {
                 $(window).addEventListener('mousemove', this.mouseMoveListener, this);
             }
             $(this.canvas).removeEventListener('mousedown', this.mouseDownListener, this);
             $(window).addEventListener('mouseup', this.mouseUpListener, this);
-
-            //code below prevents the mouse down from having an effect on the main browser window:
-            if (evt.preventDefault) {
-                evt.preventDefault();
-            } //standard
-            else if (evt.returnValue) {
-                evt.returnValue = false;
-            } //older IE
-            return false;
         }
 
-        mouseUpListener(evt) {
+        mouseUpListener(event) {
             $(this.canvas).addEventListener('mousedown', this.mouseDownListener, this);
             $(window).removeEventListener('mouseup', this.mouseUpListener, this);
             if (this.dragging) {
@@ -88,7 +84,7 @@ module namespace {
             }
         }
 
-        mouseMoveListener(evt) {
+        mouseMoveListener(event) {
             var posX;
             var posY;
             var shapeRad = (<TempShape>this.children[this.dragIndex]).radius;
@@ -98,8 +94,8 @@ module namespace {
             var maxY = this.canvas.height - shapeRad;
             //getting mouse position correctly
             var bRect = this.canvas.getBoundingClientRect();
-            this.mouseX = (evt.clientX - bRect.left)*(this.canvas.width/bRect.width);
-            this.mouseY = (evt.clientY - bRect.top)*(this.canvas.height/bRect.height);
+            this.mouseX = (event.clientX - bRect.left)*(this.canvas.width/bRect.width);
+            this.mouseY = (event.clientY - bRect.top)*(this.canvas.height/bRect.height);
 
             //clamp x and y positions to prevent object from dragging outside of canvas
             posX = this.mouseX - this.dragHoldX;
@@ -114,14 +110,13 @@ module namespace {
         }
 
         hitTest(shape,mx,my) {
-console.log("hitTest");
             var dx;
             var dy;
             dx = mx - shape.x;
             dy = my - shape.y;
 
             //a 'hit' will be registered if the distance away from the center is less than the radius of the circular object
-            return (dx*dx + dy*dy < shape.radius*shape.radius);
+            return (dx * dx + dy * dy < shape.radius * shape.radius);
         }
 
         makeShapes() {
