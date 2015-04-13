@@ -17,6 +17,8 @@ Check out these resource that helped me learn the Command Pattern:
 
 [Derek Banas: Command Design Pattern](https://www.youtube.com/watch?v=7Pj5kAhVBlg)
 
+[dofactory: Command Design Pattern](http://www.dofactory.com/javascript/command-design-pattern)
+
 ## Credits
 
 [William Malone: HTML5 Canvas Drawing App](http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/)
