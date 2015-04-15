@@ -35,12 +35,12 @@ module namespace {
             document.addEventListener('keyup', this.onKeyup.bind(this));
 
             BulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.onAssetsLoadComplete, this);
-            BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'strawberry.png'), 'strawberry');
+            BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'greensock.png'), 'greensock');
             BulkLoader.load();
         }
 
         private onAssetsLoadComplete(event:LoaderEvent):void {
-            var image:HTMLImageElement = BulkLoader.getImage('strawberry');
+            var image:HTMLImageElement = BulkLoader.getImage('greensock');
             this._strawberry = new ReceiverView(image);
             this._canvasView.addChild(this._strawberry);
         }
