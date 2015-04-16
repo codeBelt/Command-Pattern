@@ -2,7 +2,7 @@ module namespace {
 
     export class BaseEvent {
 
-        public static COMPLETE:string = "BaseEvent.complete";
+        public static COMPLETE:string = 'BaseEvent.complete';
 
         public type:string = null;
         public target:any = null;

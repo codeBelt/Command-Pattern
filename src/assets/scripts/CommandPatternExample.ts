@@ -1,5 +1,8 @@
+///<reference path='_declare/jquery.d.ts'/>
+///<reference path='_declare/jquery.eventListener.d.ts'/>
 ///<reference path='_declare/greensock.d.ts'/>
-///<reference path='components/display/CanvasView.ts'/>
+
+///<reference path='components/display/CanvasElement.ts'/>
 ///<reference path='components/display/Bitmap.ts'/>
 ///<reference path='components/display/Shape.ts'/>
 ///<reference path='utils/ImageLoader.ts'/>
@@ -15,23 +18,23 @@
 
 module namespace {
 
-    export class CommandPatternExample {
+    export class CommandPatternExample extends CanvasElement {
 
         private static BASE_PATH:string = 'assets/media/images/';
 
-        private _canvasView:CanvasView = null;
-        private _strawberry:ReceiverView = null;
+        private _greensockManReceiver:ReceiverView = null;
         private _commandInvoker:CommandInvoker = null;
 
         constructor() {
+            super('canvasId');
+
             this.init();
         }
 
         private init():void {
             this._commandInvoker = new CommandInvoker();
 
-            this._canvasView = new CanvasView('canvasId');
-            this._canvasView.canvas.addEventListener('mouseup', this.onStageClick.bind(this));
+            this.addEventListener('mouseup', this.onStageClick, this);
             document.addEventListener('keyup', this.onKeyup.bind(this));
 
             BulkLoader.addEventListener(LoaderEvent.LOAD_COMPLETE, this.onAssetsLoadComplete, this);
@@ -41,14 +44,16 @@ module namespace {
 
         private onAssetsLoadComplete(event:LoaderEvent):void {
             var image:HTMLImageElement = BulkLoader.getImage('greensock');
-            this._strawberry = new ReceiverView(image);
-            this._canvasView.addChild(this._strawberry);
+            this._greensockManReceiver = new ReceiverView(image);
+            this.addChild(this._greensockManReceiver);
+
+            this.update();
         }
 
         private onStageClick(event:MouseEvent):void {
-            var mousePos = this._canvasView.getMousePos(event);
+            var mousePos = this.getMousePos(event);
 
-            var command:MoveCommand = new MoveCommand(this._strawberry, mousePos.x, mousePos.y);
+            var command:MoveCommand = new MoveCommand(this._greensockManReceiver, mousePos.x, mousePos.y);
             this._commandInvoker.add(command);
         }
 
@@ -57,11 +62,11 @@ module namespace {
 
             switch (event.keyCode) {
                 case 49: // Key 1
-                    command = new GrowCommand(this._strawberry);
+                    command = new GrowCommand(this._greensockManReceiver);
                     this._commandInvoker.add(command);
                     break;
                 case 50: // Key 2
-                    command = new SpinCommand(this._strawberry);
+                    command = new SpinCommand(this._greensockManReceiver);
                     this._commandInvoker.add(command);
                     break;
             }
