@@ -6,7 +6,7 @@ module namespace {
 
         public color:string;
 
-        constructor(x, y, width, height, color) {
+        constructor(x:number, y:number, width:number, height:number, color:string) {
             super();
 
             this.x = x;

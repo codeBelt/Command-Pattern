@@ -17,9 +17,8 @@ module namespace {
         constructor(canvasId:string) {
             super(canvasId);
 
-            //this.canvas.addEventListener('mouseup', this.onStageClick.bind(this));
-            //document.addEventListener('keyup', this.onKeyup.bind(this));
-            $(this.canvas).addEventListener('mousedown', this.mouseDownListener, this);
+            this.addEventListener('mouseup', this.onStageClick, this);
+            this.addEventListener('mousedown', this.mouseDownListener, this);
 
             var image:HTMLImageElement = BulkLoader.getImage('crayon-background');
             this._strawberry = new ReceiverView(image);
@@ -65,18 +64,18 @@ module namespace {
                     y: this._currentItem.y - mousePos.y
                 };
 
-                $(window).addEventListener('mousemove', this.mouseMoveListener, this);
-                $(this.canvas).removeEventListener('mousedown', this.mouseDownListener, this);
-                $(window).addEventListener('mouseup', this.mouseUpListener, this);
+                this.addEventListener('mousemove', this.mouseMoveListener, this);
+                this.removeEventListener('mousedown', this.mouseDownListener, this);
+                this.addEventListener('mouseup', this.mouseUpListener, this);
             }
         }
 
         private mouseUpListener(event:JQueryEventObject):void {
-            $(this.canvas).addEventListener('mousedown', this.mouseDownListener, this);
-            $(window).removeEventListener('mouseup', this.mouseUpListener, this);
+            this.addEventListener('mousedown', this.mouseDownListener, this);
+            this.removeEventListener('mouseup', this.mouseUpListener, this);
             if (this.dragging) {
                 this.dragging = false;
-                $(window).removeEventListener('mousemove', this.mouseMoveListener, this);
+                this.removeEventListener('mousemove', this.mouseMoveListener, this);
             }
         }
 
@@ -94,24 +93,5 @@ module namespace {
             console.log('mousePos', mousePos);
         }
 
-        private onKeyup(event:KeyboardEvent):void {
-            console.log('event.keyCode', event.keyCode);
-        }
-
-        private onPress(event:MouseEvent):void {
-            console.log('onPress');
-        }
-
-        private onDrag():void {
-            console.log('onDrag');
-        }
-
-        private onRelease():void {
-            console.log('onRelease');
-        }
-
-        private onCancel():void {
-            console.log('onCancel');
-        }
     }
 }
