@@ -1,7 +1,7 @@
 ///<reference path='../components/display/CanvasElement.ts'/>
 ///<reference path='../components/display/Bitmap.ts'/>
 ///<reference path='../components/display/Rectangle.ts'/>
-///<reference path='../components/display/CanvasObject.ts'/>
+///<reference path='../components/display/Sprite.ts'/>
 ///<reference path='../utils/BulkLoader.ts'/>
 
 module namespace {
@@ -18,7 +18,7 @@ module namespace {
 
         public dragging = false;
         private _offset:any;
-        private _currentItem:CanvasObject;
+        private _currentItem:Sprite;
 
         constructor($element:JQuery) {
             super($element);

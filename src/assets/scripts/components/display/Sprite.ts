@@ -5,7 +5,7 @@ module namespace {
 
     import DisplayObjectContainer = StructureTS.DisplayObjectContainer;
 
-    export class CanvasObject extends DisplayObjectContainer {
+    export class Sprite extends DisplayObjectContainer {
 
         public stage:CanvasElement = null;
         public ctx:CanvasRenderingContext2D = null;
@@ -37,7 +37,7 @@ module namespace {
             this.renderEnd();
 
             for (var i:number = 0; i < this.numChildren; i++) {
-                (<CanvasObject>this.children[i]).update();
+                (<Sprite>this.children[i]).update();
             }
         }
 

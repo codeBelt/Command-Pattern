@@ -1,8 +1,8 @@
-///<reference path='CanvasObject.ts'/>
+///<reference path='Sprite.ts'/>
 
 module namespace {
 
-    export class Rectangle extends CanvasObject {
+    export class Rectangle extends Sprite {
 
         public color:string;
 

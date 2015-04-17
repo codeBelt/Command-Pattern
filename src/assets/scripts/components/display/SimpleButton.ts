@@ -1,4 +1,4 @@
-///<reference path='./CanvasObject.ts'/>
+///<reference path='./Sprite.ts'/>
 
 module namespace {
 
@@ -6,18 +6,18 @@ module namespace {
      * TODO: YUIDoc_comment
      *
      * @class SimpleButton
-     * @extends CanvasObject
+     * @extends Sprite
      * @module namespace
      * @constructor
      **/
-    export class SimpleButton extends CanvasObject {
+    export class SimpleButton extends Sprite {
 
-        public upState:CanvasObject = null;
-        public overState:CanvasObject = null;
-        public downState:CanvasObject = null;
-        public hitTestState:CanvasObject = null;
+        public upState:Sprite = null;
+        public overState:Sprite = null;
+        public downState:Sprite = null;
+        public hitTestState:Sprite = null;
 
-        constructor(upState:CanvasObject = null, overState:CanvasObject = null, downState:CanvasObject = null, hitTestState:CanvasObject = null) {
+        constructor(upState:Sprite = null, overState:Sprite = null, downState:Sprite = null, hitTestState:Sprite = null) {
             super();
 
             this.upState = upState;

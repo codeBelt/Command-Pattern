@@ -1,9 +1,9 @@
-///<reference path='CanvasObject.ts'/>
+///<reference path='Sprite.ts'/>
 ///<reference path='../../utils/NumberUtil.ts'/>
 
 module namespace {
 
-    export class TextField extends CanvasObject {
+    export class TextField extends Sprite {
 
         public text:string = '';
         public style:string = 'normal';

@@ -1,6 +1,6 @@
 ///<reference path='../../../vendor/structurejs/ts/display/DOMElement.ts'/>
 ///<reference path='../../../vendor/structurejs/ts/display/DisplayObjectContainer.ts'/>
-///<reference path='CanvasObject.ts'/>
+///<reference path='Sprite.ts'/>
 
 module namespace {
 
@@ -128,17 +128,17 @@ module namespace {
          * TODO: YUIDoc_comment
          *
          * @method addChild
-         * @param canvasObject {CanvasObject}
+         * @param sprite {Sprite}
          * @returns {CanvasElement} Returns an instance of itself.
          * @override
          * @public
          * @chainable
          */
-       public addChild(canvasObject:any):any {
-           canvasObject.ctx = this.ctx;
-           canvasObject.stage = this;
+       public addChild(sprite:any):any {
+           sprite.ctx = this.ctx;
+           sprite.stage = this;
 
-           this._canvasContainer.addChild(canvasObject);
+           this._canvasContainer.addChild(sprite);
 
            this.numChildren = this._canvasContainer.numChildren;
            this.children = this._canvasContainer.children;
@@ -150,17 +150,17 @@ module namespace {
          * TODO: YUIDoc_comment
          *
          * @method removeChild
-         * @param canvasObject {CanvasObject}
+         * @param sprite {Sprite}
          * @returns {CanvasElement} Returns an instance of itself.
          * @override
          * @public
          * @chainable
          */
-        public removeChild(canvasObject:any, destroy:boolean = true):any {
-            canvasObject.ctx = null;
-            canvasObject.stage = null;
+        public removeChild(sprite:any, destroy:boolean = true):any {
+            sprite.ctx = null;
+            sprite.stage = null;
 
-            this._canvasContainer.removeChild(canvasObject, destroy);
+            this._canvasContainer.removeChild(sprite, destroy);
 
             this.numChildren = this._canvasContainer.numChildren;
             this.children = this._canvasContainer.children;
@@ -172,7 +172,7 @@ module namespace {
             this.render();
 
             for (var i:number = 0; i < this._canvasContainer.numChildren; i++) {
-                (<CanvasObject>this._canvasContainer.children[i]).update();
+                (<Sprite>this._canvasContainer.children[i]).update();
             }
         }
 
@@ -190,15 +190,15 @@ module namespace {
             };
         }
 
-        public getObjectUnderPoint(x:number, y:number):CanvasObject {
-            var foundItem:CanvasObject = null;
-            var canvasObject:CanvasObject;
+        public getObjectUnderPoint(x:number, y:number):Sprite {
+            var foundItem:Sprite = null;
+            var sprite:Sprite;
 
             for (var i = this._canvasContainer.numChildren - 1; i >= 0; i--) {
-                canvasObject = (<CanvasObject>this._canvasContainer.children[i]);
-                if (canvasObject.visible === true) {
-                    if (this.hitTest(canvasObject, x, y)) {
-                        foundItem = canvasObject;
+                sprite = (<Sprite>this._canvasContainer.children[i]);
+                if (sprite.visible === true) {
+                    if (this.hitTest(sprite, x, y)) {
+                        foundItem = sprite;
                         break;
                     }
                 }
@@ -207,21 +207,21 @@ module namespace {
             return foundItem;
         }
 
-        public getObjectsUnderPoint(x:number, y:number):Array<CanvasObject> {
+        public getObjectsUnderPoint(x:number, y:number):Array<Sprite> {
             var list = [];
-            var canvasObject:CanvasObject;
+            var sprite:Sprite;
 
             for (var i = this.numChildren - 1; i >= 0; i--) {
-                canvasObject = (<CanvasObject>this._canvasContainer.children[i]);
-                if (this.hitTest(canvasObject, x, y)) {
-                    list.push(canvasObject);
+                sprite = (<Sprite>this._canvasContainer.children[i]);
+                if (this.hitTest(sprite, x, y)) {
+                    list.push(sprite);
                 }
             }
             return list;
         }
 
-        public hitTest(canvasObject:CanvasObject, mouseX:number, mouseY:number):boolean {
-            if(mouseX >= canvasObject.x && mouseX <= canvasObject.x + canvasObject.width && mouseY >= canvasObject.y && mouseY <= canvasObject.y + canvasObject.height){
+        public hitTest(sprite:Sprite, mouseX:number, mouseY:number):boolean {
+            if(mouseX >= sprite.x && mouseX <= sprite.x + sprite.width && mouseY >= sprite.y && mouseY <= sprite.y + sprite.height){
                 return true;
             } else {
                 return false;
@@ -230,12 +230,12 @@ module namespace {
 
         protected onPressHandler(event:MouseEvent|JQueryEventObject):void {
             var mousePos = this.getMousePos(event);
-            var canvasObject:CanvasObject = this.getObjectUnderPoint(mousePos.x, mousePos.y);
+            var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
 
-            event.target = <any>canvasObject;
+            event.target = <any>sprite;
             event.currentTarget = <any>this;
-            if (canvasObject !== null) {
-                canvasObject.dispatchEvent(event);
+            if (sprite !== null) {
+                sprite.dispatchEvent(event);
             }
 
             this.dispatchEvent(event);
@@ -246,16 +246,16 @@ module namespace {
             event.currentTarget = <any>this;
 
             var mousePos = this.getMousePos(event);
-            var canvasObject:CanvasObject = this.getObjectUnderPoint(mousePos.x, mousePos.y);
+            var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
 
-            if (canvasObject !== null && canvasObject.mouseEnabled === true && canvasObject.visible === true) {
+            if (sprite !== null && sprite.mouseEnabled === true && sprite.visible === true) {
                 document.body.style.cursor = 'pointer';
             } else {
                 document.body.style.cursor = 'default';
             }
 
-            if (canvasObject !== null) {
-                canvasObject.dispatchEvent(event);
+            if (sprite !== null) {
+                sprite.dispatchEvent(event);
             }
 
             this.dispatchEvent(event);
@@ -263,13 +263,13 @@ module namespace {
 
         protected onReleaseHandler(event:MouseEvent|JQueryEventObject):void {
             var mousePos = this.getMousePos(event);
-            var canvasObject:CanvasObject = this.getObjectUnderPoint(mousePos.x, mousePos.y);
+            var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
 
-            event.target = <any>canvasObject;
+            event.target = <any>sprite;
             event.currentTarget = <any>this;
 
-            if (canvasObject !== null) {
-                canvasObject.dispatchEvent(event);
+            if (sprite !== null) {
+                sprite.dispatchEvent(event);
             }
 
             this.dispatchEvent(event);
@@ -280,10 +280,10 @@ module namespace {
             event.currentTarget = <any>this;
 
             var mousePos = this.getMousePos(event);
-            var canvasObject:CanvasObject = this.getObjectUnderPoint(mousePos.x, mousePos.y);
+            var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
 
-            if (canvasObject !== null) {
-                canvasObject.dispatchEvent(event);
+            if (sprite !== null) {
+                sprite.dispatchEvent(event);
             }
 
             this.dispatchEvent(event);
