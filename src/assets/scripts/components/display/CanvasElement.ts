@@ -127,6 +127,16 @@ module namespace {
             super.destroy();
         }
 
+        /**
+         * TODO: YUIDoc_comment
+         *
+         * @method addChild
+         * @param canvasObject {CanvasObject}
+         * @returns {CanvasElement} Returns an instance of itself.
+         * @override
+         * @public
+         * @chainable
+         */
        public addChild(canvasObject:any):any {
            canvasObject.ctx = this.ctx;
 
@@ -134,8 +144,20 @@ module namespace {
 
            this.numChildren = this._canvasContainer.numChildren;
            this.children = this._canvasContainer.children;
+
+            return this;
         }
 
+        /**
+         * TODO: YUIDoc_comment
+         *
+         * @method removeChild
+         * @param canvasObject {CanvasObject}
+         * @returns {CanvasElement} Returns an instance of itself.
+         * @override
+         * @public
+         * @chainable
+         */
         public removeChild(canvasObject:any, destroy:boolean = true):any {
             canvasObject.ctx = null;
 
@@ -143,6 +165,8 @@ module namespace {
 
             this.numChildren = this._canvasContainer.numChildren;
             this.children = this._canvasContainer.children;
+
+            return this;
         }
 
         public render():void {
@@ -223,14 +247,11 @@ module namespace {
 
             event.target = <any>canvasObject;
             event.currentTarget = <any>this;
-console.log("onPressHandler");
             if (canvasObject !== null) {
                 canvasObject.dispatchEvent(event);
-            } else {
-                this.dispatchEvent(event);
             }
-console.log("canvasObject", canvasObject);
-console.log("this", this);
+
+            this.dispatchEvent(event);
         }
 
         private onMoveHandler(event:MouseEvent|JQueryEventObject):void {
@@ -248,9 +269,9 @@ console.log("this", this);
 
             if (canvasObject !== null) {
                 canvasObject.dispatchEvent(event);
-            } else {
-                this.dispatchEvent(event);
             }
+
+            this.dispatchEvent(event);
         }
 
         private onReleaseHandler(event:MouseEvent|JQueryEventObject):void {
@@ -262,9 +283,9 @@ console.log("this", this);
 
             if (canvasObject !== null) {
                 canvasObject.dispatchEvent(event);
-            } else {
-                this.dispatchEvent(event);
             }
+
+            this.dispatchEvent(event);
         }
 
         private onCancelHandler(event:MouseEvent|JQueryEventObject):void {
@@ -276,9 +297,9 @@ console.log("this", this);
 
             if (canvasObject !== null) {
                 canvasObject.dispatchEvent(event);
-            } else {
-                this.dispatchEvent(event);
             }
+
+            this.dispatchEvent(event);
         }
 
     }

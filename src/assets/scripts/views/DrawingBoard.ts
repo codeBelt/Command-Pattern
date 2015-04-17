@@ -85,7 +85,6 @@ module namespace {
          * @overridden CanvasElement.layoutChildren
          */
         public layoutChildren():void {
-            console.log("layoutChildren", this);
         }
 
         /**
@@ -130,6 +129,7 @@ module namespace {
                 tempB = Math.floor(Math.random()*255);
                 tempColor = 'rgb(' + tempR + ',' + tempG + ',' + tempB +')';
                 var dd = new Rectangle(tempX, tempY, tempRad, tempRad, tempColor);
+                dd.addEventListener('mousedown', this.mouseDownListener, this);
                 this.addChild(dd);
             }
         }
@@ -140,10 +140,6 @@ module namespace {
             var mousePos = this.getMousePos(event);
             this._currentItem = this.getObjectUnderPoint(mousePos.x, mousePos.y);
 
-            this._currentItem.x = mousePos.x;
-
-            console.log("this._currentItem", this._currentItem);
-            this._currentItem.y = mousePos.y;
             if (this._currentItem !== null) {
                 this.dragging = true;
 
@@ -167,6 +163,8 @@ module namespace {
                 this.dragging = false;
                 this.removeEventListener('mousemove', this.mouseMoveListener, this);
             }
+
+            this.update();
         }
 
         private mouseMoveListener(event:JQueryEventObject):void {
