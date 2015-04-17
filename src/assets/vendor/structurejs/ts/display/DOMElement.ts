@@ -323,21 +323,12 @@ module StructureTS
                 return this;
             }
 
-            if (child.isCreated === false)
-            {
-                child.createChildren();// Render the item before adding to the DOM
-                child.isCreated = true;
-            }
-
-            this.addClientSideId(child);
-
             // If the child object is not a reference of a jQuery object in the DOM then append it.
             if (child._isReference === false)
             {
                 this.$element.append(child.$element);
             }
 
-            child.enable();
             this.onAddedToDom(child);
 
             return this;
@@ -372,16 +363,25 @@ module StructureTS
                 setTimeout(() =>
                 {
                     this.onAddedToDom(child);
-                }, 100)
-            }
-            else
-            {
-                child.layoutChildren();
-                child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
+                }, 100);
+
+                return;
             }
 
             child.width = child.$element.width();
             child.height = child.$element.height();
+
+            if (child.isCreated === false)
+            {
+                child.createChildren();
+                child.isCreated = true;
+            }
+
+            this.addClientSideId(child);
+
+            child.enable();
+            child.layoutChildren();
+            child.dispatchEvent(new BaseEvent(BaseEvent.ADDED));
         }
 
         /**
@@ -408,21 +408,12 @@ module StructureTS
             // index passed in and place the item before that child.
             else
             {
-                if (child.isCreated === false)
-                {
-                    child.createChildren();// Render the item before adding to the DOM
-                    child.isCreated = true;
-                }
-
-                this.addClientSideId(child);
-
                 // Adds the child at a specific index but also will remove the child from another parent object if one exists.
                 super.addChildAt(child, index);
 
                 // Adds the child before the a child already in the DOM.
                 jQuery(children.get(index)).before(child.$element);
 
-                child.enable();
                 this.onAddedToDom(child);
             }
 
