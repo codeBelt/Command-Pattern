@@ -8,6 +8,7 @@ module namespace {
             super();
 
             this.canvas = <HTMLCanvasElement> document.getElementById(canvasId);
+            console.log("this.canvas", this.canvas);
             this.$canvas = $(this.canvas);
             this.ctx = this.canvas.getContext('2d');
 
@@ -27,15 +28,16 @@ module namespace {
             this.$canvas.addEventListener('touchcancel', this.onCancelHandler, this);
         }
 
-        /**
-         * @overridden DisplayObject.disable
-         */
-        public disable():void {
-            if (this.isEnabled === false) { return; }
+        public addChild(displayObject:DisplayObject):void {
+            displayObject.ctx = this.ctx;
 
-            // Disable the child objects and remove any event listeners.
+            super.addChild(displayObject);
+        }
 
-            super.disable();
+        public removeChild(displayObject:DisplayObject, destroy:boolean = true):void {
+            displayObject.ctx = null;
+
+            super.removeChild(displayObject, destroy);
         }
 
         public getMousePos(event:MouseEvent|JQueryEventObject):{x: number; y: number } {

@@ -1,8 +1,10 @@
-///<reference path='../../events/EventDispatcher.ts'/>
+///<reference path='../../../vendor/structurejs/ts/event/EventDispatcher.ts'/>
 
 module namespace {
 
-    export class DisplayObject extends EventDispatcher {
+    import DisplayObjectContainer = StructureTS.DisplayObjectContainer;
+
+    export class DisplayObject extends DisplayObjectContainer {
 
         public canvas:HTMLCanvasElement = null;
         public $canvas:JQuery = null;
@@ -28,44 +30,6 @@ module namespace {
 
         public render():void {
             //Meant to be overridden.
-        }
-
-        public addChild(displayObject:DisplayObject):void {
-            displayObject.parent = this;
-            displayObject.ctx = this.ctx;
-            displayObject.enable();
-
-            this.children.push(displayObject);
-            this.numChildren++;
-        }
-
-        public removeChild(displayObject:DisplayObject):void {
-            displayObject.ctx = null;
-
-            var index = this.children.indexOf(displayObject);
-            if (index !== -1) {
-                this.children.splice(index, 1);
-            }
-
-            this.numChildren = this.children.length;
-        }
-
-        public enable():any {
-            if (this.isEnabled === true) { return this; }
-
-            // Enable the child objects and add any event listeners.
-
-            this.isEnabled = true;
-            return this;
-        }
-
-        public disable():any {
-            if (this.isEnabled === false) { return this; }
-
-            // Disable the child objects and remove any event listeners.
-
-            this.isEnabled = false;
-            return this;
         }
 
         private readerStart():void {
