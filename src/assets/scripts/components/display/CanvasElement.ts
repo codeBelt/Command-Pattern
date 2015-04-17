@@ -1,5 +1,4 @@
 ///<reference path='DisplayObject.ts'/>
-///<reference path='Stage.ts'/>
 
 module namespace {
 
@@ -8,7 +7,7 @@ module namespace {
         constructor(canvasId:string) {
             super();
 
-            Stage.canvas = this;
+            this.stage = this;
 
             this.canvas = <HTMLCanvasElement> document.getElementById(canvasId);
             this.$canvas = $(this.canvas);

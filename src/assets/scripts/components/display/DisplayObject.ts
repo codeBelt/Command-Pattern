@@ -4,6 +4,7 @@ module namespace {
 
     export class DisplayObject extends EventDispatcher {
 
+        public stage:any = null;
         public canvas:HTMLCanvasElement = null;
         public $canvas:JQuery = null;
         public ctx:CanvasRenderingContext2D = null;
@@ -33,6 +34,7 @@ module namespace {
         public addChild(displayObject:DisplayObject):void {
             displayObject.parent = this;
             displayObject.ctx = this.ctx;
+            displayObject.stage = displayObject.stage || this.stage;
             displayObject.enable();
 
             this.children.push(displayObject);
@@ -41,6 +43,7 @@ module namespace {
 
         public removeChild(displayObject:DisplayObject):void {
             displayObject.ctx = null;
+            displayObject.stage = null;
 
             var index = this.children.indexOf(displayObject);
             if (index !== -1) {

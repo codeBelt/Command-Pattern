@@ -1,5 +1,4 @@
 ///<reference path='../components/display/Bitmap.ts'/>
-///<reference path='../components/display/Stage.ts'/>
 ///<reference path='../events/BaseEvent.ts'/>
 
 module namespace {
@@ -28,7 +27,7 @@ module namespace {
         }
         
         private updateAnimation():void {
-            Stage.update();
+            this.stage.update();
         }
 
     }
