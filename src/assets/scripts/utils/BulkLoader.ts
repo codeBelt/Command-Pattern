@@ -15,12 +15,12 @@ module namespace {
         }
 
         public static getFile(key:string):IDataStore {
-            return BulkLoader._dataStores[key];
+            return BulkLoader._dataStores[key] || null;
         }
 
         public static getImage(key:string):HTMLImageElement {
             var imageLoader:IDataStore = BulkLoader.getFile(key);
-            return imageLoader.data;
+            return (imageLoader !== null) ? imageLoader.data : null;
         }
 
         public static load():void {

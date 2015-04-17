@@ -1,5 +1,6 @@
 ///<reference path='../components/display/CanvasElement.ts'/>
 ///<reference path='./ReceiverView.ts'/>
+///<reference path='../components/display/Bitmap.ts'/>
 ///<reference path='../components/display/Rectangle.ts'/>
 ///<reference path='../components/display/DisplayObject.ts'/>
 ///<reference path='../utils/BulkLoader.ts'/>
@@ -20,7 +21,7 @@ module namespace {
             this.addEventListener('mouseup', this.onStageClick, this);
             this.addEventListener('mousedown', this.mouseDownListener, this);
 
-            var image:HTMLImageElement = BulkLoader.getImage('crayon-background');
+            var image:HTMLImageElement = BulkLoader.getImage('watermelon-duck-outline.png');
             this._strawberry = new ReceiverView(image);
             this.addChild(this._strawberry);
 
@@ -29,6 +30,26 @@ module namespace {
         }
 
         private makeShapes():void {
+
+
+
+
+
+
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0000_drawing-area.png'), 'paint_0000_drawing-area.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0001_crayon-over.png'), 'paint_0001_crayon-over.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0002_crayon-out.png'), 'paint_0002_crayon-out.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0003_marker-over.png'), 'paint_0003_marker-over.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0004_marker-out.png'), 'paint_0004_marker-out.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0005_eraser-over.png'), 'paint_0005_eraser-over.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0006_eraser-out.png'), 'paint_0006_eraser-out.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0007_tools.png'), 'paint_0007_tools.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0008_colors.png'), 'paint_0008_colors.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0009_ruler.png'), 'paint_0009_ruler.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0010_crayon-outline.png'), 'paint_0010_crayon-outline.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0011_marker-outline.png'), 'paint_0011_marker-outline.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'paint_0012_eraser-outline.png'), 'paint_0012_eraser-outline.png');
+            //BulkLoader.addFile(new ImageLoader(CommandPatternExample.BASE_PATH + 'watermelon-duck-outline.png'), 'watermelon-duck-outline');
             var i;
             var tempX;
             var tempY;
