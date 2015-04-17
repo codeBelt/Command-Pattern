@@ -1,8 +1,8 @@
-///<reference path='DisplayObject.ts'/>
+///<reference path='CanvasObject.ts'/>
 
 module namespace {
 
-    export class Rectangle extends DisplayObject {
+    export class Rectangle extends CanvasObject {
 
         public color:string;
 

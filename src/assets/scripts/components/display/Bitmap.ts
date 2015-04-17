@@ -1,9 +1,9 @@
-///<reference path='DisplayObject.ts'/>
+///<reference path='CanvasObject.ts'/>
 ///<reference path='../../utils/NumberUtil.ts'/>
 
 module namespace {
 
-    export class Bitmap extends DisplayObject {
+    export class Bitmap extends CanvasObject {
 
         private _image:HTMLImageElement;
 

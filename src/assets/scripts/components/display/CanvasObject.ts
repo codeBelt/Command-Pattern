@@ -1,10 +1,10 @@
-///<reference path='../../../vendor/structurejs/ts/event/EventDispatcher.ts'/>
+///<reference path='../../../vendor/structurejs/ts/display/DisplayObjectContainer.ts'/>
 
 module namespace {
 
     import DisplayObjectContainer = StructureTS.DisplayObjectContainer;
 
-    export class DisplayObject extends DisplayObjectContainer {
+    export class CanvasObject extends DisplayObjectContainer {
 
         public canvas:HTMLCanvasElement = null;
         public $canvas:JQuery = null;
@@ -20,7 +20,7 @@ module namespace {
         public visible:boolean = true;
         public isEnabled:boolean = false;
         public mouseEnabled:boolean = false;
-        public children:Array<DisplayObject> = [];
+        public children:Array<CanvasObject> = [];
         public numChildren:number = 0;
         public name:string = null;
 

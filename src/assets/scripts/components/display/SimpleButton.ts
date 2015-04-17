@@ -1,4 +1,4 @@
-///<reference path='./DisplayObject.ts'/>
+///<reference path='./CanvasObject.ts'/>
 
 module namespace {
 
@@ -6,18 +6,18 @@ module namespace {
      * TODO: YUIDoc_comment
      *
      * @class SimpleButton
-     * @extends DisplayObject
+     * @extends CanvasObject
      * @module namespace
      * @constructor
      **/
-    export class SimpleButton extends DisplayObject {
+    export class SimpleButton extends CanvasObject {
 
-        public upState:DisplayObject = null;
-        public overState:DisplayObject = null;
-        public downState:DisplayObject = null;
-        public hitTestState:DisplayObject = null;
+        public upState:CanvasObject = null;
+        public overState:CanvasObject = null;
+        public downState:CanvasObject = null;
+        public hitTestState:CanvasObject = null;
 
-        constructor(upState:DisplayObject = null, overState:DisplayObject = null, downState:DisplayObject = null, hitTestState:DisplayObject = null) {
+        constructor(upState:CanvasObject = null, overState:CanvasObject = null, downState:CanvasObject = null, hitTestState:CanvasObject = null) {
             super();
 
             this.upState = upState;

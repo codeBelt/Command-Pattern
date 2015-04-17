@@ -94,7 +94,7 @@ module.exports = function(grunt) {
                     livereload: true
                 },
                 files: [
-                    '<%= DEVELOPMENT_PATH %>' + 'assets/scripts/**/*.ts'
+                    '<%= BASE_PATH %>' + '**/*.ts'
                 ],
                 tasks: ['typescript']
             },
