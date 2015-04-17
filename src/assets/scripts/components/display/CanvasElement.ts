@@ -136,6 +136,7 @@ module namespace {
          */
        public addChild(canvasObject:any):any {
            canvasObject.ctx = this.ctx;
+           canvasObject.stage = this;
 
            this._canvasContainer.addChild(canvasObject);
 
@@ -157,6 +158,7 @@ module namespace {
          */
         public removeChild(canvasObject:any, destroy:boolean = true):any {
             canvasObject.ctx = null;
+            canvasObject.stage = null;
 
             this._canvasContainer.removeChild(canvasObject, destroy);
 

@@ -1,4 +1,5 @@
 ///<reference path='../../../vendor/structurejs/ts/display/DisplayObjectContainer.ts'/>
+///<reference path='./CanvasElement.ts'/>
 
 module namespace {
 
@@ -6,6 +7,7 @@ module namespace {
 
     export class CanvasObject extends DisplayObjectContainer {
 
+        public stage:CanvasElement = null;
         public ctx:CanvasRenderingContext2D = null;
         public scaleX:number = 1;
         public scaleY:number = 1;
@@ -19,7 +21,7 @@ module namespace {
         }
 
         public render():void {
-            //Meant to be overridden.
+            throw new Error('[' + this.getQualifiedClassName() + '] Error: The render method is meant to be overridden.');
         }
 
         protected readerStart():void {
