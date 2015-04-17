@@ -33,7 +33,7 @@ module namespace {
             }
         }
 
-        private wrapTextByWidth(context, text, x, y, maxWidth, lineHeight):void {
+        protected wrapTextByWidth(context, text, x, y, maxWidth, lineHeight):void {
             var wordList:Array<string> = text.split(' ');
             var line:string = '';
             var testLine:string;
@@ -59,7 +59,7 @@ module namespace {
             context.fillText(line, x, y);
         }
 
-        private wrapTextOnLineBreak(context, text, x, y, lineHeight):void {
+        protected wrapTextOnLineBreak(context, text, x, y, lineHeight):void {
             var wordList:Array<string> = text.split('\n');
             var length:number = wordList.length;
 

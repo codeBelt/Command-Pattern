@@ -5,7 +5,7 @@ module namespace {
 
     export class Bitmap extends CanvasObject {
 
-        private _image:HTMLImageElement;
+        protected _image:HTMLImageElement;
 
         public ready:boolean = false;
 

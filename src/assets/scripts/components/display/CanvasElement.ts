@@ -41,12 +41,9 @@ module namespace {
          *
          * @property _canvasContainer
          * @type {DisplayObjectContainer}
-         * @private
+         * @protected
          */
-        private _canvasContainer:DisplayObjectContainer = null;
-
-        public alpha:number = 1;
-        public visible:boolean = true;
+        protected _canvasContainer:DisplayObjectContainer = null;
 
         constructor($element:JQuery) {
             super($element);
@@ -169,30 +166,18 @@ module namespace {
             return this;
         }
 
-        public render():void {
-            this.ctx.clearRect(0, 0, this.width, this.height);
-        }
-
-        private readerStart():void {
-            this.ctx.save();
-        }
-
         public update():void {
-            if (this.ctx === null || this.alpha <= 0 || this.visible === false) return;
-
-            this.readerStart();
-            this.ctx.globalAlpha = this.alpha;
             this.render();
-            this.renderEnd();
 
             for (var i:number = 0; i < this._canvasContainer.numChildren; i++) {
                 (<CanvasObject>this._canvasContainer.children[i]).update();
             }
         }
 
-        private renderEnd():void {
-            this.ctx.restore();
+        public render():void {
+            this.ctx.clearRect(0, 0, this.width, this.height);
         }
+
 
         public getMousePos(event:MouseEvent|JQueryEventObject):{x: number; y: number } {
             var rect = this.canvas.getBoundingClientRect();
@@ -241,7 +226,7 @@ module namespace {
             }
         }
 
-        private onPressHandler(event:MouseEvent|JQueryEventObject):void {
+        protected onPressHandler(event:MouseEvent|JQueryEventObject):void {
             var mousePos = this.getMousePos(event);
             var canvasObject:CanvasObject = this.getObjectUnderPoint(mousePos.x, mousePos.y);
 
@@ -254,7 +239,7 @@ module namespace {
             this.dispatchEvent(event);
         }
 
-        private onMoveHandler(event:MouseEvent|JQueryEventObject):void {
+        protected onMoveHandler(event:MouseEvent|JQueryEventObject):void {
             event.target = <any>this;
             event.currentTarget = <any>this;
 
@@ -274,7 +259,7 @@ module namespace {
             this.dispatchEvent(event);
         }
 
-        private onReleaseHandler(event:MouseEvent|JQueryEventObject):void {
+        protected onReleaseHandler(event:MouseEvent|JQueryEventObject):void {
             var mousePos = this.getMousePos(event);
             var canvasObject:CanvasObject = this.getObjectUnderPoint(mousePos.x, mousePos.y);
 
@@ -288,7 +273,7 @@ module namespace {
             this.dispatchEvent(event);
         }
 
-        private onCancelHandler(event:MouseEvent|JQueryEventObject):void {
+        protected onCancelHandler(event:MouseEvent|JQueryEventObject):void {
             event.target = <any>this;
             event.currentTarget = <any>this;
 
