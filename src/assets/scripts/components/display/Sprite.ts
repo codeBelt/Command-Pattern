@@ -45,5 +45,48 @@ module namespace {
             this.ctx.restore();
         }
 
+        public addChild(child:any):any {
+            //If the child being passed in already has a parent then remove the reference from there.
+            if (child.parent)
+            {
+                child.parent.removeChild(child, false);
+            }
+
+            this.children.push(child);
+            this.numChildren = this.children.length;
+
+            child.ctx = this.ctx;
+            child.stage = child.stage || this;
+            child.parent = this;
+
+            return this;
+        }
+
+        public removeChild(child:any, destroy:boolean = true):any {
+            var index = this.getChildIndex(child);
+            if (index !== -1)
+            {
+                // Removes the child object from the parent.
+                this.children.splice(index, 1);
+            }
+
+            this.numChildren = this.children.length;
+
+            if (destroy === true)
+            {
+                child.destroy();
+            }
+            else
+            {
+                child.disable();
+            }
+
+            child.ctx = null;
+            child.stage = null;
+            child.parent = null;
+
+            return this;
+        }
+
     }
 }

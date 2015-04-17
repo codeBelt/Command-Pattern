@@ -2,6 +2,7 @@
 ///<reference path='../components/display/Bitmap.ts'/>
 ///<reference path='../components/display/Rectangle.ts'/>
 ///<reference path='../components/display/Sprite.ts'/>
+///<reference path='../components/display/SimpleButton.ts'/>
 ///<reference path='../utils/BulkLoader.ts'/>
 
 module namespace {
@@ -30,55 +31,70 @@ module namespace {
         public createChildren():void {
             super.createChildren();
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0000_drawing-area.png'));
-            this.addChild(item);
+            var colorsLabel:Bitmap = new Bitmap(BulkLoader.getImage('paint_0008_colors.png'));
+            this.addChild(colorsLabel);
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0001_crayon-over.png'));
-            this.addChild(item);
+            var toolsLabel:Bitmap = new Bitmap(BulkLoader.getImage('paint_0007_tools.png'));
+            toolsLabel.x = this.width - toolsLabel.width;
+            this.addChild(toolsLabel);
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0002_crayon-out.png'));
-            this.addChild(item);
+            var board:Bitmap = new Bitmap(BulkLoader.getImage('paint_0000_drawing-area.png'));
+            board.x = (this.width / 2) - (board.width / 2);
+            board.y = (this.height / 2) - (board.height / 2);
+            this.addChild(board);
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0003_marker-over.png'));
-            this.addChild(item);
+            var crayonOver:Bitmap = new Bitmap(BulkLoader.getImage('paint_0001_crayon-over.png'));
+//            this.addChild(crayonOver);
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0004_marker-out.png'));
-            this.addChild(item);
+            var crayonUp:Bitmap = new Bitmap(BulkLoader.getImage('paint_0002_crayon-out.png'));
+//            this.addChild(crayonUp);
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0005_eraser-over.png'));
-            this.addChild(item);
+            var simpleButton:SimpleButton = new SimpleButton(crayonUp, crayonOver);
+            simpleButton.x = 20;
+            simpleButton.y = 20;
+            this.addChild(simpleButton);
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0006_eraser-out.png'));
-            this.addChild(item);
+//            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0003_marker-over.png'));
+//            this.addChild(item);
+//
+//            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0004_marker-out.png'));
+//            this.addChild(item);
+//
+//            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0005_eraser-over.png'));
+//            this.addChild(item);
+//
+//            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0006_eraser-out.png'));
+//            this.addChild(item);
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0007_tools.png'));
-            this.addChild(item);
+            var ruler:Bitmap = new Bitmap(BulkLoader.getImage('paint_0009_ruler.png'));
+            ruler.x = board.x + board.width - 20;
+            ruler.y = board.y + board.height - ruler.height;
+            this.addChildAt(ruler, 0);
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0008_colors.png'));
-            this.addChild(item);
+            var crayon:Bitmap = new Bitmap(BulkLoader.getImage('paint_0010_crayon-outline.png'));
+            crayon.x = 346;
+            crayon.y = 24;
+            crayon.scaleX = -1;
+            this.addChildAt(crayon, 0);
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0009_ruler.png'));
-            this.addChild(item);
+            var marker:Bitmap = new Bitmap(BulkLoader.getImage('paint_0011_marker-outline.png'));
+            marker.x = 343;
+            marker.y = 61;
+            marker.scaleX = -1;
+            this.addChildAt(marker, 0);
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0010_crayon-outline.png'));
-            this.addChild(item);
+            var eraser:Bitmap = new Bitmap(BulkLoader.getImage('paint_0012_eraser-outline.png'));
+            eraser.x = 358;
+            eraser.y = 100;
+            eraser.scaleX = -1;
+            this.addChildAt(eraser, 0);
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0011_marker-outline.png'));
-            this.addChild(item);
+            var duck:Bitmap = new Bitmap(BulkLoader.getImage('watermelon-duck-outline.png'));
+            duck.x = (board.width / 2) - (duck.width / 2) + board.x;
+            duck.y = (board.height / 2) - (duck.height / 2) + board.y;
+            this.addChild(duck);
 
-            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0012_eraser-outline.png'));
-            this.addChild(item);
-
-            var image:HTMLImageElement = BulkLoader.getImage('watermelon-duck-outline.png');
-            var item:Bitmap = new Bitmap(image);
-            this.addChild(item);
-
-
-            this.makeShapes();
-
-//            this.removeChild(this._strawberry);
-
-            this.update()
+            this.update();
         }
 
         /**
@@ -93,7 +109,7 @@ module namespace {
         public enable():void {
             if (this.isEnabled === true) { return; }
 
-            this.addEventListener('mousedown', this.mouseDownListener, this);
+//            this.addEventListener('mousedown', this.mouseDownListener, this);
             this.addEventListener('mouseup', this.onStageClick, this);
 
             super.enable();
@@ -105,7 +121,7 @@ module namespace {
         public disable():void {
             if (this.isEnabled === false) { return; }
 
-            this.removeEventListener('mousedown', this.mouseDownListener, this);
+//            this.removeEventListener('mousedown', this.mouseDownListener, this);
             this.removeEventListener('mouseup', this.onStageClick, this);
 
             super.disable();

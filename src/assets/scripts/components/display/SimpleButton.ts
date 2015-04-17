@@ -24,6 +24,26 @@ module namespace {
             this.overState = overState;
             this.downState = downState;
             this.hitTestState = hitTestState;
+
+            this.addChild(this.upState)
+        }
+
+
+        public render():void {
+            console.log("this.children", this.children);
+            console.log("render");
+//            this.ctx.translate(this.x, this.y);
+//            this.ctx.beginPath();
+//            this.ctx.rect(0, 0, this.width, this.height);
+//            this.ctx.fillStyle = this.color;
+//            this.ctx.fill();
+//            this.ctx.lineWidth = 1;
+//            this.ctx.strokeStyle = '#000000';
+//            this.ctx.stroke();
+console.log("this.upState", this.upState, this.numChildren);
+            for (var i:number = 0; i < this.numChildren; i++) {
+                (<Sprite>this.children[i]).update();
+            }
         }
 
     }

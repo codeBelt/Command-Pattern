@@ -36,15 +36,6 @@ module namespace {
          */
         public ctx:CanvasRenderingContext2D = null;
 
-        /**
-         * TODO: YUIDoc_comment
-         *
-         * @property _canvasContainer
-         * @type {DisplayObjectContainer}
-         * @protected
-         */
-        protected _canvasContainer:DisplayObjectContainer = null;
-
         constructor($element:JQuery) {
             super($element);
         }
@@ -54,8 +45,6 @@ module namespace {
          */
         public createChildren():void {
             super.createChildren();
-
-            this._canvasContainer = new DisplayObjectContainer();
 
             this.$canvas = this.$element;
             this.canvas = <HTMLCanvasElement>this.element;
@@ -119,7 +108,6 @@ module namespace {
          * @overridden CanvasElement.destroy
          */
         public destroy():void {
-            this._canvasContainer.destroy();
 
             super.destroy();
         }
@@ -128,42 +116,140 @@ module namespace {
          * TODO: YUIDoc_comment
          *
          * @method addChild
-         * @param sprite {Sprite}
+         * @param child {Sprite}
          * @returns {CanvasElement} Returns an instance of itself.
          * @override
          * @public
          * @chainable
          */
-       public addChild(sprite:any):any {
-           sprite.ctx = this.ctx;
-           sprite.stage = this;
+        public addChild(child:any):any {
+            //If the child being passed in already has a parent then remove the reference from there.
+            if (child.parent)
+            {
+                child.parent.removeChild(child, false);
+            }
 
-           this._canvasContainer.addChild(sprite);
+            this.children.push(child);
+            this.numChildren = this.children.length;
 
-           this.numChildren = this._canvasContainer.numChildren;
-           this.children = this._canvasContainer.children;
+            child.ctx = this.ctx;
+            child.stage = this;
+            child.parent = this;
 
             return this;
+        }
+
+        /**
+         * @overridden DOMElement.addChildAt
+         */
+        public addChildAt(child:any, index:number):any
+        {
+            //If the child being passed in already has a parent then remove the reference from there.
+            if (child.parent)
+            {
+                child.parent.removeChild(child, false);
+            }
+
+            this.children.splice(index, 0, child);
+            this.numChildren = this.children.length;
+
+            child.ctx = this.ctx;
+            child.stage = this;
+            child.parent = this;
+
+            return this;
+        }
+
+        /**
+         * @overridden DOMElement.swapChildren
+         */
+        public swapChildren(child1:any, child2:any):any
+        {
+            var child1Index = this.children.indexOf(child1);
+            var child2Index = this.children.indexOf(child2);
+
+            this.addChildAt(child1, child2Index);
+            this.addChildAt(child2, child1Index);
+
+            return this;
+        }
+
+        /**
+         * @overridden DOMElement.getChildAt
+         */
+        public getChildAt(index:number):any
+        {
+            return <any>super.getChildAt(index);
         }
 
         /**
          * TODO: YUIDoc_comment
          *
          * @method removeChild
-         * @param sprite {Sprite}
+         * @param child {Sprite}
          * @returns {CanvasElement} Returns an instance of itself.
          * @override
          * @public
          * @chainable
          */
-        public removeChild(sprite:any, destroy:boolean = true):any {
-            sprite.ctx = null;
-            sprite.stage = null;
+        public removeChild(child:any, destroy:boolean = true):any {
+            var index = this.getChildIndex(child);
+            if (index !== -1)
+            {
+                // Removes the child object from the parent.
+                this.children.splice(index, 1);
+            }
 
-            this._canvasContainer.removeChild(sprite, destroy);
+            this.numChildren = this.children.length;
 
-            this.numChildren = this._canvasContainer.numChildren;
-            this.children = this._canvasContainer.children;
+            if (destroy === true)
+            {
+                child.destroy();
+            }
+            else
+            {
+                child.disable();
+            }
+
+            child.ctx = null;
+            child.stage = null;
+            child.parent = null;
+
+            return this;
+        }
+
+        /**
+         * Removes the child display object instance that exists at the specified index.
+         *
+         * @method removeChildAt
+         * @param index {int} The index position of the child object.
+         * @public
+         * @chainable
+         */
+        public removeChildAt(index:number, destroy:boolean = true):any
+        {
+            this.removeChild(this.getChildAt(index), destroy);
+
+            return this;
+        }
+
+        /**
+         * Removes all child object instances from the child list of the parent object instance.
+         * The parent property of the removed children is set to null , and the objects are garbage collected if no other
+         * references to the children exist.
+         *
+         * @method removeChildren
+         * @returns {DOMElement} Returns an instance of itself.
+         * @override
+         * @public
+         * @chainable
+         */
+        public removeChildren(destroy:boolean = true):any
+        {
+            while (this.children.length > 0)
+            {
+                this.removeChild(<Sprite>this.children.pop(), destroy);
+            }
 
             return this;
         }
@@ -171,8 +257,8 @@ module namespace {
         public update():void {
             this.render();
 
-            for (var i:number = 0; i < this._canvasContainer.numChildren; i++) {
-                (<Sprite>this._canvasContainer.children[i]).update();
+            for (var i:number = 0; i < this.numChildren; i++) {
+                (<Sprite>this.children[i]).update();
             }
         }
 
@@ -194,8 +280,8 @@ module namespace {
             var foundItem:Sprite = null;
             var sprite:Sprite;
 
-            for (var i = this._canvasContainer.numChildren - 1; i >= 0; i--) {
-                sprite = (<Sprite>this._canvasContainer.children[i]);
+            for (var i = this.numChildren - 1; i >= 0; i--) {
+                sprite = (<Sprite>this.children[i]);
                 if (sprite.visible === true) {
                     if (this.hitTest(sprite, x, y)) {
                         foundItem = sprite;
@@ -212,7 +298,7 @@ module namespace {
             var sprite:Sprite;
 
             for (var i = this.numChildren - 1; i >= 0; i--) {
-                sprite = (<Sprite>this._canvasContainer.children[i]);
+                sprite = (<Sprite>this.children[i]);
                 if (this.hitTest(sprite, x, y)) {
                     list.push(sprite);
                 }
