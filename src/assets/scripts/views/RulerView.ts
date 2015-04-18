@@ -2,6 +2,7 @@
 ///<reference path='../utils/ImageLoader.ts'/>
 ///<reference path='../components/display/Sprite.ts'/>
 ///<reference path='../components/display/Bitmap.ts'/>
+///<reference path='../components/display/Rectangle.ts'/>
 
 module namespace {
 
@@ -27,6 +28,22 @@ module namespace {
 
             var ruler:Bitmap = new Bitmap(BulkLoader.getImage('paint_0009_ruler.png'));
             this.addChild(ruler);
+
+            var large:Rectangle = new Rectangle(21, 5, 26, 50, '#FF0000');
+            large.alpha = 0.5;
+            this.addChild(large);
+
+            var large:Rectangle = new Rectangle(large.x + large.width, 5, 26, 50, '#FF0000');
+            large.alpha = 0.5;
+            this.addChild(large);
+
+            var large:Rectangle = new Rectangle(large.x + large.width, 5, 26, 50, '#FF0000');
+            large.alpha = 0.5;
+            this.addChild(large);
+
+            var large:Rectangle = new Rectangle(large.x + large.width, 5, 26, 50, '#FF0000');
+            large.alpha = 0.5;
+            this.addChild(large);
         }
 
         /**

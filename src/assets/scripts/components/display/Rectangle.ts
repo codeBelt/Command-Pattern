@@ -21,6 +21,7 @@ module namespace {
         }
         
         public render():void {
+            this.ctx.translate(this.parent.x, this.parent.y);
             this.ctx.translate(this.x, this.y);
             this.ctx.beginPath();
             this.ctx.rect(0, 0, this.width, this.height);
