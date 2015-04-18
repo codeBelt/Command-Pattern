@@ -7,6 +7,7 @@
 ///<reference path='../views/CrayonButton.ts'/>
 ///<reference path='../views/MarkerButton.ts'/>
 ///<reference path='../views/EraserButton.ts'/>
+///<reference path='../views/RulerView.ts'/>
 
 module namespace {
 
@@ -60,6 +61,12 @@ module namespace {
             eraserButton.x = 358;
             eraserButton.y = 100;
             this.addChildAt(eraserButton, 0);
+
+            var rulerView:RulerView = new RulerView();
+            rulerView.x = board.x + board.width - 20;
+            rulerView.y = board.y + board.height - 60;
+            this.addChildAt(rulerView, 0);
+
             //
             //var crayonOver:Bitmap = new Bitmap(BulkLoader.getImage('paint_0001_crayon-over.png'));
             //var crayonUp:Bitmap = new Bitmap(BulkLoader.getImage('paint_0002_crayon-out.png'));
@@ -68,11 +75,6 @@ module namespace {
             //simpleButton.x = 50;
             //simpleButton.y = 50;
             //this.addChild(simpleButton);
-
-            var ruler:Bitmap = new Bitmap(BulkLoader.getImage('paint_0009_ruler.png'));
-            ruler.x = board.x + board.width - 20;
-            ruler.y = board.y + board.height - ruler.height;
-            this.addChildAt(ruler, 0);
 
             var duck:Bitmap = new Bitmap(BulkLoader.getImage('watermelon-duck-outline.png'));
             duck.x = (board.width / 2) - (duck.width / 2) + board.x;
@@ -179,7 +181,8 @@ module namespace {
 
         private onStageClick(event:MouseEvent):void {
             var mousePos = this.getMousePos(event);
-            console.log('mousePos', mousePos);
+            var item =  this.getObjectUnderPoint(mousePos.x, mousePos.y);
+            console.log('mousePos', mousePos, item);
         }
 
     }

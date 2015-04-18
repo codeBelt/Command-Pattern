@@ -40,8 +40,17 @@ module namespace {
             this.render();
             this.renderEnd();
 
+            var newWidth:number;
+            var newHeight:number;
+            var child:Sprite;
             for (var i:number = 0; i < this.numChildren; i++) {
-                (<Sprite>this.children[i]).update();
+                child = <Sprite>this.children[i];
+                child.update();
+
+                newWidth = child.x + child.width;
+                newHeight = child.y + child.height;
+                this.width = (newWidth > this.width) ? newWidth : this.width;
+                this.height = (newHeight > this.height) ? newHeight : this.height;
             }
         }
 
