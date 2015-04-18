@@ -20,6 +20,10 @@ module namespace {
             super();
         }
 
+        public createChildren():void {
+            // This method is meant to be overridden.
+        }
+
         public render():void {
             throw new Error('[' + this.getQualifiedClassName() + '] Error: The render method is meant to be overridden.');
         }
