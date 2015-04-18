@@ -16,6 +16,9 @@ module namespace {
             super();
         }
 
+        public createChildren():void {
+        }
+
         public render():void {
             this.ctx.translate(this.x, this.y);
             this.ctx.font = [this.style, this.size, this.font].join(' ');

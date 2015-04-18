@@ -20,30 +20,63 @@ module namespace {
         constructor(upState:Sprite = null, overState:Sprite = null, downState:Sprite = null, hitTestState:Sprite = null) {
             super();
 
+            this.mouseEnabled = true;
+
             this.upState = upState;
             this.overState = overState;
             this.downState = downState;
             this.hitTestState = hitTestState;
-
-            this.addChild(this.upState)
         }
 
+        public createChildren():void {
+            this.addChild(this.upState);
+        }
+
+        /**
+         * @overridden CanvasElement.enable
+         */
+        public enable():void {
+            if (this.isEnabled === true) { return; }
+
+            this.addEventListener('mouseover', this.onMouseOver, this);
+            this.addEventListener('mouseout', this.onMouseOut, this);
+
+            super.enable();
+        }
+
+        /**
+         * @overridden CanvasElement.disable
+         */
+        public disable():void {
+            if (this.isEnabled === false) { return; }
+
+            this.removeEventListener('mousemove', this.onMouseOver, this);
+            this.removeEventListener('mouseout', this.onMouseOut, this);
+
+            super.disable();
+        }
 
         public render():void {
-            console.log("this.children", this.children);
-            console.log("render");
-//            this.ctx.translate(this.x, this.y);
-//            this.ctx.beginPath();
-//            this.ctx.rect(0, 0, this.width, this.height);
-//            this.ctx.fillStyle = this.color;
-//            this.ctx.fill();
-//            this.ctx.lineWidth = 1;
-//            this.ctx.strokeStyle = '#000000';
-//            this.ctx.stroke();
-console.log("this.upState", this.upState, this.numChildren);
+            this.width = this.upState.width;
+            this.height = this.upState.height;
+
             for (var i:number = 0; i < this.numChildren; i++) {
                 (<Sprite>this.children[i]).update();
             }
+        }
+
+        protected onMouseOver(event):void {
+            this.removeChild(this.upState);
+            this.addChild(this.overState);
+
+            this.stage.update();
+        }
+
+        protected onMouseOut(event):void {
+            this.removeChild(this.overState);
+            this.addChild(this.upState);
+
+            this.stage.update();
         }
 
     }

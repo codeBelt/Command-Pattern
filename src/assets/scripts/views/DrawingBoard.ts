@@ -44,14 +44,11 @@ module namespace {
             this.addChild(board);
 
             var crayonOver:Bitmap = new Bitmap(BulkLoader.getImage('paint_0001_crayon-over.png'));
-//            this.addChild(crayonOver);
-
             var crayonUp:Bitmap = new Bitmap(BulkLoader.getImage('paint_0002_crayon-out.png'));
-//            this.addChild(crayonUp);
 
             var simpleButton:SimpleButton = new SimpleButton(crayonUp, crayonOver);
-            simpleButton.x = 20;
-            simpleButton.y = 20;
+            simpleButton.x = 50;
+            simpleButton.y = 50;
             this.addChild(simpleButton);
 
 //            var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0003_marker-over.png'));

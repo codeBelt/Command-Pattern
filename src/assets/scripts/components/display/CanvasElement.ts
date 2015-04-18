@@ -136,6 +136,14 @@ module namespace {
             child.stage = this;
             child.parent = this;
 
+            if (child.isCreated === false) {
+                child.createChildren();
+                child.isCreated = true;
+            }
+
+            child.enable();
+            child.layoutChildren();
+
             return this;
         }
 
@@ -156,6 +164,14 @@ module namespace {
             child.ctx = this.ctx;
             child.stage = this;
             child.parent = this;
+
+            if (child.isCreated === false) {
+                child.createChildren();
+                child.isCreated = true;
+            }
+
+            child.enable();
+            child.layoutChildren();
 
             return this;
         }

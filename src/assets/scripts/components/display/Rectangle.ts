@@ -17,6 +17,9 @@ module namespace {
             this.color = color;
         }
 
+        public createChildren():void {
+        }
+        
         public render():void {
             this.ctx.translate(this.x, this.y);
             this.ctx.beginPath();

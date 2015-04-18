@@ -56,8 +56,16 @@ module namespace {
             this.numChildren = this.children.length;
 
             child.ctx = this.ctx;
-            child.stage = child.stage || this;
+            child.stage = this.stage;
             child.parent = this;
+
+            if (child.isCreated === false) {
+                child.createChildren();
+                child.isCreated = true;
+            }
+
+            child.enable();
+            child.layoutChildren();
 
             return this;
         }
