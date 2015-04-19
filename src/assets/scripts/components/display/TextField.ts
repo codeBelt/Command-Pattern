@@ -24,7 +24,7 @@ module namespace {
             this.ctx.translate(this.x, this.y);
             this.ctx.font = [this.style, this.size, this.font].join(' ');
             this.ctx.fillStyle = this.color;
-            this.ctx.textBaseline = 'middle';//http://www.ckollars.org/canvas-text-centering.html
+            this.ctx.textBaseline = 'top';//http://www.ckollars.org/canvas-text-centering.html
 
             if (this.text.indexOf('\n') !== -1) {
                 this.wrapTextOnLineBreak(this.ctx, this.text, 0, 0, this.lineHeight);

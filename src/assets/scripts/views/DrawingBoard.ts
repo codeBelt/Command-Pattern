@@ -180,9 +180,7 @@ module namespace {
         }
 
         private onStageClick(event:MouseEvent):void {
-            var mousePos = this.getMousePos(event);
-            var item =  this.getObjectUnderPoint(mousePos.x, mousePos.y);
-            console.log('mousePos', mousePos, item);
+            console.log("onStageClick", event);
         }
 
     }
