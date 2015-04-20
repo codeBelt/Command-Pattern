@@ -356,7 +356,7 @@ module namespace {
             event.currentTarget = <any>sprite;
             event.bubbles = true;
 
-            if (spriteTarget !== null && spriteTarget.mouseEnabled === true && spriteTarget.visible === true) {
+            if (spriteTarget !== void 0 && spriteTarget.mouseEnabled === true && spriteTarget.visible === true) {
                 document.body.style.cursor = 'pointer';
             } else {
                 document.body.style.cursor = 'default';
