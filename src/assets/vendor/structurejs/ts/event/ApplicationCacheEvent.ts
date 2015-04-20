@@ -107,12 +107,5 @@ module StructureTS
             super(type, bubbles, cancelable, data);
         }
 
-        /**
-         * @overridden BaseEvent.clone
-         */
-        public clone():ApplicationCacheEvent
-        {
-            return new ApplicationCacheEvent(this.type, this.bubble, this.cancelable, this.data);
-        }
     }
 }

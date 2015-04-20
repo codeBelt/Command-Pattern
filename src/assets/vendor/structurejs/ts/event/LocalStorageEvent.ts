@@ -7,9 +7,9 @@
  * @class LocalStorageEvent
  * @extends BaseEvent
  * @param type {string} The type of event. The type is case-sensitive.
- * @param [bubbles=false] {boolean} Indicates whether an event is a bubbling event. If the event can bubble, this value is true; otherwise it is false.
+ * @param [bubbles=false] {boolean} Indicates whether an event is a bubbling event. If the event can bubbles, this value is true; otherwise it is false.
  * Note: With event-bubbling you can let one Event subsequently call on every ancestor ({{#crossLink "EventDispatcher/parent:property"}}{{/crossLink}})
- * (containers of containers of etc.) of the {{#crossLink "DisplayObjectContainer"}}{{/crossLink}} that originally dispatched the Event, all the way up to the surface ({{#crossLink "Stage"}}{{/crossLink}}). Any classes that do not have a parent cannot bubble.
+ * (containers of containers of etc.) of the {{#crossLink "DisplayObjectContainer"}}{{/crossLink}} that originally dispatched the Event, all the way up to the surface ({{#crossLink "Stage"}}{{/crossLink}}). Any classes that do not have a parent cannot bubbles.
  * @param [cancelable=false] {boolean} Indicates whether the behavior associated with the event can be prevented. If the behavior can be canceled, this value is true; otherwise it is false.
  * @param nativeEvent {StorageEvent} The native browser event for localStorage.
  * @module StructureJS
@@ -24,15 +24,6 @@ module StructureTS
     export class LocalStorageEvent extends BaseEvent
     {
         /**
-         * TODO: YUIDoc_comment
-         *
-         * @property _nativeEvent
-         * @type {any}
-         * @private
-         */
-        private _nativeEvent:any = null;
-
-        /**
          * The storage event is fired on a Document's Window object when a storage area changes.
          *
          * @event STORAGE
@@ -40,6 +31,15 @@ module StructureTS
          * @static
          */
         public static STORAGE:string = 'storage';
+
+        /**
+         * TODO: YUIDoc_comment
+         *
+         * @property originalEvent
+         * @type {any}
+         * @public
+         */
+        public originalEvent:any = null;
 
         /**
          * The named key that was added, removed, or modified
@@ -85,15 +85,8 @@ module StructureTS
                 this.url = nativeEvent.url;
             }
 
-            this._nativeEvent = nativeEvent;
+            this.originalEvent = nativeEvent;
         }
 
-        /**
-         * @overridden BaseEvent.clone
-         */
-        public clone():LocalStorageEvent
-        {
-            return new LocalStorageEvent(this.type, this.bubble, this.cancelable, this._nativeEvent);
-        }
     }
 }

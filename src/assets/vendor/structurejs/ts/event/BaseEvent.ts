@@ -39,7 +39,7 @@
  *          }
  *
  *          CountryEvent.prototype.clone = function () {
- *              var event = new CountryEvent(this.type, this.bubble, this.cancelable, this.data);
+ *              var event = new CountryEvent(this.type, this.bubbles, this.cancelable, this.data);
  *              event.countryName = this.countryName;
  *
  *              return event;
@@ -373,12 +373,12 @@ module StructureTS
         /**
          * Indicates whether an event is a bubbling event.
          *
-         * @property bubble
+         * @property bubbles
          * @type {boolean}
          * @public
          * @default false
          */
-        public bubble:boolean = false;
+        public bubbles:boolean = false;
 
         /**
          * Indicates whether the behavior associated with the event can be prevented.
@@ -417,35 +417,9 @@ module StructureTS
             super();
 
             this.type = type;
-            this.bubble = bubbles;
+            this.bubbles = bubbles;
             this.cancelable = cancelable;
             this.data = data;
-        }
-
-        /**
-         * Duplicates an instance of an BaseEvent subclass.
-         *
-         * Returns a new BaseEvent object that is a copy of the original instance of the BaseEvent object.
-         *
-         * The new BaseEvent object includes all the properties of the original.
-         *
-         * When creating your own custom Event class, you must override the inherited BaseEvent.clone() method in order for it
-         * to duplicate the properties of your custom class.
-         *
-         * @method clone
-         * @returns {BaseEvent}
-         * @public
-         * @example
-         *     var cloneOfEvent = event.clone();
-         */
-        public clone():BaseEvent
-        {
-            var event = new BaseEvent(this.type, this.bubble, this.cancelable, this.data);
-            event.target = this.target;
-            event.currentTarget = this.currentTarget;
-            event.isPropagationStopped = this.isPropagationStopped;
-            event.isImmediatePropagationStopped = this.isImmediatePropagationStopped;
-            return event;
         }
 
         /**
@@ -480,5 +454,34 @@ module StructureTS
             this.stopPropagation();
             this.isImmediatePropagationStopped = true;
         }
+
+        /**
+         * Duplicates an instance of an BaseEvent subclass.
+         *
+         * Returns a new BaseEvent object that is a copy of the original instance of the BaseEvent object.
+         *
+         * The new BaseEvent object includes all the properties of the original.
+         *
+         * @method clone
+         * @returns {BaseEvent}
+         * @public
+         * @example
+         *     var cloneOfEvent = event.clone();
+         */
+        public clone():BaseEvent
+        {
+            var clonedValueObject:BaseEvent = new (<any>this).constructor(this.type, this.bubbles, this.cancelable, this.data);
+
+            for (var key in this)
+            {
+                if (this.hasOwnProperty(key))
+                {
+                    clonedValueObject[key] = this[key];
+                }
+            }
+
+            return clonedValueObject;
+        }
+
     }
 }
