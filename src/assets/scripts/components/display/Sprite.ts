@@ -7,15 +7,6 @@ module namespace {
 
     export class Sprite extends DisplayObjectContainer {
 
-        public stage:CanvasElement = null;
-        public ctx:CanvasRenderingContext2D = null;
-        public scaleX:number = 1;
-        public scaleY:number = 1;
-        public rotation:number = 0;
-        public alpha:number = 1;
-        public visible:boolean = true;
-        public mouseEnabled:boolean = false;
-
         constructor() {
             super();
         }
@@ -24,21 +15,10 @@ module namespace {
             // This method is meant to be overridden.
         }
 
-        public render():void {
-            throw new Error('[' + this.getQualifiedClassName() + '] Error: The render method is meant to be overridden.');
-        }
+        public update():any {
+            var isRendable:boolean = super.update();
 
-        protected readerStart():void {
-            this.ctx.save();
-        }
-
-        public update():void {
-            if (this.ctx === null || this.alpha <= 0 || this.visible === false) return;
-
-            this.readerStart();
-            this.ctx.globalAlpha = this.alpha;
-            this.render();
-            this.renderEnd();
+            if (isRendable === false) return;
 
             var newWidth:number;
             var newHeight:number;
@@ -52,10 +32,6 @@ module namespace {
                 this.width = (newWidth > this.width) ? newWidth : this.width;
                 this.height = (newHeight > this.height) ? newHeight : this.height;
             }
-        }
-
-        protected renderEnd():void {
-            this.ctx.restore();
         }
 
         public addChild(child:any):any {

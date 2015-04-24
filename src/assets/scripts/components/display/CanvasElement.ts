@@ -1,10 +1,12 @@
 ///<reference path='../../../vendor/structurejs/ts/display/DOMElement.ts'/>
+///<reference path='../../../vendor/structurejs/ts/display/DisplayObject.ts'/>
 ///<reference path='../../../vendor/structurejs/ts/display/DisplayObjectContainer.ts'/>
 ///<reference path='Sprite.ts'/>
 
 module namespace {
 
     import DOMElement = StructureTS.DOMElement;
+    import DisplayObject = StructureTS.DisplayObject;
     import DisplayObjectContainer = StructureTS.DisplayObjectContainer;
 
     export class CanvasElement extends DOMElement {
@@ -26,15 +28,6 @@ module namespace {
          * @public
          */
         public canvas:HTMLCanvasElement = null;
-
-        /**
-         * A reference to the canvas context object.
-         *
-         * @property ctx
-         * @type {CanvasRenderingContext2D}
-         * @public
-         */
-        public ctx:CanvasRenderingContext2D = null;
 
         constructor($element:JQuery) {
             super($element);
@@ -270,7 +263,7 @@ module namespace {
             return this;
         }
 
-        public update():void {
+        public update():any {
             this.render();
 
             for (var i:number = 0; i < this.numChildren; i++) {
@@ -387,7 +380,7 @@ module namespace {
         protected onMoveHandler(event:MouseEvent|JQueryEventObject):void {
             var mousePos = this.getMousePos(event);
             var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
-            var spriteTarget:Sprite;
+            var spriteTarget:DisplayObject;
 
             if (sprite === null) {
                 event.bubbles = true;

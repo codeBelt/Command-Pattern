@@ -1,8 +1,10 @@
-///<reference path='Sprite.ts'/>
+///<reference path='../../../vendor/structurejs/ts/display/DisplayObject.ts'/>
 
 module namespace {
 
-    export class Rectangle extends Sprite {
+    import DisplayObject = StructureTS.DisplayObject;
+
+    export class Rectangle extends DisplayObject {
 
         public color:string;
 
@@ -18,6 +20,9 @@ module namespace {
         }
 
         public createChildren():void {
+        }
+
+        public layoutChildren():void {
         }
         
         public render():void {

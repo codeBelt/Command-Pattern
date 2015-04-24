@@ -1,9 +1,11 @@
-///<reference path='Sprite.ts'/>
+///<reference path='../../../vendor/structurejs/ts/display/DisplayObject.ts'/>
 ///<reference path='../../utils/NumberUtil.ts'/>
 
 module namespace {
 
-    export class TextField extends Sprite {
+    import DisplayObject = StructureTS.DisplayObject;
+
+    export class TextField extends DisplayObject {
 
         public text:string = '';
         public style:string = 'normal';
@@ -17,6 +19,9 @@ module namespace {
         }
 
         public createChildren():void {
+        }
+
+        public layoutChildren():void {
         }
 
         public render():void {

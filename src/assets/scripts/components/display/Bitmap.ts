@@ -1,9 +1,11 @@
-///<reference path='Sprite.ts'/>
+///<reference path='../../../vendor/structurejs/ts/display/DisplayObject.ts'/>
 ///<reference path='../../utils/NumberUtil.ts'/>
 
 module namespace {
 
-    export class Bitmap extends Sprite {
+    import DisplayObject = StructureTS.DisplayObject;
+
+    export class Bitmap extends DisplayObject {
 
         protected _image:HTMLImageElement;
 
@@ -18,6 +20,9 @@ module namespace {
         }
 
         public createChildren():void {
+        }
+
+        public layoutChildren():void {
         }
 
         public render():void {

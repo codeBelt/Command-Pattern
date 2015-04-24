@@ -3,6 +3,7 @@
 ///<reference path='../components/display/Rectangle.ts'/>
 ///<reference path='../components/display/Sprite.ts'/>
 ///<reference path='../components/display/SimpleButton.ts'/>
+///<reference path='../components/display/TextField.ts'/>
 ///<reference path='../utils/BulkLoader.ts'/>
 ///<reference path='../views/CrayonButton.ts'/>
 ///<reference path='../views/MarkerButton.ts'/>
@@ -35,7 +36,10 @@ module namespace {
         public createChildren():void {
             super.createChildren();
 
-            var colorsLabel:Bitmap = new Bitmap(BulkLoader.getImage('paint_0008_colors.png'));
+            var colorsLabel = new TextField();
+            colorsLabel.text = 'Colors';
+            colorsLabel.font = 'Shadows Into Light';
+            //var colorsLabel:Bitmap = new Bitmap(BulkLoader.getImage('paint_0008_colors.png'));
             this.addChild(colorsLabel);
 
             var toolsLabel:Bitmap = new Bitmap(BulkLoader.getImage('paint_0007_tools.png'));
@@ -67,10 +71,10 @@ module namespace {
             rulerView.y = board.y + board.height - 60;
             this.addChildAt(rulerView, 0);
 
-            //
+
             //var crayonOver:Bitmap = new Bitmap(BulkLoader.getImage('paint_0001_crayon-over.png'));
             //var crayonUp:Bitmap = new Bitmap(BulkLoader.getImage('paint_0002_crayon-out.png'));
-            //
+
             //var simpleButton:SimpleButton = new SimpleButton(crayonUp, crayonOver);
             //simpleButton.x = 50;
             //simpleButton.y = 50;
