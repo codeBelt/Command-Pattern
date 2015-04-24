@@ -36,10 +36,10 @@ module namespace {
         }
 
         /**
-         * @overridden CanvasElement.createChildren
+         * @overridden CanvasElement.create
          */
-        public createChildren():void {
-            super.createChildren();
+        public create():void {
+            super.create();
 
             var colorsLabel = new TextField();
             colorsLabel.text = 'Colors';
@@ -94,9 +94,9 @@ module namespace {
         }
 
         /**
-         * @overridden CanvasElement.layoutChildren
+         * @overridden CanvasElement.layout
          */
-        public layoutChildren():void {
+        public layout():void {
         }
 
         /**

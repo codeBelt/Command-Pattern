@@ -116,18 +116,18 @@
             this.unscaledHeight = 100;
         }
         /**
-         * The createChildren function is intended to provide a consistent place for the creation and adding
+         * The create function is intended to provide a consistent place for the creation and adding
          * of children to the view. It will automatically be called the first time that the view is added
          * to another DisplayObjectContainer. It is critical that all subclasses call the super for this function in
          * their overridden methods.
          *
-         * @method createChildren
+         * @method create
          * @returns {DisplayObjectContainer} Returns an instance of itself.
          * @public
          * @chainable
          */
-        DisplayObjectContainer.prototype.createChildren = function () {
-            throw new Error('[' + this.getQualifiedClassName() + '] Error: The createChildren method is meant to be overridden.');
+        DisplayObjectContainer.prototype.create = function () {
+            throw new Error('[' + this.getQualifiedClassName() + '] Error: The create method is meant to be overridden.');
         };
         /**
          * Adds a child DisplayObjectContainer instance to this parent object instance. The child is added to the front (top) of all other
@@ -299,7 +299,7 @@
         /**
          * The setSize method sets the bounds within which the containing DisplayObjectContainer would
          * like that component to lay itself out. It is expected that calling setSize will automatically
-         * call {{#crossLink "DisplayObjectContainer/layoutChildren:method"}}{{/crossLink}}.
+         * call {{#crossLink "DisplayObjectContainer/layout:method"}}{{/crossLink}}.
          *
          * @param unscaledWidth {number} The width within which the component should lay itself out.
          * @param unscaledHeight {number} The height within which the component should lay itself out.
@@ -311,19 +311,19 @@
             this.unscaledWidth = unscaledWidth;
             this.unscaledHeight = unscaledHeight;
             if (this.isCreated) {
-                this.layoutChildren();
+                this.layout();
             }
             return this;
         };
         /**
          * The layoutComponent method provides a common function to handle updating child objects.
          *
-         * @method layoutChildren
+         * @method layout
          * @returns {DisplayObjectContainer} Returns an instance of itself.
          * @public
          * @chainable
          */
-        DisplayObjectContainer.prototype.layoutChildren = function () {
+        DisplayObjectContainer.prototype.layout = function () {
             return this;
         };
         /**

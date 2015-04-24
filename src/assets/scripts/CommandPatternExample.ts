@@ -28,10 +28,10 @@ module namespace {
         }
 
         /**
-         * @overridden Stage.createChildren
+         * @overridden Stage.create
          */
-        public createChildren():void {
-            super.createChildren();
+        public create():void {
+            super.create();
 
             this.loadAssets();
         }

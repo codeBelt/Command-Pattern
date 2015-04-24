@@ -43,30 +43,30 @@ module StructureJS
         }
 
         /**
-         * The createChildren function is intended to provide a consistent place for the creation and adding
+         * The create function is intended to provide a consistent place for the creation and adding
          * of children to the view. It will automatically be called the first time that the view is added
          * to another DisplayObjectContainer. It is critical that all subclasses call the super for this function in
          * their overridden methods.
          *
-         * @method createChildren
+         * @method create
          * @returns {DisplayObjectContainer} Returns an instance of itself.
          * @public
          * @chainable
          */
-        public createChildren():any
+        public create():any
         {
-            throw new Error('[' + this.getQualifiedClassName() + '] Error: The createChildren method is meant to be overridden.');
+            throw new Error('[' + this.getQualifiedClassName() + '] Error: The create method is meant to be overridden.');
         }
 
         /**
          * The layoutComponent method provides a common function to handle updating child objects.
          *
-         * @method layoutChildren
+         * @method layout
          * @returns {DisplayObject} Returns an instance of itself.
          * @public
          * @chainable
          */
-        public layoutChildren():any
+        public layout():any
         {
             return this;
         }
@@ -299,7 +299,7 @@ module StructureJS
 
             if (this.isCreated)
             {
-                this.layoutChildren();
+                this.layout();
             }
 
             return this;

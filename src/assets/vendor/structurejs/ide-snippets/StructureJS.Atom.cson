@@ -44,18 +44,18 @@
                 }
 
                 /**
-                 * @overridden DOMElement.createChildren
+                 * @overridden DOMElement.create
                  */
-                ${1:Class}.prototype.createChildren = function () {
-                    _super.prototype.createChildren.call(this);
+                ${1:Class}.prototype.create = function () {
+                    _super.prototype.create.call(this);
 
                     // Create and add your child objects to this parent class.
                 };
 
                 /**
-                 * @overridden DOMElement.layoutChildren
+                 * @overridden DOMElement.layout
                  */
-                ${1:Class}.prototype.layoutChildren = function () {
+                ${1:Class}.prototype.layout = function () {
                     // Layout or update the child objects in this parent class.
 
                     return this;
@@ -173,18 +173,18 @@
                 }
 
                 /**
-                 * @overridden Stage.createChildren
+                 * @overridden Stage.create
                  */
-                ${1:Class}.prototype.createChildren = function () {
-                    _super.prototype.createChildren.call(this);
+                ${1:Class}.prototype.create = function () {
+                    _super.prototype.create.call(this);
 
                     // Create and add your child objects to this parent class.
                 };
 
                 /**
-                 * @overridden Stage.layoutChildren
+                 * @overridden Stage.layout
                  */
-                ${1:Class}.prototype.layoutChildren = function () {
+                ${1:Class}.prototype.layout = function () {
                     // Layout or update the child objects in this parent class.
 
                     return this;

@@ -17,10 +17,10 @@ module StructureJS {
             this.height = this._image.height;
         }
 
-        public createChildren():void {
+        public create():void {
         }
 
-        public layoutChildren():void {
+        public layout():void {
         }
 
         public render():void {

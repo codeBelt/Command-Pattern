@@ -19,10 +19,10 @@ module namespace {
             this.color = color;
         }
 
-        public createChildren():void {
+        public create():void {
         }
 
-        public layoutChildren():void {
+        public layout():void {
         }
         
         public render():void {

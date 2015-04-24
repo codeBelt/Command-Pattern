@@ -30,7 +30,7 @@ module namespace {
             this.hitTestState = hitTestState;
         }
 
-        public createChildren():void {
+        public create():void {
             this.addChild(this.upState);
         }
 

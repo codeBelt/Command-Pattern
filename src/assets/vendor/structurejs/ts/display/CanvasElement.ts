@@ -30,10 +30,10 @@ module StructureJS {
         }
 
         /**
-         * @overridden CanvasElement.createChildren
+         * @overridden CanvasElement.create
          */
-        public createChildren():void {
-            super.createChildren();
+        public create():void {
+            super.create();
 
             this.$canvas = this.$element;
             this.canvas = <HTMLCanvasElement>this.element;
@@ -41,9 +41,9 @@ module StructureJS {
         }
 
         /**
-         * @overridden CanvasElement.layoutChildren
+         * @overridden CanvasElement.layout
          */
-        public layoutChildren():void {
+        public layout():void {
             // Layout or update the child objects in this parent class.
         }
 
@@ -126,12 +126,12 @@ module StructureJS {
             child.parent = this;
 
             if (child.isCreated === false) {
-                child.createChildren();
+                child.create();
                 child.isCreated = true;
             }
 
             child.enable();
-            child.layoutChildren();
+            child.layout();
 
             return this;
         }
@@ -155,12 +155,12 @@ module StructureJS {
             child.parent = this;
 
             if (child.isCreated === false) {
-                child.createChildren();
+                child.create();
                 child.isCreated = true;
             }
 
             child.enable();
-            child.layoutChildren();
+            child.layout();
 
             return this;
         }

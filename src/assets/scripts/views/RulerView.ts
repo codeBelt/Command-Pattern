@@ -24,10 +24,10 @@ module namespace {
         }
 
         /**
-         * @overridden Sprite.createChildren
+         * @overridden Sprite.create
          */
-        public createChildren():void {
-            super.createChildren();
+        public create():void {
+            super.create();
 
             var ruler:Bitmap = new Bitmap(BulkLoader.getImage('paint_0009_ruler.png'));
             this.addChild(ruler);
@@ -52,9 +52,9 @@ module namespace {
         }
 
         /**
-         * @overridden Sprite.layoutChildren
+         * @overridden Sprite.layout
          */
-        public layoutChildren():void {
+        public layout():void {
             // Layout or update the child objects in this parent class.
         }
 

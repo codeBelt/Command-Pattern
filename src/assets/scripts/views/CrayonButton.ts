@@ -23,10 +23,10 @@ module namespace {
         }
 
         /**
-         * @overridden Sprite.createChildren
+         * @overridden Sprite.create
          */
-        public createChildren():void {
-            super.createChildren();
+        public create():void {
+            super.create();
 
             var item:Bitmap = new Bitmap(BulkLoader.getImage('paint_0010_crayon-outline.png'));
             item.scaleX = -1;
@@ -44,9 +44,9 @@ module namespace {
         }
 
         /**
-         * @overridden Sprite.layoutChildren
+         * @overridden Sprite.layout
          */
-        public layoutChildren():void {
+        public layout():void {
             // Layout or update the child objects in this parent class.
         }
 

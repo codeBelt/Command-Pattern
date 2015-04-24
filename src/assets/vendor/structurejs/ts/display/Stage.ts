@@ -28,13 +28,13 @@
  *                 _super.call(this);
  *             }
  *
- *             MainClass.prototype.createChildren = function () {
- *                 _super.prototype.createChildren.call(this);
+ *             MainClass.prototype.create = function () {
+ *                 _super.prototype.create.call(this);
  *
  *                 // Create and add your child objects to this parent class.
  *             }
  *
- *             MainClass.prototype.layoutChildren = function () {
+ *             MainClass.prototype.layout = function () {
  *                 // Layout or update the child objects in this parent class.
  *
  *                 return this;
@@ -99,9 +99,9 @@ module StructureJS
 
             if (this.isCreated === false)
             {
-                this.createChildren();
+                this.create();
                 this.isCreated = true;
-                this.layoutChildren();
+                this.layout();
             }
 
             if (enabled === false)

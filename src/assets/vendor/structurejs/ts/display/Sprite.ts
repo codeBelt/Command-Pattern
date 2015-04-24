@@ -9,7 +9,7 @@ module StructureJS {
             super();
         }
 
-        public createChildren():void {
+        public create():void {
             // This method is meant to be overridden.
         }
 
@@ -47,12 +47,12 @@ module StructureJS {
             child.parent = this;
 
             if (child.isCreated === false) {
-                child.createChildren();
+                child.create();
                 child.isCreated = true;
             }
 
             child.enable();
-            child.layoutChildren();
+            child.layout();
 
             return this;
         }

@@ -16,10 +16,10 @@ module StructureJS {
             super();
         }
 
-        public createChildren():void {
+        public create():void {
         }
 
-        public layoutChildren():void {
+        public layout():void {
         }
 
         public render():void {

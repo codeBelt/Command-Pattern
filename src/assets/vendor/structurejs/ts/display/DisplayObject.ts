@@ -168,7 +168,7 @@ module StructureJS
         /**
          * The setSize method sets the bounds within which the containing DisplayObject would
          * like that component to lay itself out. It is expected that calling setSize will automatically
-         * call {{#crossLink "DisplayObject/layoutChildren:method"}}{{/crossLink}}.
+         * call {{#crossLink "DisplayObject/layout:method"}}{{/crossLink}}.
          *
          * @param unscaledWidth {number} The width within which the component should lay itself out.
          * @param unscaledHeight {number} The height within which the component should lay itself out.
