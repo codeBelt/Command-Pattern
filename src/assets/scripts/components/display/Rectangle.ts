@@ -2,7 +2,7 @@
 
 module namespace {
 
-    import DisplayObject = StructureTS.DisplayObject;
+    import DisplayObject = StructureJS.DisplayObject;
 
     export class Rectangle extends DisplayObject {
 

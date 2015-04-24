@@ -7,7 +7,7 @@
 
 module namespace {
 
-    import Stage = StructureTS.Stage;
+    import Stage = StructureJS.Stage;
 
     /**
      * TODO: YUIDoc_comment

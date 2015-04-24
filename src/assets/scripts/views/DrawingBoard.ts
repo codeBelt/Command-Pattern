@@ -12,10 +12,10 @@
 
 module namespace {
 
-    import CanvasElement = StructureTS.CanvasElement;
-    import Sprite = StructureTS.Sprite;
-    import Bitmap = StructureTS.Bitmap;
-    import TextField = StructureTS.TextField;
+    import CanvasElement = StructureJS.CanvasElement;
+    import Sprite = StructureJS.Sprite;
+    import Bitmap = StructureJS.Bitmap;
+    import TextField = StructureJS.TextField;
 
     /**
      * TODO: YUIDoc_comment

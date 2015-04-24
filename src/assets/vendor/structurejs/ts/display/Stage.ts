@@ -75,7 +75,7 @@
  *      app.appendTo('body');
  *
  */
-module StructureTS
+module StructureJS
 {
     export class Stage extends DOMElement
     {

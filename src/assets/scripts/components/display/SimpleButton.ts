@@ -2,7 +2,7 @@
 
 module namespace {
 
-    import Sprite = StructureTS.Sprite;
+    import Sprite = StructureJS.Sprite;
 
     /**
      * TODO: YUIDoc_comment

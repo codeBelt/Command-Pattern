@@ -1,7 +1,7 @@
 ///<reference path='DisplayObjectContainer.ts'/>
 ///<reference path='CanvasElement.ts'/>
 
-module StructureTS {
+module StructureJS {
 
     export class Sprite extends DisplayObjectContainer {
 

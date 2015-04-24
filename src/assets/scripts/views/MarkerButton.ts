@@ -5,8 +5,8 @@
 
 module namespace {
 
-    import Sprite = StructureTS.Sprite;
-    import Bitmap = StructureTS.Bitmap;
+    import Sprite = StructureJS.Sprite;
+    import Bitmap = StructureJS.Bitmap;
 
     /**
      * TODO: YUIDoc_comment

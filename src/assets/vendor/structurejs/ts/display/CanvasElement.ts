@@ -3,7 +3,7 @@
 ///<reference path='DisplayObjectContainer.ts'/>
 ///<reference path='Sprite.ts'/>
 
-module StructureTS {
+module StructureJS {
 
     export class CanvasElement extends DOMElement {
 

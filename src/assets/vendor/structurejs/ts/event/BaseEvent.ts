@@ -53,7 +53,7 @@
  *     event.countryName = 'Canada';
  *     this.dispatchEvent(event);
  */
-module StructureTS
+module StructureJS
 {
     export class BaseEvent extends BaseObject
     {

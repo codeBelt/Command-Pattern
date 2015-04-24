@@ -1,7 +1,7 @@
 ///<reference path='DisplayObject.ts'/>
 ///<reference path='../util/MathUtil.ts'/>
 
-module StructureTS {
+module StructureJS {
 
     export class Bitmap extends DisplayObject {
 

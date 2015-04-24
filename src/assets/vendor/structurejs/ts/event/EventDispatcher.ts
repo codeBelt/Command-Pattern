@@ -23,7 +23,7 @@
  *      eventDispatcher.addEventListener('change', this.handlerMethod, this);
  *      eventDispatcher.dispatchEvent('change');
  */
-module StructureTS
+module StructureJS
 {
     export class EventDispatcher extends ObjectManager
     {

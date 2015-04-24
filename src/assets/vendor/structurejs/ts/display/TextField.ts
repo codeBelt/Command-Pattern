@@ -1,7 +1,7 @@
 ///<reference path='DisplayObject.ts'/>
 ///<reference path='../util/NumberUtil.ts'/>
 
-module StructureTS {
+module StructureJS {
 
     export class TextField extends DisplayObject {
 
