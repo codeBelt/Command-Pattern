@@ -97,7 +97,7 @@ module namespace {
             if (this.isEnabled === true) { return; }
 
 //            this.addEventListener('mousedown', this.mouseDownListener, this);
-            this.addEventListener('mouseup', this.onStageClick, this);
+//            this.addEventListener('mouseup', this.onStageClick, this);
 
             super.enable();
         }

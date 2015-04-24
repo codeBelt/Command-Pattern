@@ -32,6 +32,7 @@ module namespace {
             var large:Rectangle = new Rectangle(21, 5, 26, 50, '#FF0000');
             large.alpha = 0.5;
             large.mouseEnabled = true;
+            //large.addEventListener('mouseup', this.onMouseUp, this);
             this.addChild(large);
 
             var large:Rectangle = new Rectangle(large.x + large.width, 5, 26, 50, '#FF0000');
@@ -64,6 +65,7 @@ module namespace {
             if (this.isEnabled === true) { return; }
 
             // Enable the child objects and add any event listeners.
+            //this.addEventListener('mouseup', this.onMouseUp, this);
 
             super.enable();
         }

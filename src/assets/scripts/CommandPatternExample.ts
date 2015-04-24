@@ -58,7 +58,18 @@ module namespace {
         private onAssetsLoadComplete(event:LoaderEvent):void {
             this._drawingBoard = new DrawingBoard(this.$element.find('#canvasId'));
             this.addChild(this._drawingBoard);
+
+            this.addEventListener("mouseup", this._asdf, this);
         }
 
+        /**
+         * TODO: YUIDoc_comment
+         *
+         * @method _asdf
+         * @private
+         */
+        private _asdf(event) {
+console.log("_asdf", event);
+        }
     }
 }

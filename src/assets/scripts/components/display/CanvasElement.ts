@@ -334,39 +334,101 @@ module namespace {
             var mousePos = this.getMousePos(event);
             var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
 
-            event.target = <any>sprite;
-            event.currentTarget = <any>this;
+            if (sprite === null) {
+                event.bubbles = true;
+                event.target = <any>this;
+                event.currentTarget = <any>this;
+                this.dispatchEvent(event);
+            } else {
+                var spriteTarget:Sprite = this.getActualClickedOnChild(sprite, mousePos.x, mousePos.y);
+                if (spriteTarget) {
+                    event.bubbles = true;
+                    event.target = <any>spriteTarget;
+                    event.currentTarget = <any>sprite;
 
-            if (sprite !== null) {
-                sprite.dispatchEvent(event);
+                    spriteTarget.dispatchEvent(event);
+                } else {
+                    event.bubbles = true;
+                    event.target = <any>sprite;
+                    event.currentTarget = <any>this;
+
+                    sprite.dispatchEvent(event);
+                }
             }
+        }
 
-            this.dispatchEvent(event);
+        protected onReleaseHandler(event:MouseEvent|JQueryEventObject):void {
+            var mousePos = this.getMousePos(event);
+            var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
+
+            if (sprite === null) {
+                event.bubbles = true;
+                event.target = <any>this;
+                event.currentTarget = <any>this;
+                this.dispatchEvent(event);
+            } else {
+                var spriteTarget:Sprite = this.getActualClickedOnChild(sprite, mousePos.x, mousePos.y);
+                if (spriteTarget) {
+                    event.bubbles = true;
+                    event.target = <any>spriteTarget;
+                    event.currentTarget = <any>sprite;
+
+                    spriteTarget.dispatchEvent(event);
+                } else {
+                    event.bubbles = true;
+                    event.target = <any>sprite;
+                    event.currentTarget = <any>this;
+
+                    sprite.dispatchEvent(event);
+                }
+            }
         }
 
         protected onMoveHandler(event:MouseEvent|JQueryEventObject):void {
             var mousePos = this.getMousePos(event);
             var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
+            var spriteTarget:Sprite;
 
-            if (sprite === null) return;
-
-            var spriteTarget:Sprite = this.getActualClickedOnChild(sprite, mousePos.x, mousePos.y);
-
-            event.target = <any>spriteTarget;
-            event.currentTarget = <any>sprite;
-            event.bubbles = true;
+            if (sprite === null) {
+                event.bubbles = true;
+                event.target = <any>this;
+                event.currentTarget = <any>this;
+                this.dispatchEvent(event);
+            } else {
+                spriteTarget = this.getActualClickedOnChild(sprite, mousePos.x, mousePos.y);
+            }
 
             if (spriteTarget !== void 0 && spriteTarget.mouseEnabled === true && spriteTarget.visible === true) {
+                event.bubbles = true;
+                event.target = <any>spriteTarget;
+                event.currentTarget = <any>sprite;
+
+                spriteTarget.dispatchEvent(event);
+
                 document.body.style.cursor = 'pointer';
             } else {
                 document.body.style.cursor = 'default';
             }
+        }
 
-            if (sprite !== null) {
-                sprite.dispatchEvent(event);
+        protected onCancelHandler(event:MouseEvent|JQueryEventObject):void {
+            var mousePos = this.getMousePos(event);
+            var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
+
+            if (sprite === null) {
+                event.bubbles = true;
+                event.target = <any>this;
+                event.currentTarget = <any>this;
+                this.dispatchEvent(event);
+            } else {
+                var spriteTarget:Sprite = this.getActualClickedOnChild(sprite, mousePos.x, mousePos.y);
+
+                event.bubbles = true;
+                event.target = <any>spriteTarget;
+                event.currentTarget = <any>sprite;
+
+                spriteTarget.dispatchEvent(event);
             }
-
-            this.dispatchEvent(event);
         }
 
         protected getActualClickedOnChild(sprite:Sprite, x, y):Sprite {
@@ -380,48 +442,13 @@ module namespace {
                         newX = x - item.parent.x;
                         newY = y - item.parent.y;
                         if (this.hitTest(item, newX, newY)) {
-                           return this.getActualClickedOnChild(item, newX, newY);
+                            return this.getActualClickedOnChild(item, newX, newY);
                         }
                     }
                 }
             } else {
                 return sprite;
             }
-        }
-
-        protected onReleaseHandler(event:MouseEvent|JQueryEventObject):void {
-            var mousePos = this.getMousePos(event);
-            var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
-
-            event.bubbles = true;
-
-            if (sprite !== null) {
-                var spriteTarget:Sprite = this.getActualClickedOnChild(sprite, mousePos.x, mousePos.y);
-
-                event.target = <any>spriteTarget;
-                event.currentTarget = <any>sprite;
-
-                spriteTarget.dispatchEvent(event);
-            } else {
-                event.target = <any>this;
-                event.currentTarget = <any>this;
-            }
-
-            this.dispatchEvent(event);
-        }
-
-        protected onCancelHandler(event:MouseEvent|JQueryEventObject):void {
-            event.target = <any>this;
-            event.currentTarget = <any>this;
-
-            var mousePos = this.getMousePos(event);
-            var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
-
-            if (sprite !== null) {
-                sprite.dispatchEvent(event);
-            }
-
-            this.dispatchEvent(event);
         }
 
     }
