@@ -31,6 +31,8 @@ module namespace {
         }
 
         public create():void {
+            super.create();
+
             this.addChild(this.upState);
         }
 

@@ -94,12 +94,6 @@ module namespace {
         }
 
         /**
-         * @overridden CanvasElement.layout
-         */
-        public layout():void {
-        }
-
-        /**
          * @overridden CanvasElement.enable
          */
         public enable():void {

@@ -44,16 +44,6 @@ module namespace {
         }
 
         /**
-         * @overridden Sprite.layout
-         */
-        public layout():void {
-            // Layout or update the child objects in this parent class.
-        }
-
-        public render():void {
-        }
-
-        /**
          * @overridden Sprite.enable
          */
         public enable():void {

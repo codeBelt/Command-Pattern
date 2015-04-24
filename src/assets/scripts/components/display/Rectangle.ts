@@ -20,11 +20,9 @@ module namespace {
         }
 
         public create():void {
+            super.create();
         }
 
-        public layout():void {
-        }
-        
         public render():void {
             this.ctx.translate(this.parent.x, this.parent.y);
             this.ctx.translate(this.x, this.y);

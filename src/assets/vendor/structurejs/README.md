@@ -75,3 +75,9 @@ Example if you wanted to import the **EventBroker** class to use:
 ```
 var EventBroker = require('structurejs/event/EventBroker');
 ```
+
+## Release History
+
+ * 2014-07-27   v0.7.0   Rename createChildren to create. Rename layoutChildren to layout. Rename namespace StructureTS to StructureJS in TypeScript files.
+
+---

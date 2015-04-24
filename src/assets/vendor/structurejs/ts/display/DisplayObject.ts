@@ -165,6 +165,16 @@ module StructureJS
             super();
         }
 
+        public create():any {
+            this.isCreated = true;
+
+            return this;
+        }
+
+        public layout():any {
+            return this;
+        }
+
         /**
          * The setSize method sets the bounds within which the containing DisplayObject would
          * like that component to lay itself out. It is expected that calling setSize will automatically
@@ -185,7 +195,7 @@ module StructureJS
         }
 
         public render():void {
-            throw new Error('[' + this.getQualifiedClassName() + '] Error: The render method is meant to be overridden.');
+            //throw new Error('[' + this.getQualifiedClassName() + '] Error: The render method is meant to be overridden.');
         }
 
         protected readerStart():void {
