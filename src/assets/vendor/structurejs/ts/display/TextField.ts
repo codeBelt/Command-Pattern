@@ -1,9 +1,7 @@
-///<reference path='../../../vendor/structurejs/ts/display/DisplayObject.ts'/>
-///<reference path='../../utils/NumberUtil.ts'/>
+///<reference path='DisplayObject.ts'/>
+///<reference path='../util/NumberUtil.ts'/>
 
-module namespace {
-
-    import DisplayObject = StructureTS.DisplayObject;
+module StructureTS {
 
     export class TextField extends DisplayObject {
 

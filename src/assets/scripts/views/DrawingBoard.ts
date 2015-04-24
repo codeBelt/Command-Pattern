@@ -1,16 +1,21 @@
-///<reference path='../components/display/CanvasElement.ts'/>
-///<reference path='../components/display/Bitmap.ts'/>
 ///<reference path='../components/display/Rectangle.ts'/>
-///<reference path='../components/display/Sprite.ts'/>
 ///<reference path='../components/display/SimpleButton.ts'/>
-///<reference path='../components/display/TextField.ts'/>
 ///<reference path='../utils/BulkLoader.ts'/>
 ///<reference path='../views/CrayonButton.ts'/>
 ///<reference path='../views/MarkerButton.ts'/>
 ///<reference path='../views/EraserButton.ts'/>
 ///<reference path='../views/RulerView.ts'/>
+///<reference path='../../vendor/structurejs/ts/display/CanvasElement.ts'/>
+///<reference path='../../vendor/structurejs/ts/display/TextField.ts'/>
+///<reference path='../../vendor/structurejs/ts/display/Sprite.ts'/>
+///<reference path='../../vendor/structurejs/ts/display/Bitmap.ts'/>
 
 module namespace {
+
+    import CanvasElement = StructureTS.CanvasElement;
+    import Sprite = StructureTS.Sprite;
+    import Bitmap = StructureTS.Bitmap;
+    import TextField = StructureTS.TextField;
 
     /**
      * TODO: YUIDoc_comment

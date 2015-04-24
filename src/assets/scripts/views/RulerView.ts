@@ -1,10 +1,13 @@
 ///<reference path='../utils/BulkLoader.ts'/>
 ///<reference path='../utils/ImageLoader.ts'/>
-///<reference path='../components/display/Sprite.ts'/>
-///<reference path='../components/display/Bitmap.ts'/>
 ///<reference path='../components/display/Rectangle.ts'/>
+///<reference path='../../vendor/structurejs/ts/display/Sprite.ts'/>
+///<reference path='../../vendor/structurejs/ts/display/Bitmap.ts'/>
 
 module namespace {
+
+    import Sprite = StructureTS.Sprite;
+    import Bitmap = StructureTS.Bitmap;
 
     /**
      * TODO: YUIDoc_comment

@@ -1,13 +1,9 @@
-///<reference path='../../../vendor/structurejs/ts/display/DOMElement.ts'/>
-///<reference path='../../../vendor/structurejs/ts/display/DisplayObject.ts'/>
-///<reference path='../../../vendor/structurejs/ts/display/DisplayObjectContainer.ts'/>
+///<reference path='DOMElement.ts'/>
+///<reference path='DisplayObject.ts'/>
+///<reference path='DisplayObjectContainer.ts'/>
 ///<reference path='Sprite.ts'/>
 
-module namespace {
-
-    import DOMElement = StructureTS.DOMElement;
-    import DisplayObject = StructureTS.DisplayObject;
-    import DisplayObjectContainer = StructureTS.DisplayObjectContainer;
+module StructureTS {
 
     export class CanvasElement extends DOMElement {
 

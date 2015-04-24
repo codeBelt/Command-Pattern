@@ -1,6 +1,8 @@
-///<reference path='./Sprite.ts'/>
+///<reference path='../../../vendor/structurejs/ts/display/Sprite.ts'/>
 
 module namespace {
+
+    import Sprite = StructureTS.Sprite;
 
     /**
      * TODO: YUIDoc_comment

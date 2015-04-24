@@ -1,9 +1,7 @@
-///<reference path='../../../vendor/structurejs/ts/display/DisplayObjectContainer.ts'/>
-///<reference path='./CanvasElement.ts'/>
+///<reference path='DisplayObjectContainer.ts'/>
+///<reference path='CanvasElement.ts'/>
 
-module namespace {
-
-    import DisplayObjectContainer = StructureTS.DisplayObjectContainer;
+module StructureTS {
 
     export class Sprite extends DisplayObjectContainer {
 

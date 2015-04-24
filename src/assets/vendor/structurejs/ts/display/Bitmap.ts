@@ -1,9 +1,7 @@
-///<reference path='../../../vendor/structurejs/ts/display/DisplayObject.ts'/>
-///<reference path='../../utils/NumberUtil.ts'/>
+///<reference path='DisplayObject.ts'/>
+///<reference path='../util/MathUtil.ts'/>
 
-module namespace {
-
-    import DisplayObject = StructureTS.DisplayObject;
+module StructureTS {
 
     export class Bitmap extends DisplayObject {
 
@@ -30,8 +28,8 @@ module namespace {
             this.ctx.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
             this.ctx.scale(this.parent.scaleX, this.parent.scaleY);
             this.ctx.scale(this.scaleX, this.scaleY);
-            this.ctx.rotate(NumberUtil.degreesToRadians(this.parent.rotation));
-            this.ctx.rotate(NumberUtil.degreesToRadians(this.rotation));
+            this.ctx.rotate(MathUtil.degreesToRadians(this.parent.rotation));
+            this.ctx.rotate(MathUtil.degreesToRadians(this.rotation));
             this.ctx.translate(-(this.width * 0.5), -(this.height * 0.5));
             this.ctx.drawImage(this._image, 0, 0);
         }
