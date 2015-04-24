@@ -83,17 +83,6 @@ module StructureJS {
             this.$canvas.removeEventListener('touchend', this.onPointerUp, this);
             this.$canvas.removeEventListener('touchcancel', this.onPointerOut, this);
 
-            //5.2.3 The pointerover event
-            //5.2.4 The pointerenter event
-            //5.2.5 The pointerdown event
-            //5.2.6 The pointermove event
-            //5.2.7 The pointerup event
-            //5.2.8 The pointercancel event
-            //5.2.9 The pointerout event
-            //5.2.10 The pointerleave event
-            //5.2.11 The gotpointercapture event
-            //5.2.12 The lostpointercapture event
-            
             super.disable();
         }
 
@@ -389,7 +378,8 @@ module StructureJS {
                 event.target = <any>spriteTarget;
                 event.currentTarget = <any>sprite;
                 spriteTarget.dispatchEvent(event);
-                console.log("spriteTarget", event.target);
+            } else {
+                this.dispatchEvent(event);
             }
 
             if (spriteTarget !== void 0 && spriteTarget.useHandCursor === true && spriteTarget.visible === true) {

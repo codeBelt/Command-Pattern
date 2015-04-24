@@ -35,9 +35,6 @@ module namespace {
             this.overState.mouseEnabled = true;
             this.downState = downState;
             this.hitTestState = hitTestState;
-
-            this.width = 100;
-            this.height = 100;
         }
 
         public create():void {

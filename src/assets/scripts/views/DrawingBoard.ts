@@ -79,13 +79,13 @@ module namespace {
             this.addChildAt(rulerView, 0);
 
 
-            var crayonOver:Bitmap = new Bitmap(BulkLoader.getImage('paint_0001_crayon-over.png'));
+            /*var crayonOver:Bitmap = new Bitmap(BulkLoader.getImage('paint_0001_crayon-over.png'));
             var crayonUp:Bitmap = new Bitmap(BulkLoader.getImage('paint_0002_crayon-out.png'));
 
             var simpleButton:SimpleButton = new SimpleButton(crayonUp, crayonOver);
             simpleButton.x = 50;
             simpleButton.y = 50;
-            this.addChild(simpleButton);
+            this.addChild(simpleButton);*/
 
             var duck:Bitmap = new Bitmap(BulkLoader.getImage('watermelon-duck-outline.png'));
             duck.x = (board.width / 2) - (duck.width / 2) + board.x;
@@ -101,8 +101,8 @@ module namespace {
         public enable():void {
             if (this.isEnabled === true) { return; }
 
-//            this.addEventListener('mousedown', this.mouseDownListener, this);
-//            this.addEventListener('mouseup', this.onStageClick, this);
+            this.addEventListener('mousedown', this.mouseDownListener, this);
+            this.addEventListener('mouseup', this.onStageClick, this);
 
             super.enable();
         }
@@ -113,7 +113,7 @@ module namespace {
         public disable():void {
             if (this.isEnabled === false) { return; }
 
-//            this.removeEventListener('mousedown', this.mouseDownListener, this);
+            this.removeEventListener('mousedown', this.mouseDownListener, this);
             this.removeEventListener('mouseup', this.onStageClick, this);
 
             super.disable();
