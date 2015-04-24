@@ -41,13 +41,6 @@ module StructureJS {
         }
 
         /**
-         * @overridden CanvasElement.layout
-         */
-        public layout():void {
-            // Layout or update the child objects in this parent class.
-        }
-
-        /**
          * @overridden CanvasElement.enable
          */
         public enable():void {
@@ -131,7 +124,6 @@ module StructureJS {
             }
 
             child.enable();
-            child.layout();
 
             return this;
         }
@@ -160,7 +152,6 @@ module StructureJS {
             }
 
             child.enable();
-            child.layout();
 
             return this;
         }
@@ -260,17 +251,12 @@ module StructureJS {
         }
 
         public update():any {
-            this.render();
+            this.ctx.clearRect(0, 0, this.width, this.height);
 
             for (var i:number = 0; i < this.numChildren; i++) {
                 (<Sprite>this.children[i]).update();
             }
         }
-
-        public render():void {
-            this.ctx.clearRect(0, 0, this.width, this.height);
-        }
-
 
         public getMousePos(event:MouseEvent|JQueryEventObject):{x: number; y: number } {
             var rect = this.canvas.getBoundingClientRect();

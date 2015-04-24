@@ -59,19 +59,6 @@ module StructureJS
         }
 
         /**
-         * The layoutComponent method provides a common function to handle updating child objects.
-         *
-         * @method layout
-         * @returns {DisplayObject} Returns an instance of itself.
-         * @public
-         * @chainable
-         */
-        public layout():any
-        {
-            return this;
-        }
-
-        /**
          * Adds a child DisplayObject instance to this parent object instance. The child is added to the front (top) of all other
          * children in this parent object instance. (To add a child to a specific index position, use the addChildAt() method.)
          *
@@ -288,21 +275,6 @@ module StructureJS
             }
 
             return child;
-        }
-
-        /**
-         * @overridden DisplayObject.setSize
-         */
-        public setSize(unscaledWidth:number, unscaledHeight:number):any
-        {
-            super.setSize(unscaledWidth, unscaledHeight);
-
-            if (this.isCreated)
-            {
-                this.layout();
-            }
-
-            return this;
         }
 
     }

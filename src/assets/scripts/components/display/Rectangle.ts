@@ -23,7 +23,7 @@ module namespace {
             super.create();
         }
 
-        public render():void {
+        public asdf():void {
             this.ctx.translate(this.parent.x, this.parent.y);
             this.ctx.translate(this.x, this.y);
             this.ctx.beginPath();

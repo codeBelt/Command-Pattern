@@ -171,10 +171,6 @@ module StructureJS
             return this;
         }
 
-        public layout():any {
-            return this;
-        }
-
         /**
          * The setSize method sets the bounds within which the containing DisplayObject would
          * like that component to lay itself out. It is expected that calling setSize will automatically
@@ -194,8 +190,20 @@ module StructureJS
             return this;
         }
 
-        public render():void {
-            //throw new Error('[' + this.getQualifiedClassName() + '] Error: The render method is meant to be overridden.');
+        /**
+         * The layout method provides a common function to handle updating objects in the view.
+         *
+         * @method layout
+         * @returns {DisplayObject} Returns an instance of itself.
+         * @public
+         * @chainable
+         */
+        public layout():any {
+            return this;
+        }
+
+        public asdf():any {
+            return this;
         }
 
         protected readerStart():void {
@@ -207,7 +215,7 @@ module StructureJS
 
             this.readerStart();
             this.ctx.globalAlpha = this.alpha;
-            this.render();
+            this.asdf();
             this.renderEnd();
         }
 

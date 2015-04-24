@@ -52,7 +52,6 @@ module StructureJS {
             }
 
             child.enable();
-            child.layout();
 
             return this;
         }
