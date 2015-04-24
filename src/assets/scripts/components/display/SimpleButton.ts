@@ -1,8 +1,10 @@
+///<reference path='../../../vendor/structurejs/ts/display/DisplayObject.ts'/>
 ///<reference path='../../../vendor/structurejs/ts/display/Sprite.ts'/>
 
 module namespace {
 
     import Sprite = StructureJS.Sprite;
+    import DisplayObject = StructureJS.DisplayObject;
 
     /**
      * TODO: YUIDoc_comment
@@ -14,20 +16,28 @@ module namespace {
      **/
     export class SimpleButton extends Sprite {
 
-        public upState:Sprite = null;
-        public overState:Sprite = null;
-        public downState:Sprite = null;
-        public hitTestState:Sprite = null;
+        public upState:DisplayObject = null;
+        public overState:DisplayObject = null;
+        public downState:DisplayObject = null;
+        public hitTestState:DisplayObject = null;
 
-        constructor(upState:Sprite = null, overState:Sprite = null, downState:Sprite = null, hitTestState:Sprite = null) {
+        constructor(upState:DisplayObject = null, overState:DisplayObject = null, downState:DisplayObject = null, hitTestState:DisplayObject = null) {
             super();
 
+            this.useHandCursor = true;
             this.mouseEnabled = true;
 
             this.upState = upState;
+            this.upState.useHandCursor = true;
+            this.upState.mouseEnabled = true;
             this.overState = overState;
+            this.overState.useHandCursor = true;
+            this.overState.mouseEnabled = true;
             this.downState = downState;
             this.hitTestState = hitTestState;
+
+            this.width = 100;
+            this.height = 100;
         }
 
         public create():void {
@@ -42,7 +52,7 @@ module namespace {
         public enable():void {
             if (this.isEnabled === true) { return; }
 
-            this.addEventListener('mouseover', this.onMouseOver, this);
+            this.addEventListener('mousemove', this.onMouseOver, this);
             this.addEventListener('mouseout', this.onMouseOut, this);
 
             super.enable();
@@ -65,11 +75,12 @@ module namespace {
             this.height = this.upState.height;
 
             for (var i:number = 0; i < this.numChildren; i++) {
-                (<Sprite>this.children[i]).update();
+                this.children[i].update();
             }
         }
 
         protected onMouseOver(event):void {
+            console.log("onMouseOver");
             this.removeChild(this.upState);
             this.addChild(this.overState);
 
@@ -77,6 +88,7 @@ module namespace {
         }
 
         protected onMouseOut(event):void {
+            console.log("onMouseOut");
             this.removeChild(this.overState);
             this.addChild(this.upState);
 

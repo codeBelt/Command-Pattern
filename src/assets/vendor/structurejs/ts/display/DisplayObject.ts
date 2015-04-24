@@ -174,9 +174,31 @@ module StructureJS
             super();
         }
 
+        /**
+         * The create function is intended to provide a consistent place for the creation or initializing the view.
+         * It will automatically be called the first time that the view is added to a DisplayObjectContainer.
+         * It is critical that all subclasses call the super for this function in their overridden methods.
+         *
+         * @method create
+         * @returns {DisplayObject} Returns an instance of itself.
+         * @public
+         * @chainable
+         */
         public create():any {
             this.isCreated = true;
 
+            return this;
+        }
+
+        /**
+         * The layout method provides a common function to handle updating objects in the view.
+         *
+         * @method layout
+         * @returns {DisplayObject} Returns an instance of itself.
+         * @public
+         * @chainable
+         */
+        public layout():any {
             return this;
         }
 
@@ -196,18 +218,6 @@ module StructureJS
             this.unscaledWidth = unscaledWidth;
             this.unscaledHeight = unscaledHeight;
 
-            return this;
-        }
-
-        /**
-         * The layout method provides a common function to handle updating objects in the view.
-         *
-         * @method layout
-         * @returns {DisplayObject} Returns an instance of itself.
-         * @public
-         * @chainable
-         */
-        public layout():any {
             return this;
         }
 

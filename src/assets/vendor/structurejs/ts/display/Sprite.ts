@@ -1,3 +1,4 @@
+///<reference path='DisplayObject.ts'/>
 ///<reference path='DisplayObjectContainer.ts'/>
 ///<reference path='CanvasElement.ts'/>
 
@@ -10,7 +11,7 @@ module StructureJS {
         }
 
         public create():void {
-            // This method is meant to be overridden.
+            super.create();
         }
 
         public update():any {
@@ -20,9 +21,9 @@ module StructureJS {
 
             var newWidth:number;
             var newHeight:number;
-            var child:Sprite;
+            var child:DisplayObject;
             for (var i:number = 0; i < this.numChildren; i++) {
-                child = <Sprite>this.children[i];
+                child = this.children[i];
                 child.update();
 
                 newWidth = child.x + child.width;

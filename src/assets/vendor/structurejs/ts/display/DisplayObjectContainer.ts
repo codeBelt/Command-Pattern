@@ -43,22 +43,6 @@ module StructureJS
         }
 
         /**
-         * The create function is intended to provide a consistent place for the creation and adding
-         * of children to the view. It will automatically be called the first time that the view is added
-         * to another DisplayObjectContainer. It is critical that all subclasses call the super for this function in
-         * their overridden methods.
-         *
-         * @method create
-         * @returns {DisplayObjectContainer} Returns an instance of itself.
-         * @public
-         * @chainable
-         */
-        public create():any
-        {
-            throw new Error('[' + this.getQualifiedClassName() + '] Error: The create method is meant to be overridden.');
-        }
-
-        /**
          * Adds a child DisplayObject instance to this parent object instance. The child is added to the front (top) of all other
          * children in this parent object instance. (To add a child to a specific index position, use the addChildAt() method.)
          *

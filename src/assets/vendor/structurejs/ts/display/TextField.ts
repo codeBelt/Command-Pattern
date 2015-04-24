@@ -17,6 +17,7 @@ module StructureJS {
         }
 
         public create():void {
+            super.create();
         }
 
         public layout():void {

@@ -33,9 +33,9 @@ module namespace {
             this.addChild(ruler);
 
             var large:Rectangle = new Rectangle(21, 5, 26, 50, '#FF0000');
-            large.alpha = 0.5;
             large.useHandCursor = true;
-            //large.addEventListener('mouseup', this.onMouseUp, this);
+            large.mouseEnabled = true;
+            large.addEventListener('mouseup', this.onMouseUp, this);
             this.addChild(large);
 
             var large:Rectangle = new Rectangle(large.x + large.width, 5, 26, 50, '#FF0000');
@@ -48,7 +48,6 @@ module namespace {
 
             var large:Rectangle = new Rectangle(large.x + large.width, 5, 26, 50, '#FF0000');
             large.alpha = 0.5;
-            large.useHandCursor = true;
             this.addChild(large);
         }
 
@@ -65,7 +64,7 @@ module namespace {
         }
 
         public onMouseUp(event):void {
-            console.log("event", event);
+            console.log("onMouseUp", event);
         }
 
         /**

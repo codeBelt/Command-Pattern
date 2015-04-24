@@ -49,6 +49,8 @@ module namespace {
 
             var toolsLabel:Bitmap = new Bitmap(BulkLoader.getImage('paint_0007_tools.png'));
             toolsLabel.x = this.width - toolsLabel.width;
+            toolsLabel.mouseEnabled = true;
+            toolsLabel.useHandCursor = true;
             this.addChild(toolsLabel);
 
             var board:Bitmap = new Bitmap(BulkLoader.getImage('paint_0000_drawing-area.png'));
@@ -77,13 +79,13 @@ module namespace {
             this.addChildAt(rulerView, 0);
 
 
-            //var crayonOver:Bitmap = new Bitmap(BulkLoader.getImage('paint_0001_crayon-over.png'));
-            //var crayonUp:Bitmap = new Bitmap(BulkLoader.getImage('paint_0002_crayon-out.png'));
+            var crayonOver:Bitmap = new Bitmap(BulkLoader.getImage('paint_0001_crayon-over.png'));
+            var crayonUp:Bitmap = new Bitmap(BulkLoader.getImage('paint_0002_crayon-out.png'));
 
-            //var simpleButton:SimpleButton = new SimpleButton(crayonUp, crayonOver);
-            //simpleButton.x = 50;
-            //simpleButton.y = 50;
-            //this.addChild(simpleButton);
+            var simpleButton:SimpleButton = new SimpleButton(crayonUp, crayonOver);
+            simpleButton.x = 50;
+            simpleButton.y = 50;
+            this.addChild(simpleButton);
 
             var duck:Bitmap = new Bitmap(BulkLoader.getImage('watermelon-duck-outline.png'));
             duck.x = (board.width / 2) - (duck.width / 2) + board.x;

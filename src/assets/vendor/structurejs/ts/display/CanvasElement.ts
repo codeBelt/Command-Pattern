@@ -49,16 +49,16 @@ module StructureJS {
             }
 
             // Add mouse event listeners to $canvas element
-            this.$canvas.addEventListener('mousedown', this.onPressHandler, this);
-            this.$canvas.addEventListener('mousemove', this.onMoveHandler, this);
-            this.$canvas.addEventListener('mouseup', this.onReleaseHandler, this);
-            this.$canvas.addEventListener('mouseout', this.onCancelHandler, this);
+            this.$canvas.addEventListener('mousedown', this.onPointerDown, this);
+            this.$canvas.addEventListener('mousemove', this.onPointerMove, this);
+            this.$canvas.addEventListener('mouseup', this.onPointerUp, this);
+            this.$canvas.addEventListener('mouseout', this.onPointerOut, this);
 
             // Add touch event listeners to $canvas element
-            this.$canvas.addEventListener('touchstart', this.onPressHandler, this);
-            this.$canvas.addEventListener('touchmove', this.onMoveHandler, this);
-            this.$canvas.addEventListener('touchend', this.onReleaseHandler, this);
-            this.$canvas.addEventListener('touchcancel', this.onCancelHandler, this);
+            this.$canvas.addEventListener('touchstart', this.onPointerDown, this);
+            this.$canvas.addEventListener('touchmove', this.onPointerMove, this);
+            this.$canvas.addEventListener('touchend', this.onPointerUp, this);
+            this.$canvas.addEventListener('touchcancel', this.onPointerOut, this);
 
             super.enable();
         }
@@ -72,17 +72,28 @@ module StructureJS {
             }
 
             // Remove mouse event listeners on $canvas element
-            this.$canvas.removeEventListener('mousedown', this.onPressHandler, this);
-            this.$canvas.removeEventListener('mousemove', this.onMoveHandler, this);
-            this.$canvas.removeEventListener('mouseup', this.onReleaseHandler, this);
-            this.$canvas.removeEventListener('mouseout', this.onCancelHandler, this);
+            this.$canvas.removeEventListener('mousedown', this.onPointerDown, this);
+            this.$canvas.removeEventListener('mousemove', this.onPointerMove, this);
+            this.$canvas.removeEventListener('mouseup', this.onPointerUp, this);
+            this.$canvas.removeEventListener('mouseout', this.onPointerOut, this);
 
             // Remove touch event listeners on $canvas element
-            this.$canvas.removeEventListener('touchstart', this.onPressHandler, this);
-            this.$canvas.removeEventListener('touchmove', this.onMoveHandler, this);
-            this.$canvas.removeEventListener('touchend', this.onReleaseHandler, this);
-            this.$canvas.removeEventListener('touchcancel', this.onCancelHandler, this);
+            this.$canvas.removeEventListener('touchstart', this.onPointerDown, this);
+            this.$canvas.removeEventListener('touchmove', this.onPointerMove, this);
+            this.$canvas.removeEventListener('touchend', this.onPointerUp, this);
+            this.$canvas.removeEventListener('touchcancel', this.onPointerOut, this);
 
+            //5.2.3 The pointerover event
+            //5.2.4 The pointerenter event
+            //5.2.5 The pointerdown event
+            //5.2.6 The pointermove event
+            //5.2.7 The pointerup event
+            //5.2.8 The pointercancel event
+            //5.2.9 The pointerout event
+            //5.2.10 The pointerleave event
+            //5.2.11 The gotpointercapture event
+            //5.2.12 The lostpointercapture event
+            
             super.disable();
         }
 
@@ -305,7 +316,7 @@ module StructureJS {
             }
         }
 
-        protected onPressHandler(event:MouseEvent|JQueryEventObject):void {
+        protected onPointerDown(event:MouseEvent|JQueryEventObject):void {
             var mousePos = this.getMousePos(event);
             var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
 
@@ -332,7 +343,7 @@ module StructureJS {
             }
         }
 
-        protected onReleaseHandler(event:MouseEvent|JQueryEventObject):void {
+        protected onPointerUp(event:MouseEvent|JQueryEventObject):void {
             var mousePos = this.getMousePos(event);
             var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
 
@@ -359,7 +370,7 @@ module StructureJS {
             }
         }
 
-        protected onMoveHandler(event:MouseEvent|JQueryEventObject):void {
+        protected onPointerMove(event:MouseEvent|JQueryEventObject):void {
             var mousePos = this.getMousePos(event);
             var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
             var spriteTarget:DisplayObject;
@@ -377,6 +388,8 @@ module StructureJS {
                 event.bubbles = true;
                 event.target = <any>spriteTarget;
                 event.currentTarget = <any>sprite;
+                spriteTarget.dispatchEvent(event);
+                console.log("spriteTarget", event.target);
             }
 
             if (spriteTarget !== void 0 && spriteTarget.useHandCursor === true && spriteTarget.visible === true) {
@@ -386,7 +399,7 @@ module StructureJS {
             }
         }
 
-        protected onCancelHandler(event:MouseEvent|JQueryEventObject):void {
+        protected onPointerOut(event:MouseEvent|JQueryEventObject):void {
             var mousePos = this.getMousePos(event);
             var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
 
