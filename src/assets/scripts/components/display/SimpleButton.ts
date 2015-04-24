@@ -60,7 +60,7 @@ module namespace {
             super.disable();
         }
 
-        public asdf():void {
+        public layout():void {
             this.width = this.upState.width;
             this.height = this.upState.height;
 

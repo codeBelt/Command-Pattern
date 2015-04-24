@@ -19,7 +19,7 @@ module StructureJS {
         public create():void {
         }
 
-        public asdf():void {
+        public layout():void {
             this.ctx.translate(this.parent.x, this.parent.y);
             this.ctx.translate(this.x, this.y);
             this.ctx.font = [this.style, this.size, this.font].join(' ');

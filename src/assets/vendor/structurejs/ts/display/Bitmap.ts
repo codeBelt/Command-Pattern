@@ -20,7 +20,7 @@ module StructureJS {
         public create():void {
         }
 
-        public asdf():void {
+        public layout():void {
             this.ctx.translate(this.parent.x, this.parent.y);
             this.ctx.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);
             this.ctx.scale(this.parent.scaleX, this.parent.scaleY);

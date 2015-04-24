@@ -202,10 +202,6 @@ module StructureJS
             return this;
         }
 
-        public asdf():any {
-            return this;
-        }
-
         protected readerStart():void {
             this.ctx.save();
         }
@@ -215,7 +211,7 @@ module StructureJS
 
             this.readerStart();
             this.ctx.globalAlpha = this.alpha;
-            this.asdf();
+            this.layout();
             this.renderEnd();
         }
 
