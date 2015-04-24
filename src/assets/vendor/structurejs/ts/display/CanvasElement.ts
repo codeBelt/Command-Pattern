@@ -377,9 +377,9 @@ module StructureJS {
                 event.bubbles = true;
                 event.target = <any>spriteTarget;
                 event.currentTarget = <any>sprite;
+            }
 
-                spriteTarget.dispatchEvent(event);
-
+            if (spriteTarget !== void 0 && spriteTarget.useHandCursor === true && spriteTarget.visible === true) {
                 document.body.style.cursor = 'pointer';
             } else {
                 document.body.style.cursor = 'default';

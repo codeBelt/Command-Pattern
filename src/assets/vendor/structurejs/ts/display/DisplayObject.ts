@@ -151,6 +151,15 @@ module StructureJS
         public mouseEnabled:boolean = false;
 
         /**
+         * A Boolean value that indicates whether the pointing hand (hand cursor) appears when the pointer rolls over a display object.
+         *
+         * @property useHandCursor
+         * @type {boolean}
+         * @public
+         */
+        public useHandCursor:boolean = false;
+
+        /**
          * The isCreated property is used to keep track if it is the first time this DisplayObject is created.
          *
          * @property isCreated

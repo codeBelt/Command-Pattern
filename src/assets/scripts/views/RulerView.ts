@@ -34,7 +34,7 @@ module namespace {
 
             var large:Rectangle = new Rectangle(21, 5, 26, 50, '#FF0000');
             large.alpha = 0.5;
-            large.mouseEnabled = true;
+            large.useHandCursor = true;
             //large.addEventListener('mouseup', this.onMouseUp, this);
             this.addChild(large);
 
@@ -48,6 +48,7 @@ module namespace {
 
             var large:Rectangle = new Rectangle(large.x + large.width, 5, 26, 50, '#FF0000');
             large.alpha = 0.5;
+            large.useHandCursor = true;
             this.addChild(large);
         }
 
