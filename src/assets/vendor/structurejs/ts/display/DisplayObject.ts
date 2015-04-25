@@ -21,10 +21,10 @@ module StructureJS
          * The Stage of the display object.
          *
          * @property stage
-         * @type {any}
+         * @type {Stage|CanvasElement}
          * @public
          */
-        public stage:any = null;
+        public stage:Stage|CanvasElement = null;
 
         /**
          * The CanvasRenderingContext2D interface provides the 2D rendering context for the drawing surface of a <canvas> element.
@@ -168,6 +168,15 @@ module StructureJS
          * @protected
          */
         public isCreated:boolean = false;
+
+        /**
+         * Indicates the instance name of the DisplayObject.
+         *
+         * @property name
+         * @type {string}
+         * @public
+         */
+        public name:string = '';
 
         constructor()
         {

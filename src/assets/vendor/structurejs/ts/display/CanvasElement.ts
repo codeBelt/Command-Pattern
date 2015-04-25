@@ -411,8 +411,8 @@ module StructureJS {
 
         protected getActualClickedOnChild(sprite:Sprite, x, y):Sprite {
             var item;
-            var newX;
-            var newY;
+            var newX:number;
+            var newY:number;
             if (sprite.numChildren > 0) {
                 for (var i = sprite.numChildren - 1; i >= 0; i--) {
                     item = (<Sprite>sprite.children[i]);
