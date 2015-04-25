@@ -176,7 +176,7 @@ module StructureJS
          * @type {string}
          * @public
          */
-        public name:string = '';
+        public name:string = null;
 
         constructor()
         {
