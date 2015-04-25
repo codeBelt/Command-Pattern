@@ -37,6 +37,15 @@ module StructureJS
          */
         public children:DisplayObject[] = [];
 
+        /**
+         * Determines whether or not the children of the object are mouse enabled.
+         *
+         * @property mouseChildren
+         * @type {boolean}
+         * @public
+         */
+        public mouseChildren:boolean = false;
+
         constructor()
         {
             super();

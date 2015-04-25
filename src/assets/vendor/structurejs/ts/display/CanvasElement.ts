@@ -2,6 +2,7 @@
 ///<reference path='DisplayObject.ts'/>
 ///<reference path='DisplayObjectContainer.ts'/>
 ///<reference path='Sprite.ts'/>
+///<reference path='../geom/Point.ts'/>
 
 module StructureJS {
 
@@ -87,24 +88,16 @@ module StructureJS {
         }
 
         /**
-         * @overridden CanvasElement.destroy
-         */
-        public destroy():void {
-
-            super.destroy();
-        }
-
-        /**
          * TODO: YUIDoc_comment
          *
          * @method addChild
-         * @param child {Sprite}
+         * @param child {DisplayObject}
          * @returns {CanvasElement} Returns an instance of itself.
          * @override
          * @public
          * @chainable
          */
-        public addChild(child:any):any {
+        public addChild(child:DisplayObject):any {
             //If the child being passed in already has a parent then remove the reference from there.
             if (child.parent)
             {
@@ -131,7 +124,7 @@ module StructureJS {
         /**
          * @overridden DOMElement.addChildAt
          */
-        public addChildAt(child:any, index:number):any
+        public addChildAt(child:DisplayObject, index:number):any
         {
             //If the child being passed in already has a parent then remove the reference from there.
             if (child.parent)
@@ -159,7 +152,7 @@ module StructureJS {
         /**
          * @overridden DOMElement.swapChildren
          */
-        public swapChildren(child1:any, child2:any):any
+        public swapChildren(child1:DisplayObject, child2:DisplayObject):any
         {
             var child1Index = this.children.indexOf(child1);
             var child2Index = this.children.indexOf(child2);
@@ -182,13 +175,13 @@ module StructureJS {
          * TODO: YUIDoc_comment
          *
          * @method removeChild
-         * @param child {Sprite}
+         * @param child {DisplayObject}
          * @returns {CanvasElement} Returns an instance of itself.
          * @override
          * @public
          * @chainable
          */
-        public removeChild(child:any, destroy:boolean = true):any {
+        public removeChild(child:DisplayObject, destroy:boolean = true):any {
             var index = this.getChildIndex(child);
             if (index !== -1)
             {
@@ -254,26 +247,23 @@ module StructureJS {
             this.ctx.clearRect(0, 0, this.width, this.height);
 
             for (var i:number = 0; i < this.numChildren; i++) {
-                (<Sprite>this.children[i]).update();
+                this.children[i].update();
             }
         }
 
-        public getMousePos(event:MouseEvent|JQueryEventObject):{x: number; y: number } {
+        public getMousePos(event:MouseEvent|JQueryEventObject):Point {
             var rect = this.canvas.getBoundingClientRect();
 
-            return {
-                x: event.clientX - rect.left,
-                y: event.clientY - rect.top
-            };
+            return new Point(event.clientX - rect.left, event.clientY - rect.top);
         }
 
-        public getObjectUnderPoint(x:number, y:number):Sprite {
-            var foundItem:Sprite = null;
-            var sprite:Sprite;
+        public getObjectUnderPoint(x:number, y:number):DisplayObject {
+            var foundItem:DisplayObject = null;
+            var sprite:DisplayObject;
 
             for (var i = this.numChildren - 1; i >= 0; i--) {
-                sprite = (<Sprite>this.children[i]);
-                if (sprite.visible === true) {
+                sprite = this.children[i];
+                if (sprite.visible === true && sprite.mouseEnabled === true) {
                     if (this.hitTest(sprite, x, y)) {
                         foundItem = sprite;
                         break;
@@ -284,12 +274,12 @@ module StructureJS {
             return foundItem;
         }
 
-        public getObjectsUnderPoint(x:number, y:number):Array<Sprite> {
-            var list = [];
-            var sprite:Sprite;
+        public getObjectsUnderPoint(x:number, y:number):Array<DisplayObject> {
+            var list:Array<DisplayObject> = [];
+            var sprite:DisplayObject;
 
             for (var i = this.numChildren - 1; i >= 0; i--) {
-                sprite = (<Sprite>this.children[i]);
+                sprite = this.children[i];
                 if (this.hitTest(sprite, x, y)) {
                     list.push(sprite);
                 }
@@ -297,7 +287,7 @@ module StructureJS {
             return list;
         }
 
-        public hitTest(sprite:Sprite, mouseX:number, mouseY:number):boolean {
+        public hitTest(sprite:DisplayObject, mouseX:number, mouseY:number):boolean {
             if(mouseX >= sprite.x && mouseX <= sprite.x + sprite.width && mouseY >= sprite.y && mouseY <= sprite.y + sprite.height){
                 return true;
             } else {
@@ -306,83 +296,17 @@ module StructureJS {
         }
 
         protected onPointerDown(event:MouseEvent|JQueryEventObject):void {
-            var mousePos = this.getMousePos(event);
-            var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
-
-            if (sprite === null) {
-                event.bubbles = true;
-                event.target = <any>this;
-                event.currentTarget = <any>this;
-                this.dispatchEvent(event);
-            } else {
-                var spriteTarget:Sprite = this.getActualClickedOnChild(sprite, mousePos.x, mousePos.y);
-                if (spriteTarget) {
-                    event.bubbles = true;
-                    event.target = <any>spriteTarget;
-                    event.currentTarget = <any>sprite;
-
-                    spriteTarget.dispatchEvent(event);
-                } else {
-                    event.bubbles = true;
-                    event.target = <any>sprite;
-                    event.currentTarget = <any>this;
-
-                    sprite.dispatchEvent(event);
-                }
-            }
+            this._sendEvent(event);
         }
 
         protected onPointerUp(event:MouseEvent|JQueryEventObject):void {
-            var mousePos = this.getMousePos(event);
-            var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
-
-            if (sprite === null) {
-                event.bubbles = true;
-                event.target = <any>this;
-                event.currentTarget = <any>this;
-                this.dispatchEvent(event);
-            } else {
-                var spriteTarget:Sprite = this.getActualClickedOnChild(sprite, mousePos.x, mousePos.y);
-                if (spriteTarget) {
-                    event.bubbles = true;
-                    event.target = <any>spriteTarget;
-                    event.currentTarget = <any>sprite;
-
-                    spriteTarget.dispatchEvent(event);
-                } else {
-                    event.bubbles = true;
-                    event.target = <any>sprite;
-                    event.currentTarget = <any>this;
-
-                    sprite.dispatchEvent(event);
-                }
-            }
+            this._sendEvent(event);
         }
 
         protected onPointerMove(event:MouseEvent|JQueryEventObject):void {
-            var mousePos = this.getMousePos(event);
-            var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
-            var spriteTarget:DisplayObject;
+            var displayObject:DisplayObject = this._sendEvent(event);
 
-            if (sprite === null) {
-                event.bubbles = true;
-                event.target = <any>this;
-                event.currentTarget = <any>this;
-                this.dispatchEvent(event);
-            } else {
-                spriteTarget = this.getActualClickedOnChild(sprite, mousePos.x, mousePos.y);
-            }
-
-            if (spriteTarget !== void 0 && spriteTarget.mouseEnabled === true && spriteTarget.visible === true) {
-                event.bubbles = true;
-                event.target = <any>spriteTarget;
-                event.currentTarget = <any>sprite;
-                spriteTarget.dispatchEvent(event);
-            } else {
-                this.dispatchEvent(event);
-            }
-
-            if (spriteTarget !== void 0 && spriteTarget.useHandCursor === true && spriteTarget.visible === true) {
+            if (displayObject != null && displayObject.useHandCursor === true && displayObject.visible === true) {
                 document.body.style.cursor = 'pointer';
             } else {
                 document.body.style.cursor = 'default';
@@ -390,32 +314,51 @@ module StructureJS {
         }
 
         protected onPointerOut(event:MouseEvent|JQueryEventObject):void {
-            var mousePos = this.getMousePos(event);
-            var sprite:Sprite = this.getObjectUnderPoint(mousePos.x, mousePos.y);
+            this._sendEvent(event);
+        }
 
-            if (sprite === null) {
+        private _sendEvent(event:MouseEvent|JQueryEventObject):DisplayObject {
+            var mousePos:Point = this.getMousePos(event);
+            var displayObject:DisplayObject = this.getObjectUnderPoint(mousePos.x, mousePos.y);
+
+            if (displayObject === null) {
                 event.bubbles = true;
                 event.target = <any>this;
                 event.currentTarget = <any>this;
                 this.dispatchEvent(event);
-            } else {
-                var spriteTarget:Sprite = this.getActualClickedOnChild(sprite, mousePos.x, mousePos.y);
-
-                event.bubbles = true;
-                event.target = <any>spriteTarget;
-                event.currentTarget = <any>sprite;
-
-                spriteTarget.dispatchEvent(event);
             }
+            else if (
+                displayObject !== null &&
+                displayObject instanceof DisplayObjectContainer &&
+                (<DisplayObjectContainer>displayObject).mouseChildren === true
+            ) {
+                event.currentTarget = <any>displayObject;
+
+                displayObject = <DisplayObject>this.getActualClickedOnChild(displayObject, mousePos.x, mousePos.y);
+                //event.bubbles = true;
+                //event.target = <any>displayObject;
+                //
+                //displayObject.dispatchEvent(event);
+            }
+            else {
+                event.bubbles = true;
+                event.target = <any>displayObject;
+                event.currentTarget = <any>this;
+
+                displayObject.dispatchEvent(event);
+            }
+            console.log("displayObject", displayObject);
+
+            return displayObject;
         }
 
-        protected getActualClickedOnChild(sprite:Sprite, x, y):Sprite {
+        protected getActualClickedOnChild(displayObject:DisplayObjectContainer, x:number, y:number):any {
             var item;
             var newX:number;
             var newY:number;
-            if (sprite.numChildren > 0) {
-                for (var i = sprite.numChildren - 1; i >= 0; i--) {
-                    item = (<Sprite>sprite.children[i]);
+            if (displayObject.numChildren > 0) {
+                for (var i = displayObject.numChildren - 1; i >= 0; i--) {
+                    item = displayObject.children[i];
                     if (item.visible === true) {
                         newX = x - item.parent.x;
                         newY = y - item.parent.y;
@@ -425,7 +368,7 @@ module StructureJS {
                     }
                 }
             } else {
-                return sprite;
+                return displayObject;
             }
         }
 

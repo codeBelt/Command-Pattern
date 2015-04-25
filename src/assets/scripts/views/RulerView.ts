@@ -21,6 +21,10 @@ module namespace {
 
         constructor() {
             super();
+
+            this.useHandCursor = false;
+            this.mouseChildren = true;
+            this.mouseEnabled = true;
         }
 
         /**
@@ -32,23 +36,34 @@ module namespace {
             var ruler:Bitmap = new Bitmap(BulkLoader.getImage('paint_0009_ruler.png'));
             this.addChild(ruler);
 
-            var large:Rectangle = new Rectangle(21, 5, 26, 50, '#FF0000');
-            large.useHandCursor = true;
-            large.mouseEnabled = true;
-            large.addEventListener('mouseup', this.onMouseUp, this);
-            this.addChild(large);
+            var hitZone:Rectangle = new Rectangle(21, 5, 26, 50, '#FF0000');
+            hitZone.name = 'brushSize_0';
+            hitZone.alpha = 0;
+            hitZone.useHandCursor = true;
+            hitZone.mouseEnabled = true;
+            this.addChild(hitZone);
 
-            var large:Rectangle = new Rectangle(large.x + large.width, 5, 26, 50, '#FF0000');
-            large.alpha = 0.5;
-            this.addChild(large);
+            hitZone = new Rectangle(hitZone.x + hitZone.width, 5, 26, 50, '#FF0000');
+            hitZone.name = 'brushSize_1';
+            hitZone.alpha = 0;
+            //hitZone.useHandCursor = true;
+            //hitZone.mouseEnabled = true;
+            this.addChild(hitZone);
 
-            var large:Rectangle = new Rectangle(large.x + large.width, 5, 26, 50, '#FF0000');
-            large.alpha = 0.5;
-            this.addChild(large);
+            hitZone = new Rectangle(hitZone.x + hitZone.width, 5, 26, 50, '#FF0000');
+            hitZone.name = 'brushSize_2';
+            hitZone.alpha = 0;
+            hitZone.visible = false
+            //hitZone.useHandCursor = true;
+            //hitZone.mouseEnabled = true;
+            this.addChild(hitZone);
 
-            var large:Rectangle = new Rectangle(large.x + large.width, 5, 26, 50, '#FF0000');
-            large.alpha = 0.5;
-            this.addChild(large);
+            hitZone = new Rectangle(hitZone.x + hitZone.width, 5, 26, 50, '#FF0000');
+            hitZone.name = 'brushSize_3';
+            hitZone.alpha = 0;
+            //hitZone.useHandCursor = true;
+            //hitZone.mouseEnabled = true;
+            this.addChild(hitZone);
         }
 
         /**
@@ -57,14 +72,9 @@ module namespace {
         public enable():void {
             if (this.isEnabled === true) { return; }
 
-            // Enable the child objects and add any event listeners.
-            //this.addEventListener('mouseup', this.onMouseUp, this);
+            this.addEventListener('mouseup', this.onMouseUp, this);
 
             super.enable();
-        }
-
-        public onMouseUp(event):void {
-            console.log("onMouseUp", event);
         }
 
         /**
@@ -73,18 +83,13 @@ module namespace {
         public disable():void {
             if (this.isEnabled === false) { return; }
 
-            // Disable the child objects and remove any event listeners.
+            this.removeEventListener('mouseup', this.onMouseUp, this);
 
             super.disable();
         }
 
-        /**
-         * @overridden Sprite.destroy
-         */
-        public destroy():void {
-            //  Destroy the child objects and references in this parent class to prevent memory leaks.
-
-            super.destroy();
+        private onMouseUp(event):void {
+            console.log("onMouseUp", event.target);
         }
 
     }
