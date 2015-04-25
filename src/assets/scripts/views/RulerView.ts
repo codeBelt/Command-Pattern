@@ -22,9 +22,7 @@ module namespace {
         constructor() {
             super();
 
-            this.useHandCursor = false;
             this.mouseChildren = true;
-            this.mouseEnabled = true;
         }
 
         /**
@@ -46,23 +44,22 @@ module namespace {
             hitZone = new Rectangle(hitZone.x + hitZone.width, 5, 26, 50, '#FF0000');
             hitZone.name = 'brushSize_1';
             hitZone.alpha = 0;
-            //hitZone.useHandCursor = true;
-            //hitZone.mouseEnabled = true;
+            hitZone.useHandCursor = true;
+            hitZone.mouseEnabled = true;
             this.addChild(hitZone);
 
             hitZone = new Rectangle(hitZone.x + hitZone.width, 5, 26, 50, '#FF0000');
             hitZone.name = 'brushSize_2';
             hitZone.alpha = 0;
-            hitZone.visible = false
-            //hitZone.useHandCursor = true;
-            //hitZone.mouseEnabled = true;
+            hitZone.useHandCursor = true;
+            hitZone.mouseEnabled = true;
             this.addChild(hitZone);
 
             hitZone = new Rectangle(hitZone.x + hitZone.width, 5, 26, 50, '#FF0000');
             hitZone.name = 'brushSize_3';
             hitZone.alpha = 0;
-            //hitZone.useHandCursor = true;
-            //hitZone.mouseEnabled = true;
+            hitZone.useHandCursor = true;
+            hitZone.mouseEnabled = true;
             this.addChild(hitZone);
         }
 
@@ -89,7 +86,7 @@ module namespace {
         }
 
         private onMouseUp(event):void {
-            console.log("onMouseUp", event.target);
+            console.log("onMouseUp", event.target.name);
         }
 
     }

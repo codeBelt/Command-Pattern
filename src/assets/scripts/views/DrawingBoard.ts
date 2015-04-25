@@ -43,41 +43,41 @@ module namespace {
         public create():void {
             super.create();
 
-            //var colorsLabel = new TextField();
-            //colorsLabel.text = 'Colors';
-            //colorsLabel.font = 'Shadows Into Light';
-            ////var colorsLabel:Bitmap = new Bitmap(BulkLoader.getImage('paint_0008_colors.png'));
-            //this.addChild(colorsLabel);
-            //
-            //var toolsLabel:Bitmap = new Bitmap(BulkLoader.getImage('paint_0007_tools.png'));
-            //toolsLabel.x = this.width - toolsLabel.width;
-            //toolsLabel.mouseEnabled = true;
-            //toolsLabel.useHandCursor = true;
-            //this.addChild(toolsLabel);
-            //
-            //var board:Bitmap = new Bitmap(BulkLoader.getImage('paint_0000_drawing-area.png'));
-            //board.x = (this.width / 2) - (board.width / 2);
-            //board.y = (this.height / 2) - (board.height / 2);
-            //this.addChild(board);
-            //
-            //var crayonButton:CrayonButton = new CrayonButton();
-            //crayonButton.x = 346;
-            //crayonButton.y = 24;
-            //this.addChildAt(crayonButton, 0);
-            //
-            //var markerButton:MarkerButton = new MarkerButton();
-            //markerButton.x = 343;
-            //markerButton.y = 61;
-            //this.addChildAt(markerButton, 0);
-            //
-            //var eraserButton:EraserButton = new EraserButton();
-            //eraserButton.x = 358;
-            //eraserButton.y = 100;
-            //this.addChildAt(eraserButton, 0);
+            var colorsLabel = new TextField();
+            colorsLabel.text = 'Colors';
+            colorsLabel.font = 'Shadows Into Light';
+            //var colorsLabel:Bitmap = new Bitmap(BulkLoader.getImage('paint_0008_colors.png'));
+            this.addChild(colorsLabel);
+
+            var toolsLabel:Bitmap = new Bitmap(BulkLoader.getImage('paint_0007_tools.png'));
+            toolsLabel.x = this.width - toolsLabel.width;
+            toolsLabel.mouseEnabled = true;
+            toolsLabel.useHandCursor = true;
+            this.addChild(toolsLabel);
+
+            var board:Bitmap = new Bitmap(BulkLoader.getImage('paint_0000_drawing-area.png'));
+            board.x = (this.width / 2) - (board.width / 2);
+            board.y = (this.height / 2) - (board.height / 2);
+            this.addChild(board);
+
+            var crayonButton:CrayonButton = new CrayonButton();
+            crayonButton.x = 346;
+            crayonButton.y = 24;
+            this.addChildAt(crayonButton, 0);
+
+            var markerButton:MarkerButton = new MarkerButton();
+            markerButton.x = 343;
+            markerButton.y = 61;
+            this.addChildAt(markerButton, 0);
+
+            var eraserButton:EraserButton = new EraserButton();
+            eraserButton.x = 358;
+            eraserButton.y = 100;
+            this.addChildAt(eraserButton, 0);
 
             var rulerView:RulerView = new RulerView();
-            //rulerView.x = board.x + board.width - 20;
-            //rulerView.y = board.y + board.height - 60;
+            rulerView.x = board.x + board.width - 20;
+            rulerView.y = board.y + board.height - 60;
             this.addChildAt(rulerView, 0);
 
 
@@ -89,10 +89,10 @@ module namespace {
             simpleButton.y = 50;
             this.addChild(simpleButton);*/
 
-            //var duck:Bitmap = new Bitmap(BulkLoader.getImage('watermelon-duck-outline.png'));
-            //duck.x = (board.width / 2) - (duck.width / 2) + board.x;
-            //duck.y = (board.height / 2) - (duck.height / 2) + board.y;
-            //this.addChild(duck);
+            var duck:Bitmap = new Bitmap(BulkLoader.getImage('watermelon-duck-outline.png'));
+            duck.x = (board.width / 2) - (duck.width / 2) + board.x;
+            duck.y = (board.height / 2) - (duck.height / 2) + board.y;
+            this.addChild(duck);
 
             this.update();
         }

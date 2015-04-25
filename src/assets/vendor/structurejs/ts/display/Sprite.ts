@@ -12,7 +12,9 @@ module StructureJS {
 
         public create():void {
             super.create();
-        }
+
+            this.useHandCursor = true;
+            this.mouseEnabled = true;        }
 
         public update():any {
             var isRendable:boolean = super.update();

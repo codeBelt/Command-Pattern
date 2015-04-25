@@ -334,11 +334,11 @@ module StructureJS {
             ) {
                 event.currentTarget = <any>displayObject;
 
-                displayObject = <DisplayObject>this.getActualClickedOnChild(displayObject, mousePos.x, mousePos.y);
-                //event.bubbles = true;
-                //event.target = <any>displayObject;
-                //
-                //displayObject.dispatchEvent(event);
+                displayObject = this.getActualClickedOnChild(<DisplayObjectContainer>displayObject, mousePos.x, mousePos.y);
+                event.bubbles = true;
+                event.target = <any>displayObject;
+
+                displayObject.dispatchEvent(event);
             }
             else {
                 event.bubbles = true;
@@ -347,7 +347,6 @@ module StructureJS {
 
                 displayObject.dispatchEvent(event);
             }
-            console.log("displayObject", displayObject);
 
             return displayObject;
         }
