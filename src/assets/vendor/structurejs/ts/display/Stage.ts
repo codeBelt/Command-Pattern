@@ -1,7 +1,15 @@
-///<reference path='DOMElement.ts'/>
+'use strict';
+/*
+ UMD Stuff
+ @import ../util/Extend as Extend
+ @import ./DOMElement as DOMElement
+ @import jquery as jQuery
+ @export Stage
+ */
+import DOMElement = require('./DOMElement');
 
 /**
- * The {{#crossLink "Stage"}}{{/crossLink}} class should be extended by your main or root class.
+ * The {{#crossLink "Stage"}}{{/crossLink}} class should be extended by your main application or root class.
  *
  * @class Stage
  * @extends DOMElement
@@ -13,7 +21,7 @@
  * @requires DOMElement
  * @requires jQuery
  * @example
- *     // This example illustrates how to setup your main or root class when extending the {{#crossLink "Stage"}}{{/crossLink}} class.
+ *     // This example illustrates how to setup your main application or root class when extending the {{#crossLink "Stage"}}{{/crossLink}} class.
  *     define(function (require, exports, module) {
  *         'use strict';
  *
@@ -57,7 +65,7 @@
  *             }
  *
  *             MainClass.prototype.destroy = function () {
- *                 // Destroy the child objects and references in this parent class to prevent memory leaks.
+ *                 // Destroy the child objects and references in this parent class to prepare for garbage collection.
  *
  *                 _super.prototype.destroy.call(this);
  *             }
@@ -69,40 +77,36 @@
  *     });
  *
  * <b>Instantiation Example</b><br>
- * This example illustrates how to instantiation your main or root class.
+ * This example illustrates how to instantiate your main application or root class.
  *
  *      var app = new MainClass();
  *      app.appendTo('body');
  *
  */
-module StructureJS
+class Stage extends DOMElement
 {
-    export class Stage extends DOMElement
+    constructor()
     {
-        constructor()
-        {
-            super();
-        }
+        super();
+    }
 
-        /**
-         * The selected HTML element where all the child elements will be created. This method also starts the lifecycle of the application.
-         *
-         * @method appendTo
-         * @param type {any} A string value that you want the your code appended too. This can be an element id (#some-id), element class (.some-class) or a element tag (body).
-         * @param [enabled=true] {boolean} Sets the enabled state of the object.
-         * @chainable
-         */
-        public appendTo(type:any, enabled:boolean = true):any
-        {
-            this.$element = (type instanceof jQuery) ? type : jQuery(type);
-            this.$element.attr('data-cid', this.cid);
+    /**
+     * The selected HTML element where the child elements will be created. This method starts the lifecycle of the application.
+     *
+     * @method appendTo
+     * @param type {any} A string value where your application will be appended. This can be an element id (#some-id), element class (.some-class) or a element tag (body).
+     * @param [enabled=true] {boolean} Sets the enabled state of the object.
+     * @chainable
+     */
+    public appendTo(type:any, enabled:boolean = true):any
+    {
+        this.$element = (type instanceof jQuery) ? type : jQuery(type);
+        this.$element.attr('data-cid', this.cid);
 
-            if (this.isCreated === false)
-            {
-                this.create();
-                this.isCreated = true;
-                this.layout();
-            }
+        if (this.isCreated === false)
+        {
+            this.create();
+            this.isCreated = true;
 
             if (enabled === false)
             {
@@ -113,7 +117,11 @@ module StructureJS
                 this.enable();
             }
 
-            return this;
+            this.layout();
         }
+
+        return this;
     }
 }
+
+export = Stage;

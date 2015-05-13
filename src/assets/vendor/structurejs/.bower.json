@@ -1,6 +1,6 @@
 {
   "name": "structurejs",
-  "version": "0.6.17",
+  "version": "0.7.1",
   "dependencies": {
     "jquery": ">=1.9.1",
     "handlebars": "2.0.0"
@@ -9,7 +9,9 @@
   "main": "src/",
   "keywords": [
     "structurejs",
-    "structure.js"
+    "structure.js",
+    "typescript",
+    "javascript"
   ],
   "license": "MIT",
   "homepage": "https://github.com/codeBelt/StructureJS",
@@ -17,23 +19,23 @@
     "node_modules",
     "examples",
     "friendly-theme",
-    "src/config.js",
+    "js/config.js",
     "test",
     "LICENSE",
     "Gruntfile.js",
     "karma.conf.js",
     "package.json",
     ".jshintrc",
+    "umd.template",
     ".gitignore"
   ],
-  "_release": "0.6.17",
+  "_release": "0.7.1",
   "_resolution": {
     "type": "version",
-    "tag": "0.6.17",
-    "commit": "d9119d3df96dedb4143250102d4a05be426ec920"
+    "tag": "0.7.1",
+    "commit": "272b5e66b2e488bbc668cea66d4a785f5fa0b115"
   },
   "_source": "git://github.com/codeBelt/StructureJS.git",
-  "_target": "~0.6.17",
-  "_originalSource": "structurejs",
-  "_direct": true
+  "_target": "~0.7.0",
+  "_originalSource": "structurejs"
 }

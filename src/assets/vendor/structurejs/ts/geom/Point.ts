@@ -1,3 +1,9 @@
+'use strict';
+/*
+ UMD Stuff
+ @export Point
+ */
+
 /**
  * The Point object represents a location in a two-dimensional coordinate system, where x represents the horizontal axis and y represents the vertical axis.
  *
@@ -7,33 +13,32 @@
  * @constructor
  * @author Robert S. (www.codeBelt.com)
  */
-module StructureJS
+class Point
 {
-    export class Point
+    /**
+     * The horizontal coordinate of the point.
+     *
+     * @property x
+     * @type {number}
+     * @public
+     */
+    public x:number = 0;
+
+    /**
+     * The vertical coordinate of the point.
+     *
+     * @property y
+     * @type {number}
+     * @public
+     */
+    public y:number = 0;
+
+    constructor(x:number = 0, y:number = 0)
     {
-        /**
-         * The horizontal coordinate of the point.
-         *
-         * @property x
-         * @type {number}
-         * @public
-         */
-        public x:number = 0;
-
-        /**
-         * The vertical coordinate of the point.
-         *
-         * @property y
-         * @type {number}
-         * @public
-         */
-        public y:number = 0;
-
-        constructor(x:number = 0, y:number = 0)
-        {
-            this.x = x;
-            this.y = y;
-        }
-
+        this.x = x;
+        this.y = y;
     }
+
 }
+
+export = Point;

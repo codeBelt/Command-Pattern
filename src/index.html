@@ -1,30 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-us">
     <head>
-        <!-- Define charset for HTML5 Doctype -->
-        <meta charset="utf-8" />
+        <!-- META DATA -->
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        <link rel="stylesheet" type="text/css" media="screen" href="assets/styles/styles.css" />
+        <!-- SEO -->
+        <title>Grunt-Browserify-Example</title>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <!-- STYLESHEETS -->
+
+        <!-- build:css assets/styles/main.css -->
+        <link rel="stylesheet" media="screen, projection" href="assets/styles/screen.css" />
+        <!-- endbuild -->
+
+        <link rel="stylesheet" media="print" href="assets/styles/print.css" />
     </head>
     <body>
-
+        <!-- CONTENT -->
         <canvas id="canvasId" width="490" height="220">Your browser is unsupported</canvas>
 
-        <script type="text/javascript" src="assets/vendor/jquery/dist/jquery.js"></script>
-        <script type="text/javascript" src="assets/vendor/jquery.eventListener/src/jquery.eventListener.js"></script>
-        <script type="text/javascript" src="assets/vendor/gsap/src/minified/easing/EasePack.min.js"></script>
-        <script type="text/javascript" src="assets/vendor/gsap/src/minified/plugins/BezierPlugin.min.js"></script>
-        <script type="text/javascript" src="assets/vendor/gsap/src/minified/TweenLite.min.js"></script>
-        <script type="text/javascript" src="assets/scripts/app.js"></script>
+        <!-- JAVASCRIPT -->
+        <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="assets/scripts/main.js"></script>
 
-        <script>
-            $(document).ready(function() {
-                // Get class from namespace.
-                var CommandPatternExample = namespace.CommandPatternExample;
-
-                var app = new CommandPatternExample();
-                app.appendTo('body');
-            });
-        </script>
     </body>
 </html>
