@@ -26,9 +26,9 @@ class Sprite extends DisplayObjectContainer
 
     public update():any
     {
-        var isRendable:boolean = super.update();
+        var isRenderable:boolean = super.update();
 
-        if (isRendable === false) return;
+        if (isRenderable === false) return;
 
         var newWidth:number;
         var newHeight:number;
@@ -47,18 +47,10 @@ class Sprite extends DisplayObjectContainer
 
     public addChild(child:any):any
     {
-        //If the child being passed in already has a parent then remove the reference from there.
-        if (child.parent)
-        {
-            child.parent.removeChild(child, false);
-        }
-
-        this.children.push(child);
-        this.numChildren = this.children.length;
+        super.addChild(child);
 
         child.ctx = this.ctx;
         child.stage = this.stage;
-        child.parent = this;
 
         if (child.isCreated === false)
         {
@@ -71,29 +63,43 @@ class Sprite extends DisplayObjectContainer
         return this;
     }
 
-    public removeChild(child:any, destroy:boolean = true):any
+    public addChildAt(child:DisplayObject, index:number):any
     {
-        var index = this.getChildIndex(child);
-        if (index !== -1)
+        // If the index passed in is less than 0 and greater than
+        // the total number of children then place the item at the end.
+        if (index < 0 || index >= this.numChildren)
         {
-            // Removes the child object from the parent.
-            this.children.splice(index, 1);
+            this.addChild(child);
         }
-
-        this.numChildren = this.children.length;
-
-        if (destroy === true)
-        {
-            child.destroy();
-        }
+        // Else get the child in the children array by the
+        // index passed in and place the item before that child.
         else
         {
-            child.disable();
+            child.ctx = this.ctx;
+            child.stage = this.stage;
+
+            if (child.isCreated === false)
+            {
+                child.create();// Render the item before adding to the DOM
+                child.isCreated = true;
+            }
+
+            child.enable();
+
+            // Adds the child at a specific index but also will remove the child from another parent object if one exists.
+            super.addChildAt(child, index);
         }
 
+        return this;
+    }
+
+    public removeChild(child:any):any
+    {
+        child.disable();
         child.ctx = null;
         child.stage = null;
-        child.parent = null;
+
+        super.removeChild(child);
 
         return this;
     }

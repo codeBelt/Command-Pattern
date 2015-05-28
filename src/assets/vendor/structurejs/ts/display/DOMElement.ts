@@ -571,7 +571,16 @@ class DOMElement extends DisplayObjectContainer
             child.$element.remove();
         }
 
-        super.removeChild(child, destroy);
+        if (destroy === true)
+        {
+            child.destroy();
+        }
+        else
+        {
+            child.disable();
+        }
+
+        super.removeChild(child);
 
         return this;
     }
@@ -604,7 +613,10 @@ class DOMElement extends DisplayObjectContainer
      */
     public removeChildren(destroy:boolean = true):any
     {
-        super.removeChildren(destroy);
+        while (this.children.length > 0)
+        {
+            this.removeChild(<DOMElement>this.children.pop(), destroy);
+        }
 
         this.$element.empty();
 

@@ -194,7 +194,7 @@ class CanvasElement extends DOMElement
      * @public
      * @chainable
      */
-    public removeChild(child:DisplayObject, destroy:boolean = true):any
+    public removeChild(child:DisplayObject):any
     {
         var index = this.getChildIndex(child);
         if (index !== -1)
@@ -205,15 +205,7 @@ class CanvasElement extends DOMElement
 
         this.numChildren = this.children.length;
 
-        if (destroy === true)
-        {
-            child.destroy();
-        }
-        else
-        {
-            child.disable();
-        }
-
+        child.disable();
         child.ctx = null;
         child.stage = null;
         child.parent = null;
@@ -229,9 +221,9 @@ class CanvasElement extends DOMElement
      * @public
      * @chainable
      */
-    public removeChildAt(index:number, destroy:boolean = true):any
+    public removeChildAt(index:number):any
     {
-        this.removeChild(this.getChildAt(index), destroy);
+        this.removeChild(this.getChildAt(index));
 
         return this;
     }
@@ -247,11 +239,11 @@ class CanvasElement extends DOMElement
      * @public
      * @chainable
      */
-    public removeChildren(destroy:boolean = true):any
+    public removeChildren():any
     {
         while (this.children.length > 0)
         {
-            this.removeChild(this.children.pop(), destroy);
+            this.removeChild(this.children.pop());
         }
 
         return this;
