@@ -1,12 +1,12 @@
 {
   "name": "structurejs",
-  "version": "0.7.1",
+  "version": "0.7.3",
   "dependencies": {
     "jquery": ">=1.9.1",
     "handlebars": "2.0.0"
   },
   "description": "An Event Driven JavaScript Library.",
-  "main": "src/",
+  "main": "js/",
   "keywords": [
     "structurejs",
     "structure.js",
@@ -29,13 +29,14 @@
     "umd.template",
     ".gitignore"
   ],
-  "_release": "0.7.1",
+  "_release": "0.7.3",
   "_resolution": {
     "type": "version",
-    "tag": "0.7.1",
-    "commit": "272b5e66b2e488bbc668cea66d4a785f5fa0b115"
+    "tag": "0.7.3",
+    "commit": "4e8fc8666e5349f1a6186f3f14e5a9122a4429f4"
   },
   "_source": "git://github.com/codeBelt/StructureJS.git",
-  "_target": "~0.7.0",
-  "_originalSource": "structurejs"
+  "_target": "~0.7.3",
+  "_originalSource": "structurejs",
+  "_direct": true
 }

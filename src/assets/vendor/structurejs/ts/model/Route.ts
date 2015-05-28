@@ -153,12 +153,12 @@ class Route
      *
      * @method match
      * @param route {String} The route or path to match against the routePattern that was passed into the constructor.
-     * @returns {Array}
+     * @returns {Array.<any>}
      * @example
      *     var route = new Route('/games/{gameName}/:level:/', this.method, this);
      *     console.log( route.match('/games/asteroids/2/') );
      */
-    public match(route):any[]
+    public match(route):Array<any>
     {
         // Remove the query string before matching against the route pattern.
         var routeWithoutQueryString:string = route.replace(/\?.*/, '');

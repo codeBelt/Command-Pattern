@@ -23,6 +23,6 @@
     "tests"
   ],
   "dependencies": {
-    "structurejs": "~0.7.0"
+    "structurejs": "~0.7.3"
   }
 }
