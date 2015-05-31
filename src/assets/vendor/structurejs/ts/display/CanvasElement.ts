@@ -61,6 +61,7 @@ class CanvasElement extends DOMElement
         this.$canvas.addEventListener('mousedown', this.onPointerDown, this);
         this.$canvas.addEventListener('mousemove', this.onPointerMove, this);
         this.$canvas.addEventListener('mouseup', this.onPointerUp, this);
+        this.$canvas.addEventListener('click', this.onPointerUp, this);
         this.$canvas.addEventListener('mouseout', this.onPointerOut, this);
 
         // Add touch event listeners to $canvas element
@@ -86,6 +87,7 @@ class CanvasElement extends DOMElement
         this.$canvas.removeEventListener('mousedown', this.onPointerDown, this);
         this.$canvas.removeEventListener('mousemove', this.onPointerMove, this);
         this.$canvas.removeEventListener('mouseup', this.onPointerUp, this);
+        this.$canvas.removeEventListener('click', this.onPointerUp, this);
         this.$canvas.removeEventListener('mouseout', this.onPointerOut, this);
 
         // Remove touch event listeners on $canvas element

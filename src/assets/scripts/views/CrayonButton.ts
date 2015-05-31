@@ -13,6 +13,35 @@ import ImageLoader = require('../utils/ImageLoader');
  **/
 class CrayonButton extends Sprite {
 
+    /**
+     * TODO: YUIDoc_comment
+     *
+     * @property active
+     * @type {boolean}
+     * @public
+     */
+    public active = false;
+
+
+    /**
+     * TODO: YUIDoc_comment
+     *
+     * @property _activeState
+     * @type {Bitmap}
+     * @private
+     */
+    private _activeState:Bitmap = null;
+
+    /**
+     * TODO: YUIDoc_comment
+     *
+     * @property _unActiveState
+     * @type {Bitmap}
+     * @private
+     */
+    private _unActiveState:Bitmap = null;
+
+
     constructor() {
         super();
     }
@@ -27,15 +56,15 @@ class CrayonButton extends Sprite {
         item.scaleX = -1;
         this.addChild(item);
 
-        var over:Bitmap = new Bitmap(BulkLoader.getImage('paint_0001_crayon-over.png'));
-        over.x = item.width + 10;
-        over.y = (item.height / 2) - (over.height / 2);
-        this.addChild(over);
+        this._activeState = new Bitmap(BulkLoader.getImage('paint_0001_crayon-over.png'));
+        this._activeState.x = item.width + 10;
+        this._activeState.y = (item.height / 2) - (this._activeState.height / 2);
+        this.addChild(this._activeState);
 
-        var up:Bitmap = new Bitmap(BulkLoader.getImage('paint_0002_crayon-out.png'));
-        up.x = item.width + 10;
-        up.y = (item.height / 2) - (up.height / 2);
-        this.addChild(up);
+        this._unActiveState = new Bitmap(BulkLoader.getImage('paint_0002_crayon-out.png'));
+        this._unActiveState.x = item.width + 10;
+        this._unActiveState.y = (item.height / 2) - (this._unActiveState.height / 2);
+        this.addChild(this._unActiveState);
     }
 
     /**
@@ -44,7 +73,7 @@ class CrayonButton extends Sprite {
     public enable():void {
         if (this.isEnabled === true) { return; }
 
-        // Enable the child objects and add any event listeners.
+        this.addEventListener('click', this._onClick, this);
 
         super.enable();
     }
@@ -55,18 +84,32 @@ class CrayonButton extends Sprite {
     public disable():void {
         if (this.isEnabled === false) { return; }
 
-        // Disable the child objects and remove any event listeners.
+        this.removeEventListener('click', this._onClick, this);
 
         super.disable();
     }
 
     /**
-     * @overridden Sprite.destroy
+     * @overridden DOMElement.layout
      */
-    public destroy():void {
-        //  Destroy the child objects and references in this parent class to prevent memory leaks.
+    public layout():void
+    {
+        console.log("layout", this.active);
+        if (this.active === true) {
+            this._activeState.visible = true;
+            this._unActiveState.visible = false;
+        } else {
+            this._activeState.visible = false;
+            this._unActiveState.visible = true;
+        }
+    }
 
-        super.destroy();
+
+    protected _onClick(event):void {
+        console.log("event", event);
+
+        this.active = !this.active;
+        //this.layout();
     }
 
 }
