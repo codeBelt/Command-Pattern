@@ -86,6 +86,45 @@ class DrawingBoard extends CanvasElement {
         duck.y = (board.height / 2) - (duck.height / 2) + board.y;
         this.addChild(duck);
 
+
+
+        var sprite:Sprite = new Sprite();
+        sprite.graphics.beginFill('#FF0000', 1);
+        //sprite.graphics.drawRect(0, 0, size, size);
+        //sprite.graphics.endFill();
+        this.addChild(sprite);
+
+        //// Filled triangle
+        //ctx.beginPath();
+        //ctx.moveTo(25,25);
+        //ctx.lineTo(105,25);
+        //ctx.lineTo(25,105);
+        //ctx.fill();
+        //
+        //// Stroked triangle
+        //ctx.beginPath();
+        //ctx.moveTo(125,125);
+        //ctx.lineTo(125,45);
+        //ctx.lineTo(45,125);
+        //ctx.closePath();
+        //ctx.stroke();
+
+        //trapezoid.graphics.lineStyle(10, 0xFFD700, 1, false, LineScaleMode.VERTICAL, CapsStyle.NONE, JointStyle.MITER, 10);
+        //
+        //trapezoid.graphics.moveTo(100, 100);
+        //
+        //trapezoid.graphics.lineTo(120, 50);
+        //trapezoid.graphics.lineTo(200, 50);
+        //trapezoid.graphics.lineTo(220, 100);
+        //trapezoid.graphics.lineTo(100, 100);
+
+        //child.graphics.beginFill(bgColor);
+        //child.graphics.lineStyle(borderSize, borderColor);
+        //child.graphics.drawRect(0, 0, size, size);
+        //child.graphics.endFill();
+
+        //mySprite.graphics.endFill();
+
         this.update();
     }
 

@@ -7,19 +7,32 @@
  */
 import DisplayObject = require('./DisplayObject');
 import DisplayObjectContainer = require('./DisplayObjectContainer');
+import Graphics = require('./Graphics');
 
 class Sprite extends DisplayObjectContainer
 {
 
+    /**
+     * TODO: YUIDoc_comment
+     *
+     * @property graphics
+     * @type {Graphics}
+     * @public
+     */
+    public graphics:Graphics = new Graphics();
+
     constructor()
     {
         super();
+
+
     }
 
     public create():void
     {
         super.create();
 
+        this.graphics.ctx = this.ctx;
         this.useHandCursor = true;
         this.mouseEnabled = true;
     }
