@@ -439,7 +439,12 @@ class DOMElement extends DisplayObjectContainer
             }
 
             // Adds the child at a specific index but also will remove the child from another parent object if one exists.
-            super.addChildAt(child, index);
+            if (child.parent) {
+                child.parent.removeChild(child, false);
+            }
+            this.children.splice(index, 0, child);
+            this.numChildren = this.children.length;
+            child.parent = this;
 
             // Adds the child before any child already added in the DOM.
             jQuery(children.get(index)).before(child.$element);
