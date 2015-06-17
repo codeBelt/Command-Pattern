@@ -3,11 +3,14 @@
  UMD Stuff
  @import ../util/Extend as Extend
  @import ./DisplayObjectContainer as DisplayObjectContainer
+ @import ./Graphics as Graphics
+ @import ../event/BaseEvent as BaseEvent
  @export Sprite
  */
 import DisplayObject = require('./DisplayObject');
 import DisplayObjectContainer = require('./DisplayObjectContainer');
 import Graphics = require('./Graphics');
+import BaseEvent = require('../event/BaseEvent');
 
 class Sprite extends DisplayObjectContainer
 {
@@ -24,8 +27,6 @@ class Sprite extends DisplayObjectContainer
     constructor()
     {
         super();
-
-
     }
 
     public create():void
@@ -72,6 +73,8 @@ class Sprite extends DisplayObjectContainer
         }
 
         child.enable();
+        child.layout();
+        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED_TO_STAGE));
 
         return this;
     }
@@ -98,6 +101,8 @@ class Sprite extends DisplayObjectContainer
             }
 
             child.enable();
+            child.layout();
+            child.dispatchEvent(new BaseEvent(BaseEvent.ADDED_TO_STAGE));
 
             // Adds the child at a specific index but also will remove the child from another parent object if one exists.
             super.addChildAt(child, index);

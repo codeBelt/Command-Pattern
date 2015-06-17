@@ -22,7 +22,6 @@ class CrayonButton extends Sprite {
      */
     public active = false;
 
-
     /**
      * TODO: YUIDoc_comment
      *
@@ -94,7 +93,6 @@ class CrayonButton extends Sprite {
      */
     public layout():void
     {
-        console.log("layout", this.active);
         if (this.active === true) {
             this._activeState.visible = true;
             this._unActiveState.visible = false;
@@ -102,14 +100,13 @@ class CrayonButton extends Sprite {
             this._activeState.visible = false;
             this._unActiveState.visible = true;
         }
+
+        this.stage.update();
     }
 
-
     protected _onClick(event):void {
-        console.log("event", event);
-
         this.active = !this.active;
-        //this.layout();
+        this.layout();
     }
 
 }

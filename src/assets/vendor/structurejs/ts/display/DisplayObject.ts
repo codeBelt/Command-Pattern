@@ -246,8 +246,21 @@ class DisplayObject extends EventDispatcher
 
         this.readerStart();
         this.ctx.globalAlpha = this.alpha;
-        this.layout();
+        this.render();
         this.renderEnd();
+    }
+
+    /**
+     * TODO: YUIDoc_comment
+     *
+     * @method render
+     * @returns {DisplayObject} Returns an instance of itself.
+     * @public
+     * @chainable
+     */
+    public render():any
+    {
+        return this;
     }
 
     protected renderEnd():void

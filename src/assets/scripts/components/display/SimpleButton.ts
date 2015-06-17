@@ -62,7 +62,7 @@ class SimpleButton extends Sprite {
         super.disable();
     }
 
-    public layout():void {
+    public render():void { // TODO: should this be update and call the super?
         this.width = this.upState.width;
         this.height = this.upState.height;
 

@@ -30,7 +30,7 @@ class Bitmap extends DisplayObject
         super.create();
     }
 
-    public layout():void
+    public render():void
     {
         this.ctx.translate(this.parent.x, this.parent.y);
         this.ctx.translate(this.x + this.width * 0.5, this.y + this.height * 0.5);

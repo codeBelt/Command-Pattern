@@ -42,7 +42,7 @@ class Graphics extends BaseObject
         super();
     }
 
-    public layout():void
+    public render():void
     {
         this.ctx.fillStyle = this._fillStyle;
     }

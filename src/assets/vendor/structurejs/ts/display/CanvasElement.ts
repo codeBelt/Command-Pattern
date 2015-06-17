@@ -4,12 +4,14 @@
  @import ../util/Extend as Extend
  @import ./DOMElement as DOMElement
  @import ../geom/Point as Point
+ @import ../event/BaseEvent as BaseEvent
  @export CanvasElement
  */
 import DisplayObjectContainer = require('./DisplayObjectContainer');
 import DOMElement = require('./DOMElement');
 import DisplayObject = require('./DisplayObject');
 import Point = require('../geom/Point');
+import BaseEvent = require('../event/BaseEvent');
 
 class CanvasElement extends DOMElement
 {
@@ -131,6 +133,8 @@ class CanvasElement extends DOMElement
         }
 
         child.enable();
+        child.layout();
+        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED_TO_STAGE));
 
         return this;
     }
@@ -160,6 +164,8 @@ class CanvasElement extends DOMElement
         }
 
         child.enable();
+        child.layout();
+        child.dispatchEvent(new BaseEvent(BaseEvent.ADDED_TO_STAGE));
 
         return this;
     }
